@@ -1,0 +1,39 @@
+
+.contents{
+    width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 139px;
+}
+.contents-tle{
+    height: 25px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 25px;
+    margin-top: 70px;
+}
+.contents-nr{
+    overflow: hidden;
+}
+.contents-nr ul {
+    width: 1250px;
+}
+.contents-nr ul li{
+    float: left;
+    width: 280px;
+    height: 200px;
+    margin: 30px 27px 0 0;
+
+}
+.pcte-tle{
+    display: block;
+    height: 26px;
+    font-size: 18px;
+    color: #FFFFFF;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: center;
+    position: relative;
+    top: -43px;
+    left: 0;
+}

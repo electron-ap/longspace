@@ -1,0 +1,79 @@
+.snlist-box{
+    width: 1200px;
+    margin: 0 auto;
+}
+.snlist-ul{
+    width: 1230px;
+}
+.list-sntems{
+    width: 280px;
+    height: 260px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 0.25);
+    border-radius: 6px;
+    float: left;
+    margin:0 26px 28px 0;
+}
+.list-box{
+    width: 280px;
+    height: 200px;
+    background: #F7F7F7;
+    border-radius: 6px 6px 0px 0px;
+    text-align: center;
+    position: relative;
+}
+.list-img{
+    width: auto;
+    height: 200px;
+}
+.list-pdf{
+    display: block;
+    width: 34px;
+    height: 20px;
+    background: #016CB0;
+    opacity: 0.5;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Microsoft YaHei', Arial;
+    color: #FFFFFF;
+    line-height: 19px;
+    position: absolute;
+    bottom: 21px;
+    right: 21px;
+}
+.snlist-title{
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #333333;
+    padding-left: 17px;
+}
+.snlist-title-pc{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    position: relative;
+    top: 2px;
+}
+.pctest{
+    background: url(../../../assets/screen/pctest.png) no-repeat center center;
+}
+.pcvedio{
+    background: url(../../../assets/screen/pcvedio.png) no-repeat center center;
+}
+.list-page{
+   text-align: right;
+   padding: 45px 0 150px;
+}
+/* 分页 */
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    
+    border-radius: 50%;
+    outline: none;
+    transition: all 0.3s;
+}
+.ant-pagination-item {   
+    border-radius: 50%;
+}
+

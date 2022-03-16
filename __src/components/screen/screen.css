@@ -1,0 +1,39 @@
+.list-title{
+    width: 1200px;
+    height: 26px;
+    margin: 0 auto;
+    display: '-webkit-flex'; /* Safari */
+    display: flex;
+    font-size: 14px;
+    color: #333333;
+    line-height: 26px;
+}
+.list-timessort{
+    margin-right: auto;
+}
+.list-number{
+    width: 168px;
+}
+.list-number-on{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.timessort-pc{
+    display: inline-block;
+    width: 14px;
+    height: 12px;
+    background: url(../../assets/screen/timessort.png) no-repeat center center;
+    margin-left: 12px;
+    position: relative;
+    top: 2px;
+}
+.dload-pc{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url(../../assets/screen/dload.png) no-repeat center center;
+    margin: 0 10px 0 10px;
+    position: relative;
+    top: 1px;
+}
