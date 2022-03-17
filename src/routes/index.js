@@ -9,6 +9,7 @@ import PageNotFound from "../pages/errors/PageNotFound";
 import Dashboard from "../pages/Home/Dashboard";
 import DigitalLIst from '../pages/digital/DigitalLIst';
 import DigitalDetail from '../pages/digital/DigitalDetail';
+import Academy from '../pages/academy/Academy';
 
 import { GlobalOutlined, } from '@ant-design/icons';
 
@@ -48,6 +49,13 @@ export const adminRoutes = [
         path: "/agent/digital/detail",
         component: DigitalDetail,
         title: "DigitalDetail",
+        display: true,
+        children: []
+    },
+    {
+        path: "/agent/academy/Academy",
+        component: Academy,
+        title: "Academy",
         display: true,
         children: []
     },

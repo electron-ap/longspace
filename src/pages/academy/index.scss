@@ -1,0 +1,178 @@
+.coursed-banner{
+    width: 100%;
+    height: 240px;
+    background-color: #ddd;
+}
+.coursed-tent{
+    width: 1200px;
+    padding-top: 80px;
+    margin: 0 auto;
+}
+.coursed-tle{
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    font-family: Arial;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+}
+.coursed-rln{
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 26px;
+}
+.coursed-index{
+    cursor: pointer;
+}
+
+/* 栏目分类 */
+.course-column{
+    width: 1200px;
+    height: 120px;
+    margin: 0 auto;
+    padding: 0 48px;
+    background: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(102, 102, 102, 0.3);
+    border-radius: 4px;
+    position: relative;
+    margin-top: -60px;
+}
+.course-column-ul{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.column-ulli{
+    width: 120px;
+    height: 120px;
+    line-height: 26px;
+    border-bottom: 5px solid #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.column-ulli span{
+    display: block;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333333;
+    padding: 29px 0 20px;
+}
+.column-ulli p{
+    font-size: 16px;
+    color: #333333;
+    padding: 0;
+}
+.columnactive{
+    border-bottom: 5px solid #C30D23;
+}
+/* 全部课程 */
+.course-all{
+    width: 1200px;
+    margin: 22px auto 40px;
+    padding: 35px 40px 45px;
+    background: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(102, 102, 102, 0.3);
+    border-radius: 4px;
+}
+.course-search{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.cs-search-right{
+    width: 450px;
+}
+.course-all-tent{
+    margin: 24px 0 0;
+}
+.cs-search-left{
+    width: 200px;
+    height: 40px;
+    font-size: 24px;
+    color: #333333;
+    line-height: 40px;
+}
+.course-series{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    height: 50px;
+    background: #EBF4F8;
+    border-radius: 4px;
+    padding: 0 27px;
+}
+.courseon{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url(../../assets/course/courseon.png) no-repeat;
+    position: relative;
+    left: 10px;
+    top: 2px;
+}
+.course-series-left{
+    font-size: 14px;
+    color: #333333;
+    line-height: 50px;
+}
+.series-nr-list{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+    padding: 0 27px;
+   
+}
+.srsnr-rt{
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    padding: 0;
+}
+.srsnr-lf{
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
+}
+.cs-ser-on{
+    font-size: 14px;
+    color: #333333;
+    border: none;
+    padding-right: 17px;
+    cursor: pointer;
+}
+.cs-ser-showon{
+    background: url(../../assets/course/showon.png) no-repeat right 23px;
+}
+.course-paging{
+    padding: 10px 0 0;
+    text-align: right;
+}
+/* 学习中 */
+.study-in .ant-table-thead > tr > th{
+    height: 50px;
+    background: #EBF4F8;
+}
+.study-in .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+    display: none;
+}
+/* 已完成 */
+.course-enter{
+    display: block;
+    padding: 0;
+    width: 110px;
+    height: 32px;
+    border: 1px solid #C30D23;
+    border-radius: 16px;
+    text-indent: 35px;
+    font-size: 14px;
+    color: #C30D23;
+    line-height: 30px;
+    background: url(../../assets/course/enter.png) no-repeat 15px center;
+}

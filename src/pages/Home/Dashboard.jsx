@@ -54,12 +54,16 @@ function Dashboard() {
 
 					</ul>
 				</div>
+
+
 				<div className="contents-tle">Tradeshows</div>
 				<div className="contents-nr">
 					<ul>
 						<li>
-							<img className="pcte" alt="pcte01" src="/assets/pcte11.png" />
-							<span className="pcte-tle">Tradeshow Archive</span>
+							<Link to="/agent/academy/Academy">
+								<img className="pcte" alt="pcte01" src="/assets/pcte11.png" />
+								<span className="pcte-tle">Tradeshow Archive</span>
+							</Link>
 						</li>
 					</ul>
 				</div>
@@ -67,8 +71,10 @@ function Dashboard() {
 				<div className="contents-nr">
 					<ul>
 						<li>
-							<img className="pcte" alt="pcte01" src="/assets/pcte21.png" />
-							<span className="pcte-tle">Sales Partner Academy</span>
+							<Link to="/agent/academy/Academy">
+								<img className="pcte" alt="pcte01" src="/assets/pcte21.png" />
+								<span className="pcte-tle">Sales Partner Academy</span>
+							</Link>
 						</li>
 					</ul>
 				</div>
