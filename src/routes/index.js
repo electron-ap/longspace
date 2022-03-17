@@ -10,6 +10,7 @@ import Dashboard from "../pages/Home/Dashboard";
 import DigitalLIst from '../pages/digital/DigitalLIst';
 import DigitalDetail from '../pages/digital/DigitalDetail';
 import Academy from '../pages/academy/Academy';
+import CourseDetail from '../pages/academy/Course/Detail';
 
 import { GlobalOutlined, } from '@ant-design/icons';
 
@@ -56,6 +57,13 @@ export const adminRoutes = [
         path: "/agent/academy/Academy",
         component: Academy,
         title: "Academy",
+        display: true,
+        children: []
+    },
+    {
+        path: "/agent/academy/courseDetail",
+        component: CourseDetail,
+        title: "CourseDetail",
         display: true,
         children: []
     },

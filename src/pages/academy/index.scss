@@ -176,3 +176,102 @@
     line-height: 30px;
     background: url(../../assets/course/enter.png) no-repeat 15px center;
 }
+
+// 课程详情
+.course-box{
+    width: 1200px;
+    margin: 50px auto;
+    width: 1200px;
+    min-height:200px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px 0px rgba(102, 102, 102, 0.3);
+    border-radius: 4px;
+}
+.course-title{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    line-height: 60px;
+    background: #EBF4F8;
+    border-radius: 4px 4px 0px 0px;
+    font-size: 14px;
+    color: #333333;
+    padding: 0 27px;
+}
+.course-tent{
+    display: flex;
+    justify-content: space-between;
+    padding: 80px 60px 45px;
+}
+
+.list-box{
+    width: 280px;
+}
+.start-study{
+    margin-top: 34px;
+    width: 280px;
+    height: 42px;
+    background: #C30D23;
+    border-radius: 21px;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 42px;
+    text-align: center;
+    cursor: pointer;
+}
+.start-ibn{  
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #fff;
+    border-bottom: 5px solid transparent;
+    margin: 0 0 0 10px;
+}
+.course-tent-right{
+    width: 720px;
+}
+.course-tent-tle h1{
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+}
+.course-tent-tle p{
+    font-size: 14px;
+    color: #666666;
+    line-height: 26px;
+    padding: 10px 0 30px;
+}
+.csetent-box-tle{
+    font-size: 18px;
+    color: #333333;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+.csetent-box-show{
+    height: 400px;
+    background: #F7F7F7;
+    box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 0.25);
+    text-align: center;
+}
+.csetent-box-show img {
+    width: auto;
+    height: 400px;
+}
+.csetent-box-back{
+    margin-top: 40px;
+}
+.csetent-back{
+    display: inline-block;
+    height: 26px;
+    font-size: 16px;
+    color: #C30D23;
+    line-height: 26px;
+    background: url(../../assets/course/back.png) no-repeat left center;
+    padding-left: 30px;
+    cursor: pointer;
+}
