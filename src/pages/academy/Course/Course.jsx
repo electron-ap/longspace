@@ -1,5 +1,6 @@
 import React from 'react'
 import { Pagination, Input } from 'antd';
+import "../index.scss"
 const { Search } = Input;
 function Course() {
 	const onSearch = value => console.log(value);
