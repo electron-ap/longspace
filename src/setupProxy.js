@@ -5,11 +5,11 @@ module.exports = function(app) {
     app.use(
         createProxyMiddleware(
             '/api', {
-                target: 'http://pallapi.forwap.cn', // http://mall.org
+                target: 'http://fuzhi.forwap.cn', // http://mall.org
                 changeOrigin: true,
                 secure: false,
                 pathRewrite: {
-                    '/api': '/admin'
+                    '/api': '/api'
                 }
             }
         )
