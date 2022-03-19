@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink,Link } from 'react-router-dom'
 import "./index.scss"
-import Course from './Course/Course'
-import Cert from "./Cert/Cert"
-import Finished from "./Finished/Finished"
-import Study from "./Study/Study"
-import Exam from "./Exam/Exam"
 
 function Academy(props) {
     console.log("props", props)

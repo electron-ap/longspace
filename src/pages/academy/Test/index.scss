@@ -1,0 +1,544 @@
+/* 考试 */
+.exam-title{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    height: 50px;
+    background: #EBF4F8;
+    border-radius: 4px;
+    margin-bottom: 60px;
+}
+.exam-title-left{
+    font-size: 16px;
+    color: #333333;
+    line-height: 50px;
+    padding-left: 28px;
+}
+.exam-title-right{
+    width: 310px;
+    height: 50px;
+    background: url(../../../assets/course/coundown02.png) no-repeat center center;
+    border-radius: 25px 4px 4px 25px;
+}
+.coun-down{
+    display: block;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 50px;
+    width: 200px;
+    height: 50px;
+    background: url(../../../assets/course/coundown01.png) no-repeat left 18px;
+    margin-left: 50px;
+    padding-left: 27px;
+}
+
+.option-questions-tle{
+    display: flex;
+	justify-content: left;
+    height: 30px;
+    font-size: 20px;
+    color: #333333;
+    line-height: 30px;
+}
+.single-choice{ 
+    color: #C30D23;
+}
+.single-choice{
+    padding: 0 8px;
+}
+/* 单选框样式 */
+.singlechoice-box{
+    // min-height: 615px;
+    margin-top: 35px;
+}
+.group-dan .ant-radio-button-wrapper{
+    display: block;
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    text-align: center;
+    transition: color 0.3s, background 0s, border-color 0.3s, box-shadow 0.3s;
+    transition-property: color, background, border-color, box-shadow;
+    transition-duration: 0s, 0s, 0s, 0s;
+    transition-timing-function: ease, ease, ease, ease;
+    transition-delay: 0s, 0s, 0s, 0s;
+    margin-bottom: 15px;
+    position: relative;
+    
+}
+
+.group-dan .ant-radio-button-checked{
+    width: 36px;
+    background: url(../../../assets/course/single.png) no-repeat left center;
+}
+.group-dan .ant-radio-button-wrapper > .ant-radio-button{
+    left: auto;
+    right: 35px;
+}
+.group-dan .ant-radio-inner {
+    width: 24px;
+    height: 17px;
+    transition: none;
+  }
+.group-dan .ant-radio-group{
+    display: block;
+}
+.group-dan .ant-radio-button-wrapper:not(:first-child)::before{
+    background: none;
+}
+.group-dan .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within{
+    box-shadow: none;
+}
+.group-dan .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+    border: 1px solid #00A0E9;
+    box-shadow: none;
+    background: none;
+    
+}
+/* 多选框样式 */
+.group-duo .ant-checkbox-group{
+ display: block;
+}
+.group-duo .ant-checkbox-wrapper{
+    position: relative;
+    display: block; 
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.group-duo .ant-checkbox-wrapper-checked{
+    border: 1px solid #00A0E9;
+}
+.group-duo span{
+    width: 100%;
+    position: absolute;
+    right: 0;
+}
+.group-duo span:hover{
+    color: #00A0E9;
+}
+.group-duo .ant-checkbox{
+    width: 24px;
+    position: absolute;
+    top: 14px;
+    right: 45px;
+    cursor: pointer;
+}
+.group-duo .ant-checkbox-inner {
+    width: 24px;
+    height: 24px;
+    transition: none;
+}
+.group-duo .ant-checkbox .ant-checkbox-inner{
+    border-color: #fff !important;
+}
+.group-duo .ant-checkbox-checked .ant-checkbox-inner{
+    background-color: none;
+    border-color: none;
+    background: url(../../../assets/course/single.png) no-repeat center center;
+}
+.group-duo .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.group-duo .ant-checkbox:hover .ant-checkbox-inner,
+.group-duo .ant-checkbox-input:focus + .group-duo .ant-checkbox-inner {
+  border-color: #fff;
+}
+.group-duo .ant-checkbox-checked::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 2px;
+  visibility: hidden;
+  -webkit-animation: antCheckboxEffect 0.0 ease-in-out;
+          animation: antCheckboxEffect 0.0 ease-in-out;
+  -webkit-animation-fill-mode: backwards;
+          animation-fill-mode: backwards;
+  content: '';
+}
+/* 图片多选样式 */
+
+.group-duopc .ant-row{
+	justify-content: space-between;
+}
+.group-duopc .ant-col-8 {
+    flex: 0 0 50%;
+    max-width: 540px;
+}
+.group-duopc .ant-checkbox-wrapper{
+    width: 540px;
+    height: 160px;
+}
+.group-duopc .ant-checkbox{
+    top: 70px;
+}
+.duo-span{
+    display: block;
+    text-align: left;
+    padding-left: 48px;
+}
+.duo-img{
+    width: 85px;
+    height: 85px;
+    margin: 52px 0 0 40px;
+    display: block;
+}
+
+.singlechoice-skip{
+    display: block;
+    width: 88px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #333333;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    background: url(../../../assets/course/start04.png) no-repeat right center;
+    margin: 20px 0 20px 50px;
+}
+.singlechoice-sign{
+    display: block;
+    width: 88px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #333333;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    background: url(../../../assets/course/start02.png) no-repeat right center;
+    margin-left: 50px;
+}
+.singlechoice-skip:hover,.singlechoice-sign:hover{
+    color: #00A0E9;
+}
+.singlechoice-submit{
+    display: block;
+    width: 200px;
+    height: 54px;
+    margin: 0 auto 35px;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 54px;
+    background: #C30D23;
+    border: none;
+    border-radius: 27px;
+    cursor: pointer;
+}
+/* 考试进度样式 */
+.exam-speed-tle{
+    display: block;
+    font-size: 16px;
+    color: #333333;
+    line-height: 30px;
+    text-align: center;
+    padding: 25px 0 65px;
+}
+.exam-speed-nr{
+	display: flex;
+	flex-wrap: wrap;
+    width: 850px;
+    margin: 0 auto;
+}
+.speed-nr-li{
+    width: 10%;
+    text-align: center;
+    margin-bottom: 55px;
+    cursor: pointer;
+}
+.speed-nr-tle{
+    display: block;
+    margin-bottom: 10px;
+}
+.speed-nr-img{
+    width: 36px;
+    height: 36px;
+}
+/* 弹窗-修改考题 */
+.popup-wraper{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.popup-box{
+    position : fixed;
+	left : 50%;
+	top : 50%;
+	width :500px;
+	min-height : 420px;
+	transform: translate(-50%, -50%);
+    padding: 40px 30px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+    z-index: 100;
+}
+.popup-box .option-questions-tle{
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.btn-style-exam{
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 40px;
+    font-size: 14px;
+    color: #333333;
+    cursor: pointer;
+}
+.btn-style-exam:hover{
+    box-shadow: 0 0 5px #ccc;
+}
+.btn-style-exam-on{
+    color: #fff;
+    background: #00A0E9;
+    border: 1px solid #00A0E9;
+}
+.btn-cancel{
+    margin: 0 22px 0 50px;
+}
+/* 弹窗单选题样式 */
+.popup-box .group-dan{
+    min-height: 240px;
+}
+.popup-box .group-dan .ant-radio-button-wrapper{
+    height: 46px;
+    line-height: 46px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    position: relative;
+    text-align: left;
+    
+}
+.popup-box .group-dan .ant-radio-button-wrapper > .ant-radio-button{
+    right: 5px;
+}
+.popup-box .group-dan .ant-radio-button-checked{
+    width: 36px;
+    background: url(../../../assets/course/single.png) no-repeat left center;
+    background-size: 19px auto;
+}
+/* 弹窗多选题样式 */
+.popup-box .group-duo{
+    min-height: 240px;  
+}
+.popup-box .group-duo .ant-checkbox-wrapper{
+    height: 46px;
+    line-height: 46px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.popup-box .group-duo .ant-checkbox-inner {
+    width: 24px;
+    height: 24px;
+    transition: none;
+}
+.popup-box .group-duo .ant-checkbox{
+    top: 8px;
+    right: 20px;
+}
+.popup-box .group-duo .ant-checkbox-checked .ant-checkbox-inner{
+    background: url(../../../assets/course/single.png) no-repeat center 7px;
+    background-size: 19px auto;
+}
+/* 弹窗多选图片样式 */
+
+.popup-box .group-duopc .ant-col-8 {
+    flex: 0 0 50%;
+    max-width: 440px;
+}
+.popup-box .group-duopc .ant-checkbox-wrapper{
+    width: 200px;
+    height: 100px;
+}
+.popup-box .duo-span{
+    display: block;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.popup-box .duo-img{
+    width: 60px;
+    height: 60px;
+    margin: 30px 0 0 10px;
+    display: block;
+}
+/* 考试结果 */
+.exam-result{
+    width: 600px;
+    min-height: 430px;
+    margin: 100px auto 0;
+    text-align: center;
+}
+.exam-result-tle{
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 60px;
+}
+.exam-result-on{
+    font-size: 60px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #C30D23;
+    line-height: 60px;
+    margin: 50px 0 10px;
+}
+.exam-result-p{
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #333333;
+    line-height: 60px;
+    margin-bottom: 50px;
+}
+.btn-exam-result-bg{
+    height: 90px;
+    background: #FFF9EC;
+    border-radius: 10px;
+    padding-top: 30px;
+}
+.btn-exam-result{
+    width: 165px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #CD8C00;
+    text-align: left;
+    border: none;
+    background: url(../../../assets/course/start02.png) no-repeat right center;
+    cursor: pointer;
+}
+.btn-exam-result:hover{
+    color: #dd9804;
+}
+
+/* 弹窗-考试结束问题分析 */
+.result-wraper{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.result-box{
+    position : fixed;
+	left : 50%;
+	top : 50%;
+	width :880px;
+	min-height : 540px;
+	transform: translate(-50%, -50%);
+    padding: 30px 30px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.result-box-close{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: url(../../../assets/course/close.png) no-repeat center center;
+    cursor: pointer;
+}
+.result-nme{
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.result-title{
+    height: 40px;
+    background: #EBF4F8;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 40px;
+    padding:0 25px;
+}
+.result-box .option-questions-tle{
+    font-size: 16px;
+}
+.result-subject{
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    border-bottom: 1px solid #E5E5E5;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+.result-items{
+    width: 50%;
+    padding-left: 28px;
+    margin-bottom: 10px;
+}
+.result-items-p{
+    font-size: 14px;
+    color: #333333;
+    line-height: 30px;
+    padding: 0;
+    margin-bottom: 3px;
+}
+.result-items-img{
+    display: block;
+    width: 80px;
+    height: 80px;
+}
+.result-items-right{
+     background: url(../../../assets/course/start05.png) no-repeat left 8px;
+}
+.result-items-wrong{
+    background: url(../../../assets/course/start06.png) no-repeat left 8px;
+}
+.result-answer{
+    font-size: 16px;
+    color: #333333;
+    line-height: 30px;
+    margin: 20px 0 30px;
+    text-align: center;
+}
+.result-answer-p{
+    height: 80px;
+    font-size: 14px;
+    color: #E56C37;
+    line-height: 24px;
+}
+.btn-answer{
+    width: 140px;
+    height: 40px;
+    font-size: 14px;
+    color: #333333;
+    background: #FFFFFF;
+    border: 1px solid #313131;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.btn-answer:hover{
+    box-shadow: 0 0 5px #ccc;
+}
+.btn-answer-left{
+    margin: 0 52px 0 234px;
+}

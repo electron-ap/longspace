@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 
 function Finished() {
@@ -63,7 +64,7 @@ function Finished() {
 			dataIndex: 'uploadtime',
 			key: 'uploadtime',
 			render: (text) => {
-				return <div className="course-enter">{text}进入考试</div>
+				return <Link to="/agent/academy/Testing"><div className="course-enter">{text}进入考试</div></Link>
 			}
 		},
 

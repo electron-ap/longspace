@@ -14,6 +14,12 @@ import StudyList from '../pages/academy/Study/Study';
 import Finished from '../pages/academy/Finished/Finished';
 import ExamList from '../pages/academy/Exam/Exam';
 import CertList from '../pages/academy/Cert/Cert';
+import Testing from '../pages/academy/Test/Test'; // 考试页面
+
+import MemberIndex from "../pages/member/Index"
+import Account from "../pages/member/Account"
+import Staff from "../pages/member/Staff"
+import Favorites from "../pages/member/Favorites"
 
 export const webRoutes = [
     {
@@ -65,12 +71,13 @@ export const adminRoutes = [
         exact:false,
         children: []
     },
+    
     {
         path: "/agent/academy",
         component: Academy,
         title: "Academy",
         display: true,
-        exact:false,
+        exact:true,
         redirect:'/agent/academy/CourseList',
         children: [
             {
@@ -113,8 +120,50 @@ export const adminRoutes = [
                 exact:false,
                 children: []
             },
+
+            {
+                path: "/agent/academy/Testing",
+                component: Testing,
+                title: "Testing",
+                display: true,
+                exact:false,
+                children: []
+            }
         ],
     },
-    
+    {
+        path: "/agent/member",
+        component: MemberIndex,
+        title: "member",
+        display: true,
+        exact:true,
+        redirect:'/agent/member/Account',
+        children: [
+            {
+                path: "/agent/member/Account",
+                component: Account,
+                title: "Account",
+                display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/member/Staff",
+                component: Staff,
+                title: "Staff",
+                display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/member/Favorites",
+                component: Favorites,
+                title: "Favorites",
+                display: true,
+                exact:false,
+                children: []
+            },
+        ],
+    },
     
 ]

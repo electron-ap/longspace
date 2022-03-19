@@ -1,0 +1,429 @@
+.admin-wraper{
+    width: 1200px;
+    margin: 0 auto 50px;
+    padding: 70px 60px 50px;
+    background: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(102, 102, 102, 0.3);
+    border-radius: 4px;
+    position: relative;
+    // margin-top: -156px;
+}
+.admin-head{
+    width: 126px;
+    height: 190px;
+    margin: 0 auto;
+    position: relative;
+
+}
+.admin-head-pc{
+    width: 126px;
+    height: 126px;
+    background: url(../../assets/admin/headbg.png) no-repeat 0 0;
+}
+.admin-head-upload{
+    width: 20px;
+    height: 18px;
+    background: url(../../assets/admin/upload.png) no-repeat 0 0;
+    position: absolute;
+    right: 0;
+    top: 89px;
+}
+.admin-head-name{
+    font-size: 20px;
+    color: #333333;
+    line-height: 20px;
+    text-align: center;
+    margin-top: 15px;
+}
+.admin-sort{
+    height: 35px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 40px;
+}
+.admin-sort-ul{
+    display: flex;
+	justify-content: center;
+    text-align: center;
+}
+.sort-li{
+    display: inline-block;
+    height: 35px;
+    line-height: 33px;
+    margin: 0 50px;  
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+}
+.sort-li-active{
+    color: #C30D23;
+    border-bottom: 3px solid #C30D23;
+}
+/* 账号信息 */
+.act-iftion{
+    width: 450px;
+    margin: 0 auto;
+}
+.act-inputOne{
+    margin-bottom: 18px;
+    color: #333;
+}
+.act-iftion .ant-input-group-addon{
+    border: none;
+    background: none;
+}
+.act-iftion .ant-input{
+    height: 40px;
+    color: #333;
+    border-radius: 0;
+}
+.act-iftion .ant-input.ant-input::placeholder {
+    color: #333;
+}
+.act-password{
+    height: 40px;
+    line-height: 40px;
+    color: #333;
+    font-size: 14px;
+    padding: 0 12px;
+}
+.password-modify{
+    font-size: 14px;
+    color: #C30D23;
+    background: url(../../assets/admin/pen.png) no-repeat left center;
+    padding-left: 24px;
+    margin-left: 38px;
+    cursor: pointer;
+}
+.act-preservation{
+    display: block;
+    width: 147px;
+    height: 40px;
+    font-size: 14px;
+    background: #C30D23;
+    border-radius: 23px;
+    border: none;
+    margin: 45px auto 0;
+}
+.act-preservation:hover{
+    background: #d50e26;
+    color: #fff;
+}
+/* 修改密码 */
+.password-wraper{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.password-box{
+    position : fixed;
+	left : 50%;
+	top : 50%;
+	width :400px;
+	min-height : 320px;
+	transform: translate(-50%, -50%);
+    padding: 30px 35px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.password-box-tle{
+    font-size: 20px;
+    color: #333333;
+    line-height: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.act-inputTwo{
+    height: 40px;
+    color: #333;
+    border-radius: 0;
+    margin-bottom: 15px;
+}
+.act-cancel{
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
+    color: #333;
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 23px;
+    margin: 5px 20px 0 35px;
+}
+.act-confirm{
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
+    color: #fff;
+    background: #C30D23 ;
+    border: 1px solid #C30D23 ;
+    border-radius: 23px;
+    margin: 5px 0 0;
+}
+.act-cancel:hover,.act-cancel:focus{
+    color: #333;
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+}
+.act-confirm:hover,.act-confirm:focus{
+    background: #d50e26;
+    color: #fff;
+    border: 1px solid #C30D23 ;
+}
+
+/* 收藏夹 */
+.frts-tle{
+    font-size: 14px;
+    color: #666666;
+    line-height: 20px;
+    margin-bottom: 18px;
+    position: relative;
+}
+.frts-ul{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.frts-li{
+    width: 340px;
+}
+.frts-li-box{
+    width: 340px;
+    height: 120px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 4px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+.frts-li-tle{
+    font-size: 16px;
+    color: #333333;
+    line-height: 20px;
+    padding: 15px 0 6px;
+}
+.frts-li-p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    line-height: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+.frts-up{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #1A6ECC;
+    line-height: 20px;
+    cursor: pointer;
+}
+.frts-remove{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #C30D23;
+    line-height: 20px;
+    cursor: pointer;
+    margin-left: 24px;
+}
+.frts-page{
+    text-align: center;
+}
+/* 收藏夹删除-弹窗 */
+.frts-wraper{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.frts-box{
+    position : fixed;
+	left : 50%;
+	top : 50%;
+	width: 300px;
+    height: 180px;
+	transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 4px;
+}
+.frts-box-tle{
+    font-size: 18px;
+    color: #333333;
+    line-height: 26px;
+    text-align: center;
+    padding: 20px 0 25px;
+}
+.frts-box-p{
+    font-size: 14px;
+    color: #666;
+    line-height: 26px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.frts-box-p span{
+    background: url(../../assets/admin/tips.png) no-repeat left center;
+    padding-left: 24px;   
+}
+.frts-cancel{
+    width: 100px;
+    height: 36px;
+    font-size: 14px;
+    color: #333;
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 23px;
+    margin: 0 20px 0 40px;
+}
+.frts-confirm{
+    width: 100px;
+    height: 36px;
+    font-size: 14px;
+    color: #fff;
+    background: #C30D23 ;
+    border: 1px solid #C30D23 ;
+    border-radius: 23px;
+    margin: 0 0 0;
+}
+.frts-cancel:hover{
+    color: #333;
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+}
+.frts-confirm:hover{
+    background: #d50e26;
+    color: #fff;
+    border: 1px solid #C30D23 ;
+}
+/* 代理商成员 */
+.add-members{
+    display: block;
+    width: 136px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    background: #C30D23;
+    border-radius: 17px;
+    position: absolute;
+    right: 0;
+    top: -15px;
+    cursor: pointer;
+}
+
+.member-ul{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.member-li{
+    width: 340px;
+}
+.member-li-box{
+    width: 340px;
+    height: 200px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 4px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 25px 20px 0;
+}
+.member-li-box:hover{
+    box-shadow: 0px 3px 10px 0px rgba(131, 131, 131, 0.23);
+}
+.member-li-box:hover .member-setup{
+    display: block;
+}
+.member-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    position: absolute;
+    top: 25px;
+    left: 20px;
+}
+.member-li-tle{
+    font-size: 16px;
+    color: #333333;
+    line-height: 20px;
+    padding: 12px 0 5px 73px;
+}
+.member-li-p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    line-height: 20px;
+    padding:0 0 35px 73px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+.member-table table tr th,.member-table table tr td{
+    text-align: center;
+}
+.member-table table tr th{
+    border: none;
+    background: none;
+    padding: 0 0 5px;
+    font-size: 14px;
+    color: #666;
+}
+.member-table .ant-table-container table > thead > tr:first-child th:first-child{
+    border-top-left-radius: 0;
+}
+.member-table .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
+ display: none;
+}
+.member-table table tr td{
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 14px;
+    color: #333;
+}
+.member-table .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: none;
+}
+.member-setup{
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+.member-up{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #25519A;
+    line-height: 20px;
+    cursor: pointer;
+}
+.member-remove{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #C30D23;
+    line-height: 20px;
+    cursor: pointer;
+    margin-left: 18px;
+}
+/* 申请删除成员-弹窗 */
+.member-box-p{
+    font-size: 14px;
+    color: #666;
+    line-height: 26px;
+    margin-bottom: 50px;
+    padding: 0 30px;
+}
+.member-box-input .ant-input-affix-wrapper > input.ant-input{
+    height: 30px;
+}
+.member-input{
+    margin-bottom: 16px;
+}

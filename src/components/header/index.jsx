@@ -1,6 +1,6 @@
 import logo from "../../assets/logo.png"
 import React from "react";
-import { withRouter, Redirect, useHistory } from 'react-router-dom';
+import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
 import { Avatar, Badge, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
@@ -16,8 +16,8 @@ const Myheader = () => {
     const content = (
         <div className="myusertent">
             <div className="myusertent01">当前账号</div>
-            <div className="myusertent02">FZ0001</div>
-            <div className="myusertent03">收藏夹</div>
+            <div className="myusertent02"><Link to="/agent/member/Account">FZ0001</Link></div>
+            <div className="myusertent03"><Link to="/agent/member/Favorites">收藏夹</Link></div>
             <div className="myusertent04" onClick={ handleLogout}>退出登录</div>
         </div>
     );
