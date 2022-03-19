@@ -12,26 +12,21 @@ function RouterView() {
                 return (
                     <Fragment key={`fragment${key}`}>
                         <Route path={item.path} key={item.path} exact={item.exact} component={ item.component} />
-                        <Switch key={`switch${key}`}>
-                            { renderRoute(item.children)}
-                        </Switch>
+                        { renderRoute(item.children)}
                     </Fragment>
                 )
             } else {
-                return item.path === '/' ? null : <Route path={item.path} key={item.path} exact={item.exact} component={ item.component} />
+                return <Route path={item.path} key={item.path} exact={item.exact} component={ item.component} />
             }
         })
     }
  
     return (
         <Suspense fallback={<div className="loading-box"><Spin size="large" style={{ marginTop: '20%' }} /></div>} >
-            <Switch>
-                {
-                    renderRoute(adminRoutes)
-                }
-                {/* <Route path="/admin/profile" key='profile' exact component={Profile} /> */}
-                {/* <Redirect to="/404"/> */}
-            </Switch>
+            
+            {
+                renderRoute(adminRoutes)
+            }
         </Suspense>
     )
 }

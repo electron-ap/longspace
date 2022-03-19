@@ -73,11 +73,11 @@ export const adminRoutes = [
     },
     
     {
-        path: "/agent/academy",
+        path: "/agent/academy/",
         component: Academy,
         title: "Academy",
         display: true,
-        exact:true,
+        exact:false,
         redirect:'/agent/academy/CourseList',
         children: [
             {
@@ -136,7 +136,7 @@ export const adminRoutes = [
         component: MemberIndex,
         title: "member",
         display: true,
-        exact:true,
+        exact:false,
         redirect:'/agent/member/Account',
         children: [
             {
