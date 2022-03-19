@@ -71,7 +71,7 @@ function Dashboard() {
 				<div className="contents-nr">
 					<ul>
 						<li>
-							<Link to="/agent/academy/Academy">
+							<Link to="/agent/academy/CourseList">
 								<img className="pcte" alt="pcte01" src="/assets/pcte21.png" />
 								<span className="pcte-tle">Sales Partner Academy</span>
 							</Link>

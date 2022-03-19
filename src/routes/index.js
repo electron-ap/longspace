@@ -10,6 +10,10 @@ import DigitalDetail from '../pages/digital/DigitalDetail';
 import Academy from '../pages/academy/Academy';
 import CourseDetail from '../pages/academy/Course/Detail';
 import CourseList from '../pages/academy/Course/Course';
+import StudyList from '../pages/academy/Study/Study';
+import Finished from '../pages/academy/Finished/Finished';
+import ExamList from '../pages/academy/Exam/Exam';
+import CertList from '../pages/academy/Cert/Cert';
 
 export const webRoutes = [
     {
@@ -52,28 +56,65 @@ export const adminRoutes = [
         display: true,
         exact:true,
         children: []
+    },    
+    {
+        path: "/agent/academy/courseDetail",
+        component: CourseDetail,
+        title: "CourseDetail",
+        display: true,
+        exact:false,
+        children: []
     },
     {
         path: "/agent/academy",
         component: Academy,
         title: "Academy",
         display: true,
+        exact:false,
+        redirect:'/agent/academy/CourseList',
         children: [
             {
-                path: "/agent/academy/courseDetail",
-                component: CourseDetail,
-                title: "CourseDetail",
+                path: "/agent/academy/CourseList",
+                component: CourseList,
+                title: "CourseList",
                 display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/academy/StudyList",
+                component: StudyList,
+                title: "StudyList",
+                display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/academy/Finished",
+                component: Finished,
+                title: "Finished",
+                display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/academy/ExamList",
+                component: ExamList,
+                title: "ExamList",
+                display: true,
+                exact:false,
+                children: []
+            },
+            {
+                path: "/agent/academy/CertList",
+                component: CertList,
+                title: "CertList",
+                display: true,
+                exact:false,
                 children: []
             },
         ],
     },
-    {
-        path: "/agent/academy/CourseList",
-        component: CourseList,
-        title: "CourseList",
-        display: true,
-        children: []
-    },
+    
     
 ]
