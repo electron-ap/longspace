@@ -6,7 +6,7 @@ import Finished from "./Finished/Finished"
 import Study from "./Study/Study"
 import Exam from "./Exam/Exam"
 
-function Academy() {
+function Academy(props) {
     const [tabList, setTabList] = useState([
         { title: '课程', count: 10 },
         { title: '学习中', count: 10 },
@@ -62,7 +62,10 @@ function Academy() {
                 </ul>
             </div>
             
-            {renderTabCom()}
+            {/* {renderTabCom()} */}
+            {
+                props.children
+            }
         </div>
     )
 }

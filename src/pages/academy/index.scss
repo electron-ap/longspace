@@ -176,8 +176,41 @@
     line-height: 30px;
     background: url(../../assets/course/enter.png) no-repeat 15px center;
 }
+/* 考试中 */
+.exam-failed{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    background: #C30D23;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+}
+.exam-passed{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    background: #32B16C;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+}
+.exam-makeup{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    background: #F1C53E;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+}
+/* 证书下载按键 */
+.coursedload{
+    cursor: pointer;
+}
 
-// 课程详情
+
+//  ********************课程详情 // 
 .course-box{
     width: 1200px;
     margin: 50px auto;

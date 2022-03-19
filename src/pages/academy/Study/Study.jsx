@@ -2,6 +2,7 @@ import React from 'react'
 import { Table } from 'antd';
 
 function Study() {
+	
 	const dataSource = [
 		{
 			key: '1',

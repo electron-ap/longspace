@@ -1,5 +1,3 @@
-import React from 'react'
-
 // 普通路由，无需登录
 import Login from "../pages/user/Login";
 import ForgetPwd from "../pages/user/ForgetPwd";
@@ -11,8 +9,7 @@ import DigitalLIst from '../pages/digital/DigitalLIst';
 import DigitalDetail from '../pages/digital/DigitalDetail';
 import Academy from '../pages/academy/Academy';
 import CourseDetail from '../pages/academy/Course/Detail';
-
-import { GlobalOutlined, } from '@ant-design/icons';
+import CourseList from '../pages/academy/Course/Course';
 
 export const webRoutes = [
     {
@@ -37,6 +34,7 @@ export const adminRoutes = [
         component: Dashboard,
         title: "仪表盘",
         display: true,
+        exact:true,
         children: []
     },
     {
@@ -44,6 +42,7 @@ export const adminRoutes = [
         component: DigitalLIst,
         title: "digitallist",
         display: true,
+        exact:false,
         children: []
     },
     {
@@ -51,20 +50,30 @@ export const adminRoutes = [
         component: DigitalDetail,
         title: "DigitalDetail",
         display: true,
+        exact:true,
         children: []
     },
     {
-        path: "/agent/academy/Academy",
+        path: "/agent/academy",
         component: Academy,
         title: "Academy",
         display: true,
-        children: []
+        children: [
+            {
+                path: "/agent/academy/courseDetail",
+                component: CourseDetail,
+                title: "CourseDetail",
+                display: true,
+                children: []
+            },
+        ],
     },
     {
-        path: "/agent/academy/courseDetail",
-        component: CourseDetail,
-        title: "CourseDetail",
+        path: "/agent/academy/CourseList",
+        component: CourseList,
+        title: "CourseList",
         display: true,
         children: []
     },
+    
 ]
