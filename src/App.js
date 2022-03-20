@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import AdminLayout from "./pages/layout/AdminLayout"
 import { webRoutes } from "./routes/index"
 
-export default class App extends Component {
-	render() {
-		return (
+const LangContext = React.createContext();
+export default function App(){
+	return (
+		<LangContext.Provider value={{ lang: 'zh-cn', langPackage: { 'title': "标题" } }}>
 			<div className="loadingz">
 				<Switch>
 					{/*后台路由*/}
@@ -23,6 +24,6 @@ export default class App extends Component {
 					{/* <Redirect to="/404" /> */}
 				</Switch>
 			</div>
-		)
-	}
+		</LangContext.Provider>
+	)
 }

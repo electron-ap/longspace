@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
-import './App.scss'
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less's
+import './App.scss'
+
 
 
 ReactDOM.render(
