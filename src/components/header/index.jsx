@@ -1,12 +1,16 @@
 import logo from "../../assets/logo.png"
 import React from "react";
 import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
-import { Avatar, Badge, Popover } from 'antd';
+import { Avatar, Badge, Popover, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './index.scss'
+// 新加双语言
+const { Option } = Select;
 
-
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
 
 const Myheader = () => {
     const history = useHistory();
@@ -44,8 +48,12 @@ const Myheader = () => {
                             <Popover content={content} placement="bottom" trigger="hover">
                                 <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
                             </Popover>
-                            <img className="myuseridnm" alt="用户头像2" src="/assets/userImageIdsm1.png" />
-                            <span className="myuseridonnm">Language<i className="ibn"></i></span>
+                            <div className="language-lect">
+                                <Select defaultValue="enlish" dropdownMatchSelectWidth={false} onChange={handleChange}>
+                                    <Option value="china"><span className="lg-zh">中 文</span></Option>
+                                    <Option value="enlish"><span className="lg-en">English</span></Option>
+                                </Select>
+                            </div>
                         </div>
                     </div>
                 </div>

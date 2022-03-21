@@ -2,21 +2,34 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
 import "./index.css"
+// 更改banner
+import imgUrl from '../../assets/banner01.png'
+const bgGround = {
+    height: '400px',
+    width: '100%',
+    backgroundImage: 'url(' + imgUrl + ')'
+}
+
 function Dashboard() {
 	return (
 		<>
 			<div className="mybanner">
 				<Carousel autoplay>
-					<div>
-						<h3><img alt="banner01" src="/assets/banner01.png" /></h3>
-					</div>
-					<div>
-						<h3><img alt="banner01" src="/assets/banner01.png" /></h3>
-					</div>
-					<div>
-						<h3><img alt="banner01" src="/assets/banner01.png" /></h3>
-					</div>
-
+                <div>
+                    <div className="lunbo-box" style={bgGround}>
+                        <h1>Welcome to <br />RAISE3D <br />Partner Portal</h1>
+                    </div>
+                </div>
+                <div>
+				<div className="lunbo-box" style={bgGround}>
+                        <h1>Welcome to <br />RAISE3D <br />Partner Portal</h1>
+                    </div>
+                </div>
+                <div>
+				<div className="lunbo-box" style={bgGround}>
+                        <h1>Welcome to <br />RAISE3D <br />Partner Portal</h1>
+                    </div>
+                </div>
 				</Carousel>
 			</div>
 			<div className="contents">
