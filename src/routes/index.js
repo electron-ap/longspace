@@ -64,7 +64,7 @@ export const adminRoutes = [
         children: []
     },
     {
-        path: "/agent/academy/courseDetail",
+        path: "/agent/courseDetail/:id",
         component: CourseDetail,
         title: "CourseDetail",
         display: true,

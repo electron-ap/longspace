@@ -38,7 +38,7 @@ request.interceptors.response.use(response => {
         const { code, msg } = response.data;
         if (code === 4000 || code === 4001) {
             message.error(msg);
-            // window.location.href = "/"
+            window.location.href = "/"
         } else if (![200, 201, 204,400].includes(code)) {  // 后台自定义 status
             message.error(msg);
             return Promise.reject(msg);
