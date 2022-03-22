@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
+<<<<<<< HEAD
 import "./index.css"
 // 更改banner
 import imgUrl from '../../assets/banner01.png'
@@ -9,8 +10,26 @@ const bgGround = {
     width: '100%',
     backgroundImage: 'url(' + imgUrl + ')'
 }
+=======
+import "./index.scss"
+
+import { moduleList } from "../../libs/api"
+>>>>>>> 076f52f93575177eb627961d02e5617820acb85b
 
 function Dashboard() {
+	const [digital, setDigital] = useState({})
+	const [tradeShow, setTradeShow] = useState({})
+	const [academy, setAcademy] = useState({})
+
+	useEffect(() => {
+		moduleList().then(res => {
+			if (res.code === 200) {
+				setDigital(res.data[0])
+				setTradeShow(res.data[2])
+				setAcademy(res.data[1])
+			}
+		}).catch(err => { })
+	}, [])
 	return (
 		<>
 			<div className="mybanner">
@@ -33,62 +52,51 @@ function Dashboard() {
 				</Carousel>
 			</div>
 			<div className="contents">
-				<div className="contents-tle">Digital Assets</div>
+				<div className="contents-tle">{digital.title}</div>
 				<div className="contents-nr">
 					<ul>
-						<li>
-							<Link to="/agent/digital/list">
-								<img className="pcte" alt="pcte01" src="/assets/pcte01.png" />
-								<span className="pcte-tle">3D打印机</span>
-							</Link>
-						</li>
-						<li>
-							<Link to="/agent/digital/list">
-								<img className="pcte" alt="pcte01" src="/assets/pcte01.png" />
-								<span className="pcte-tle">3D打印机</span>
-							</Link>
-						</li><li>
-							<Link to="/agent/digital/list">
-								<img className="pcte" alt="pcte01" src="/assets/pcte01.png" />
-								<span className="pcte-tle">3D打印机</span>
-							</Link>
-						</li><li>
-							<Link to="/agent/digital/list">
-								<img className="pcte" alt="pcte01" src="/assets/pcte01.png" />
-								<span className="pcte-tle">3D打印机</span>
-							</Link>
-						</li>
-						<li>
-							<Link to="/agent/digital/list">
-								<img className="pcte" alt="pcte01" src="/assets/pcte01.png" />
-								<span className="pcte-tle">3D打印机</span>
-							</Link>
-						</li>
-
+						{
+							digital.children && digital.children.map((item) => {
+								return (<li key={item.nav_id}>
+									<Link to={{pathname:"/agent/digital/channels",state:{nav_id:item.nav_id}}}>
+										<img className="pcte" alt="pcte01" src={item.cover} />
+										<span className="pcte-tle">{item.title}</span>
+									</Link>
+								</li>)
+							})
+						}
 					</ul>
 				</div>
 
 
-				<div className="contents-tle">Tradeshows</div>
+				<div className="contents-tle">{tradeShow.title}</div>
 				<div className="contents-nr">
 					<ul>
-						<li>
-							<Link to="/agent/academy/Academy">
-								<img className="pcte" alt="pcte01" src="/assets/pcte11.png" />
-								<span className="pcte-tle">Tradeshow Archive</span>
-							</Link>
-						</li>
+						{
+							tradeShow.children && tradeShow.children.map((item) => {
+								return (<li key={item.nav_id}>
+									<Link to="/agent/academy/Academy">
+										<img className="pcte" alt="pcte01" src={item.cover} />
+										<span className="pcte-tle">{item.title}</span>
+									</Link>
+								</li>)
+							})
+						}
 					</ul>
 				</div>
-				<div className="contents-tle">Sales Partner Academy</div>
+				<div className="contents-tle">{academy.title}</div>
 				<div className="contents-nr">
 					<ul>
-						<li>
-							<Link to="/agent/academy/CourseList">
-								<img className="pcte" alt="pcte01" src="/assets/pcte21.png" />
-								<span className="pcte-tle">Sales Partner Academy</span>
-							</Link>
-						</li>
+						{
+							academy.children && academy.children.map((item) => {
+								return (<li key={item.nav_id}>
+									<Link to="/agent/academy/CourseList">
+										<img className="pcte" alt="pcte01" src={item.cover} />
+										<span className="pcte-tle">{item.title}</span>
+									</Link>
+								</li>)
+							})
+						}
 					</ul>
 				</div>
 			</div>

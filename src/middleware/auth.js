@@ -1,9 +1,9 @@
 export function setToken(token){
-    localStorage.setItem("Authorization",token);
+    localStorage.setItem("authorization",token);
 }
 
 export function getToken(){
-    return localStorage.getItem("Authorization") || "";
+    return localStorage.getItem("authorization") || "";
 }
 
 export function isLogin(){
@@ -11,5 +11,5 @@ export function isLogin(){
 }
 
 export function removeToken(){
-    localStorage.removeItem("Authorization");
+    localStorage.removeItem("authorization");
 }

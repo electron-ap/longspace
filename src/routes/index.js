@@ -5,7 +5,7 @@ import PageNotFound from "../pages/errors/PageNotFound";
 
 // 后台路由，需要登录
 import Dashboard from "../pages/Home/Dashboard";
-import DigitalLIst from '../pages/digital/DigitalLIst';
+import DigitalChannels from '../pages/digital/Channels';
 import DigitalDetail from '../pages/digital/DigitalDetail';
 import Academy from '../pages/academy/Academy';
 import CourseDetail from '../pages/academy/Course/Detail';
@@ -44,15 +44,15 @@ export const adminRoutes = [
         component: Dashboard,
         title: "仪表盘",
         display: true,
-        exact:true,
+        exact: true,
         children: []
     },
     {
-        path: "/agent/digital/list",
-        component: DigitalLIst,
-        title: "digitallist",
+        path: "/agent/digital/channels",
+        component: DigitalChannels,
+        title: "DigitalChannels",
         display: true,
-        exact:false,
+        exact: false,
         children: []
     },
     {
@@ -60,32 +60,32 @@ export const adminRoutes = [
         component: DigitalDetail,
         title: "DigitalDetail",
         display: true,
-        exact:true,
+        exact: true,
         children: []
-    },    
+    },
     {
-        path: "/agent/academy/courseDetail",
+        path: "/agent/courseDetail/:id",
         component: CourseDetail,
         title: "CourseDetail",
         display: true,
-        exact:false,
+        exact: false,
         children: []
     },
-    
+
     {
         path: "/agent/academy/",
         component: Academy,
         title: "Academy",
         display: true,
-        exact:false,
-        redirect:'/agent/academy/CourseList',
+        exact: false,
+        redirect: '/agent/academy/CourseList',
         children: [
             {
                 path: "/agent/academy/CourseList",
                 component: CourseList,
                 title: "CourseList",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             },
             {
@@ -93,7 +93,7 @@ export const adminRoutes = [
                 component: StudyList,
                 title: "StudyList",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             },
             {
@@ -101,7 +101,7 @@ export const adminRoutes = [
                 component: Finished,
                 title: "Finished",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             },
             {
@@ -109,7 +109,7 @@ export const adminRoutes = [
                 component: ExamList,
                 title: "ExamList",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             },
             {
@@ -117,7 +117,7 @@ export const adminRoutes = [
                 component: CertList,
                 title: "CertList",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             },
 
@@ -126,7 +126,7 @@ export const adminRoutes = [
                 component: Testing,
                 title: "Testing",
                 display: true,
-                exact:false,
+                exact: false,
                 children: []
             }
         ],
@@ -136,34 +136,8 @@ export const adminRoutes = [
         component: MemberIndex,
         title: "member",
         display: true,
-        exact:false,
-        redirect:'/agent/member/Account',
-        children: [
-            {
-                path: "/agent/member/Account",
-                component: Account,
-                title: "Account",
-                display: true,
-                exact:false,
-                children: []
-            },
-            {
-                path: "/agent/member/Staff",
-                component: Staff,
-                title: "Staff",
-                display: true,
-                exact:false,
-                children: []
-            },
-            {
-                path: "/agent/member/Favorites",
-                component: Favorites,
-                title: "Favorites",
-                display: true,
-                exact:false,
-                children: []
-            },
-        ],
+        exact: false,
+        children: [],
     },
-    
+
 ]

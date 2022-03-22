@@ -1,42 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import { Pagination, Input } from 'antd';
+import "../index.scss"
+import { courseList } from "../../../libs/api"
 import { Table } from 'antd';
 
 function Study() {
-	
-	const dataSource = [
-		{
-			key: '1',
-			name: '开机',
-			publisher: '2min',
-			address: '1min35s',
-			size: '2022-12-12',
-			uploadtime: '',
-		},
-		{
-			key: '2',
-			name: '如何添加辅料',
-			publisher: '5min',
-			address: '1min30s',
-			size: '2022-12-12',
-			uploadtime: '',
-		},
-		{
-			key: '3',
-			name: '开机',
-			publisher: '2min',
-			address: '1min35s',
-			size: '2022-12-12',
-			uploadtime: '',
-		},
-		{
-			key: '4',
-			name: '如何添加辅料',
-			publisher: '5min',
-			address: '1min30s',
-			size: '2022-12-12',
-			uploadtime: '',
-		},
-	];
+	const [dataSource, setDataSource] = useState({
+		data: [],
+		total: 0
+	})
+	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
+	useEffect(() => {
+		getDataSource()
+	}, [pagination])
+
+	const getDataSource = () => {
+		courseList({ status: 1, page: pagination.current, limit: pagination.pageSize, }).then(res => {
+			if (res.code === 200) {
+				setDataSource({ data: res.data, total: res.count })
+			}
+		}).catch(err => { })
+	}
+	const onPageChange = (val) => {
+		setPagination({ ...pagination, current: val })
+	}
 
 	const columns = [
 		{

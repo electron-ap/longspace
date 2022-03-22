@@ -46,7 +46,6 @@ function Course() {
 							</div>
 						</div>
 					</li>
-					<li>dddgit</li>
 				</ul>
 			</div>
 			<div className="course-paging">

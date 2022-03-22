@@ -1,5 +1,6 @@
 import request from "../http/request";
 
+export const base_url = "http://fuzhi.forwap.cn"
 // 用户登录
 export const getImgCode = (params = {}) => request.get("login/yzm", { params });
 export const login = (data = {}) => request.post("login/index", data);

@@ -1,5 +1,8 @@
 import React from 'react'
 import { Radio } from 'antd';
+import { Link } from 'react-router-dom';
+import { Pagination, Input } from 'antd';
+
 import "./index.scss"
 import Single from './components/Single';
 import Multi from './components/Multi';

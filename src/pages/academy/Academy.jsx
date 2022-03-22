@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
-import { NavLink,Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { NavLink, Link } from 'react-router-dom'
 import "./index.scss"
+import { courseCalc } from "../../libs/api"
 
 function Academy(props) {
     console.log("props", props)
-    const [tabList, setTabList] = useState([
-        { title: '课程', count: 10, path: "/agent/academy/CourseList" },
-        { title: '学习中', count: 10, path: "/agent/academy/StudyList" },
-        { title: '已完成', count: 10, path: "/agent/academy/Finished" },
-        { title: '考试', count: 10, path: "/agent/academy/ExamList" },
-        { title: '证书', count: 10, path: "/agent/academy/CertList" },
-    ]);
+
+    const [tabList, setTabList] = useState([]);
+
+    useEffect(() => {
+        courseCalc().then(res => {
+            if (res.code === 200) {
+                const {total,study,complete,test,certificate} = res.data
+                setTabList([
+                    { title: '课程', count: total, path: "/agent/academy/CourseList" },
+                    { title: '学习中', count: study, path: "/agent/academy/StudyList" },
+                    { title: '已完成', count: complete, path: "/agent/academy/Finished" },
+                    { title: '考试', count: test, path: "/agent/academy/ExamList" },
+                    { title: '证书', count: certificate, path: "/agent/academy/CertList" },
+                ])
+            }
+        }).catch(err => { })
+    }, [])
 
     return (
         <div>

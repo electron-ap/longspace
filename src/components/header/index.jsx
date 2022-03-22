@@ -1,4 +1,5 @@
 import logo from "../../assets/logo.png"
+<<<<<<< HEAD
 import React from "react";
 import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
 import { Avatar, Badge, Popover, Select } from 'antd';
@@ -11,18 +12,36 @@ const { Option } = Select;
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
+=======
+import React,{useEffect,useState} from "react";
+import { useHistory,Link } from 'react-router-dom';
+import { Avatar, Badge, Popover } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+
+import './index.scss'
+import { userInfo } from "../../libs/api"
+>>>>>>> 076f52f93575177eb627961d02e5617820acb85b
 
 
 const Myheader = () => {
+    const [memberInfo,setMemberInfo] = useState({})
     const history = useHistory();
     const handleLogout = ()=>{
         history.push("/")
     }
+
+    useEffect(()=>{
+        userInfo().then(res=>{
+            if(res.code === 200 ){
+                setMemberInfo(res.data)
+            }
+        }).catch(err=>{})
+    },[])
     const content = (
         <div className="myusertent">
             <div className="myusertent01">当前账号</div>
-            <div className="myusertent02"><Link to="/agent/member/Account">FZ0001</Link></div>
-            <div className="myusertent03"><Link to="/agent/member/Favorites">收藏夹</Link></div>
+            <div className="myusertent02"><Link to={{pathname:"/agent/member",state:{tabIndex:0}}}>{memberInfo.account}</Link></div>
+            <div className="myusertent03"><Link to={{pathname:"/agent/member",state:{tabIndex:1}}}>收藏夹</Link></div>
             <div className="myusertent04" onClick={ handleLogout}>退出登录</div>
         </div>
     );

@@ -1,0 +1,19 @@
+.mymodal-mask{
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.mymodal-box{
+    position : fixed;
+	left : 50%;
+	top : 50%;
+	width :400px;
+	min-height : 320px;
+	transform: translate(-50%, -50%);
+    padding: 30px 35px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+}
