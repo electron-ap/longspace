@@ -5,12 +5,13 @@ import { Avatar, Badge, Popover, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './index.scss'
-// 新加双语言
+
 const { Option } = Select;
 
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
+
 
 const Myheader = () => {
     const history = useHistory();
@@ -49,11 +50,11 @@ const Myheader = () => {
                                 <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
                             </Popover>
                             <div className="language-lect">
-                                <Select defaultValue="enlish" dropdownMatchSelectWidth={false} onChange={handleChange}>
-                                    <Option value="china"><span className="lg-zh">中 文</span></Option>
-                                    <Option value="enlish"><span className="lg-en">English</span></Option>
-                                </Select>
-                            </div>
+                    <Select defaultValue="enlish" dropdownMatchSelectWidth={false} onChange={handleChange}>
+                                <Option value="china"><span className="lg-zh">中 文</span></Option>
+                                <Option value="enlish"><span className="lg-en">English</span></Option>
+                            </Select>
+                        </div>
                         </div>
                     </div>
                 </div>

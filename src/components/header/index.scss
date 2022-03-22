@@ -6,7 +6,7 @@
     left: 0;
     top: 0;
     right: 0;
-    z-index: 10000;
+    z-index: 1000;
 }
 .header{
     width: 1200px;
@@ -147,4 +147,48 @@ input:focus {
       border-top: 7px solid #fff;
       margin: 0 0 0 5px;
   }
-  
+
+  /* 添加语言 */
+.language-lect{
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    padding: 0 0 0 30px;
+}
+
+
+.language-lect .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder{
+ line-height: 20px;
+ background: none;
+ color: #fff;
+ border: none;
+}
+.language-lect .ant-select-selector {
+    box-shadow: none !important;
+}
+
+.language-lect .ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+    height: 25px;
+    padding: 1px 0 0 0;
+    background:#000 url(../../assets/updown.png) no-repeat right center;
+    background-size: 10px auto;
+    color: #fff;
+    border: none;
+}
+.language-lect .ant-select-arrow{
+    display: none;
+}
+.lg-zh{
+    display:block;
+    height: 20px;
+    background: url(../../assets/china.png) no-repeat left center;
+    background-size: 20px 20px;
+    padding: 0 0 0 30px;
+}
+.lg-en{
+    display:block;
+    height: 20px;
+    background: url(../../assets/english.png) no-repeat left center;
+    background-size: 20px 20px;
+    padding: 0 0 0 30px;
+}

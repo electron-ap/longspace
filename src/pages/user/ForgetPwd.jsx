@@ -27,7 +27,7 @@ function ForgetPwd() {
                 <Form>
                     <input className="login-btn btn-imlbg" type="text" placeholder="请输入您的邮箱" />
                     <input className="login-btn btn-iml-vfn" type="text" placeholder="请输入邮箱验证码" />
-                    <button className="login-btn-iml-vfn-enter" >发送验证码</button>
+                    <button className="login-btn btn-iml-vfn-enter" >发送验证码</button>
                     <input className="login-btn btn-psdbg" type="text" placeholder="请输入您的密码" />
                     <input className="login-btn btn-psdbg" type="text" placeholder="请输入您的密码" />
                     <button className="btn-on" >确认修改</button>
