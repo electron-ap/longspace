@@ -450,3 +450,21 @@
 .member-input{
     margin-bottom: 16px;
 }
+
+// 我的成员 修改table为li
+.member-chengeli{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7px;
+}
+.member-chengeli li span,.member-chengeli li p{
+    display: block;
+    padding: 0;
+    color: #666666;
+    font-size: 14px;
+    text-align: center;
+}
+.member-chengeli li p{
+    color: #333;
+
+}
