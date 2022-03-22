@@ -115,17 +115,19 @@
     margin-left: 38px;
     cursor: pointer;
 }
-.act-preservation{
-    display: block;
+.act-iftion .act-preservation{
+    display: block !important;
     width: 147px;
     height: 40px;
     font-size: 14px;
     background: #C30D23;
     border-radius: 23px;
     border: none;
-    margin: 45px auto 0;
+    margin: 45px auto 30px;
+    color: #fff;
+    cursor: pointer;
 }
-.act-preservation:hover{
+.act-iftion .act-preservation:focus,.act-iftion .act-preservation:hover{
     background: #d50e26;
     color: #fff;
 }
