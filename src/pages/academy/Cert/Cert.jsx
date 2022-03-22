@@ -1,62 +1,45 @@
-import React from 'react'
-import { Table } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import { Pagination, Input ,Table} from 'antd';
+import { certList } from "../../../libs/api"
 
 function Cert() {
-	const dataSource = [
-		{
-			key: '1',
-			name: '3D打印开关机',
-			publisher: '2022-12-12',
-			address: '永久',
-			size: '',
-		},
-		{
-			key: '2',
-			name: '3D打印开关机',
-			publisher: '2022-12-12',
-			address: '永久',
-			size: '',
-		},
-		{
-			key: '3',
-			name: '3D打印开关机',
-			publisher: '2022-12-12',
-			address: '永久',
-			size: '',
-		},
-		{
-			key: '4',
-			name: '3D打印开关机',
-			publisher: '2022-12-12',
-			address: '永久',
-			size: '',
-		},
-		{
-			key: '5',
-			name: '3D打印开关机',
-			publisher: '2022-12-12',
-			address: '永久',
-			size: '',
-		},
+	const [dataSource, setDataSource] = useState({
+		data: [],
+		total: 0
+	})
+	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
+	useEffect(() => {
+		getDataSource()
+	}, [pagination])
 
-	];
+	const getDataSource = () => {
+		certList({  page: pagination.current, limit: pagination.pageSize, }).then(res => {
+			if (res.code === 200) {
+				setDataSource({ data: res.data, total: res.count })
+			}
+		}).catch(err => { })
+	}
+	const onPageChange = (val) => {
+		setPagination({ ...pagination, current: val })
+	}
 
 	const columns = [
 		{
 			title: '证书名称',
-			dataIndex: 'name',
-			key: 'name',
+			dataIndex: 'title',
+			key: 'title',
 
 		},
 		{
 			title: '颁发日期',
-			dataIndex: 'publisher',
-			key: 'publisher',
+			dataIndex: 'create_time',
+			key: 'create_time',
 		},
 		{
 			title: '失效日期',
-			dataIndex: 'address',
-			key: 'address',
+			dataIndex: 'validity_time',
+			key: 'validity_time',
 		},
 		{
 			title: '下载',
@@ -73,7 +56,7 @@ function Cert() {
 		<div className="course-all">
 			{/* 考试 */}
 			<div className="study-in">
-				<Table dataSource={dataSource} columns={columns} />
+				<Table dataSource={dataSource.data} rowKey="title" columns={columns} />
 			</div>
 		</div>
 	)

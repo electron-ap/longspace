@@ -43,11 +43,12 @@ function Test(props) {
 			}
 		}).catch(err => { })
 	}
+
     return (
         <div className="course-all">
             {/* 考试单选题 */}
             <div className="exam-title">
-                <div className="exam-title-left">考试进度(<span>3/25</span>)</div>
+                <div className="exam-title-left">考试进度11(<span>3/25</span>)</div>
                 <div className="exam-title-right">
                     <span className="coun-down">倒计时 03:50</span>
                 </div>
@@ -70,7 +71,7 @@ function Test(props) {
             <ShowCheck></ShowCheck>
             <Result></Result>
 
-            <button className="singlechoice-submit">确定</button>
+            <button className="singlechoice-submit">确定11</button>
 
         </div>
     )

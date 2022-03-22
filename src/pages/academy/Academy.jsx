@@ -4,8 +4,6 @@ import "./index.scss"
 import { courseCalc } from "../../libs/api"
 
 function Academy(props) {
-    console.log("props", props)
-
     const [tabList, setTabList] = useState([]);
 
     useEffect(() => {

@@ -80,6 +80,15 @@ export const adminRoutes = [
         exact: false,
         redirect: '/agent/academy/CourseList',
         children: [
+
+            {
+                path: "/agent/academy/Testing/:topic",
+                component: Testing,
+                title: "Testing",
+                display: true,
+                exact: false,
+                children: []
+            },
             {
                 path: "/agent/academy/CourseList",
                 component: CourseList,
@@ -121,14 +130,6 @@ export const adminRoutes = [
                 children: []
             },
 
-            {
-                path: "/agent/academy/Testing",
-                component: Testing,
-                title: "Testing",
-                display: true,
-                exact: false,
-                children: []
-            }
         ],
     },
     {

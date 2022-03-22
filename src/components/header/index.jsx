@@ -1,12 +1,13 @@
 import logo from "../../assets/logo.png"
 import React,{useEffect,useState} from "react";
-import { useHistory,Link } from 'react-router-dom';
-import { Avatar, Badge, Popover } from 'antd';
+import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
+import { Avatar, Badge, Popover, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import './index.scss'
 import { userInfo } from "../../libs/api"
+import './index.scss'
 
+const { Option } = Select;
 
 const Myheader = () => {
     const [memberInfo,setMemberInfo] = useState({})
@@ -53,8 +54,12 @@ const Myheader = () => {
                             <Popover content={content} placement="bottom" trigger="hover">
                                 <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
                             </Popover>
-                            <img className="myuseridnm" alt="用户头像2" src="/assets/userImageIdsm1.png" />
-                            <span className="myuseridonnm">Language<i className="ibn"></i></span>
+                            <div className="language-lect">
+                    <Select defaultValue="enlish" dropdownMatchSelectWidth={false} >
+                                <Option value="china"><span className="lg-zh">中 文</span></Option>
+                                <Option value="enlish"><span className="lg-en">English</span></Option>
+                            </Select>
+                        </div>
                         </div>
                     </div>
                 </div>
