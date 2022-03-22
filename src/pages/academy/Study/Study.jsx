@@ -29,23 +29,23 @@ function Study() {
 	const columns = [
 		{
 			title: '课程名称',
-			dataIndex: 'name',
-			key: 'name',
+			dataIndex: 'title',
+			key: 'title',
 		},
 		{
 			title: '最低学习时间',
-			dataIndex: 'publisher',
-			key: 'publisher',
+			dataIndex: 'min_long',
+			key: 'min_long',
 		},
 		{
 			title: '已学习时间',
-			dataIndex: 'address',
-			key: 'address',
+			dataIndex: 'study_time',
+			key: 'study_time',
 		},
 		{
 			title: '截止日期',
-			dataIndex: 'size',
-			key: 'size',
+			dataIndex: 'end_time',
+			key: 'end_time',
 		},
 		{
 			title: '进入考试',
@@ -59,7 +59,7 @@ function Study() {
 		<div className="course-all">
 			{/* 学习中 */}
 			<div className="study-in">
-				<Table dataSource={dataSource} columns={columns} />
+				<Table dataSource={dataSource.data} rowKey="user_course_id" columns={columns} />
 			</div>
 		</div>
 	)
