@@ -65,7 +65,11 @@ function Channels(props) {
         }).catch(err => { })
     }
 
-
+    const listFileType = (item) =>{
+        if(["PNG",'JPG','JPEG','GIF'].inclueds(item.type) ){
+            return ()
+        }
+    }
     return (
         <>
             {/* Banner */}
