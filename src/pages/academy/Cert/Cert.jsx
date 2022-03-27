@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { Pagination, Input ,Table} from 'antd';
+import { Pagination,Table} from 'antd';
 import { certList } from "../../../libs/api"
+import { downLoadFile } from "../../../libs/utils/function"
 
 function Cert() {
 	const [dataSource, setDataSource] = useState({
@@ -22,6 +22,10 @@ function Cert() {
 	}
 	const onPageChange = (val) => {
 		setPagination({ ...pagination, current: val })
+	}
+
+	const handleDownLoad = (url) =>{
+		downLoadFile(url)
 	}
 
 	const columns = [
@@ -47,8 +51,8 @@ function Cert() {
 			key: 'size',
 			width: 100,
 			align: 'center',
-			render: () => {
-				return <div className="coursedload"><img alt="" src="/assets/course/coursedload.png" /></div>
+			render: (text,record) => {
+				return <div className="coursedload" onClick={ ()=>handleDownLoad(record.url)}><img alt="" src="/assets/course/coursedload.png" /></div>
 			},
 		},
 	];
@@ -56,7 +60,16 @@ function Cert() {
 		<div className="course-all">
 			{/* 考试 */}
 			<div className="study-in">
-				<Table dataSource={dataSource.data} rowKey="title" columns={columns} />
+				<Table dataSource={dataSource.data} rowKey="title" columns={columns} pagination={false} />
+			</div>
+			<div className="course-paging">
+				<Pagination
+					size="small"
+					current={pagination.current}
+					pageSize={pagination.pageSize}
+					total={dataSource.total}
+					onChange={val => onPageChange(val)}
+				/>
 			</div>
 		</div>
 	)

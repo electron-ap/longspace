@@ -289,10 +289,16 @@
     margin-bottom: 20px;
 }
 .csetent-box-show{
-    height: 400px;
+    min-height: 400px;
     background: #F7F7F7;
     box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 0.25);
     text-align: center;
+    position: relative;
+    .pdf-box-mask{
+        position: absolute;
+        left: 0;right: 0;top: 0;bottom: 0;
+        background-color: #32B16C20;
+    }
 }
 .csetent-box-show img {
     width: auto;
@@ -310,4 +316,20 @@
     background: url(../../assets/course/back.png) no-repeat left center;
     padding-left: 30px;
     cursor: pointer;
+}
+
+
+.pdf-box{
+    position: relative;
+    .timer-box{
+        position: fixed;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
+        text-align: center;
+        background-color: red;
+        top:80px;
+        right: 50px;
+    }
 }

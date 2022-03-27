@@ -1,21 +1,26 @@
 import logo from "../../assets/logo.png"
 import React,{useEffect,useState} from "react";
-import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
+import {useHistory,Link } from 'react-router-dom';
 import { Avatar, Badge, Popover, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import { useLangContext } from '../../libs/utils/context'
 import { userInfo } from "../../libs/api"
 import './index.scss'
 
 const { Option } = Select;
 
 const Myheader = () => {
+    const [lang, changeLang] = useState('zh-cn');
+    const {setLang, langConfig} = useLangContext();
     const [memberInfo,setMemberInfo] = useState({})
     const history = useHistory();
     const handleLogout = ()=>{
         history.push("/")
     }
 
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
     useEffect(()=>{
         userInfo().then(res=>{
             if(res.code === 200 ){
@@ -55,9 +60,10 @@ const Myheader = () => {
                                 <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
                             </Popover>
                             <div className="language-lect">
-                    <Select defaultValue="enlish" dropdownMatchSelectWidth={false} >
-                                <Option value="china"><span className="lg-zh">中 文</span></Option>
-                                <Option value="enlish"><span className="lg-en">English</span></Option>
+                                    { langConfig.name}
+                    <Select onChange={(e) => changeLang(e)} value={lang} dropdownMatchSelectWidth={false} >
+                                <Option value="zh-cn"><span className="lg-zh">中 文</span></Option>
+                                <Option value="en-us"><span className="lg-en">English</span></Option>
                             </Select>
                         </div>
                         </div>

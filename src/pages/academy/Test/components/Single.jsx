@@ -1,18 +1,19 @@
 import React from 'react'
 import { Radio } from 'antd';
 
-function Single() {
+function  Single(props) {
+	const {item} = props
 	function onChange(e) {
-		console.log(`radio checked:${e.target.value}`);
+		props.handlepaperitem(e.target.value)
 	}
 	return (
 		<div className="singlechoice-box">
 			<div className="group-dan">
-				<Radio.Group onChange={onChange} defaultValue="a">
-					<Radio.Button value="a">A：3个步骤</Radio.Button>
-					<Radio.Button value="b">B：4个步骤</Radio.Button>
-					<Radio.Button value="c">C：5个步骤</Radio.Button>
-					<Radio.Button value="d">D：6个步骤</Radio.Button>
+				<Radio.Group onChange={onChange} >
+					<Radio.Button value="a">【 A 】 {item.option_a}</Radio.Button>
+					<Radio.Button value="b">【 B 】 {item.option_b}</Radio.Button>
+					<Radio.Button value="c">【 C 】 {item.option_c}</Radio.Button>
+					<Radio.Button value="d">【 D 】 {item.option_d}</Radio.Button>
 				</Radio.Group>
 			</div>
 		</div>

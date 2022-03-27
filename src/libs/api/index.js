@@ -46,8 +46,8 @@ export const examSubmit = (data = {}) => request.post("Exam/submit", data); //�
 export const examProgress = (params = {}) => request.get("exam/getProgress", { params });//考试进度
 export const examResult = (params = {}) => request.get("exam/result", { params });//考试结果查询
 
+export const startCourse = (data = {}) => request.post("Course/study", data); // 课程学习时间记录
 
-// 课程学习时间记录 暂无
 
 export const certList = (params = {}) => request.get("Cert/getList", { params });//考试列表
 

@@ -1,20 +1,70 @@
 import React, { useState } from 'react'
-import { Select, Input, Space } from 'antd';
+import { Form, Select, Input, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import "./Query.scss"
 
 const { Option } = Select;
-const { Search } = Input;
 
 function Query(props) {
-    const [queryDisplay, setQueryDisplay] = useState(true)
-    const [displayWay, setDisplayWay] = useState("grid") // grid list
-
+    const { formParams } = props;
+    console.log("formParams", formParams)
+    const [queryDisplay, setQueryDisplay] = useState(true) // 是否显示搜索条件
+    const [curDisplayWay, setCurDisplayWay] = useState("grid") // grid list 网格、列表视图
+    const [form] = Form.useForm();
     const changeDisplayWay = (val) => {
-        setDisplayWay(val);
+        setCurDisplayWay(val)
         props.handleDisplayWay(val)
     }
+    let initialValObj = {};
+    let tmpKey = "";
+    formParams.forEach(item=>{
+        if(item.type === "select"){
+            tmpKey= item.key;
+            initialValObj[tmpKey] = undefined
+        }
+    })
+    const renderMyFormFields = (formParams) => {
+        return formParams.map((item, index) => {
+            switch (item.type) {
+                case "select":
+                    return (
+                        <Form.Item className="SnSelect-style" name={item.key} key={`p${index}`} >
+                            <Select placeholder={item.label} allowClear>
+                                {
+                                    item.options.map((sonItem, sonKey) => {
+                                        return <Option value={sonItem.value} key={`s${sonKey}`}>{sonItem.label}</Option>
+                                    })
+                                }
+                            </Select>
+                        </Form.Item>
+                    )
+                case "text":
+                    return (
+                        <Form.Item className="SnSpace-style" name={item.key} key={`p${index}`}>
+                            <Input placeholder={item.label}  />
+                        </Form.Item>
+                    )
+                default:
+                    return null;
+            }
+        })
+    }
+    // setTimeout(()=>{
+    //     console.log("initialValObj:",initialValObj)
+    //     form.setFieldsValue({...initialValObj})
+    // },1000)
 
-    const onSearch = value => console.log(value);
+    const handleFormQuery = async () => {
+        let formres = await form.getFieldsValue();
+        Object.keys(formres).forEach(key=>{
+            console.log(key,formres[key])
+            if(formres[key] === undefined){
+                formres[key] = "";
+            }
+        })
+        console.log("handleFormQuery formres", formres)
+        props.handleFormQuery(formres)
+    }
 
     return (
         <div className="SnSearch-box">
@@ -22,35 +72,28 @@ function Query(props) {
                 <div className="SnSearch-tle">{props.children}</div>
                 <button className="SnSearch-sh" onClick={() => { setQueryDisplay(!queryDisplay) }}>筛选</button>
                 <div className="SnSearch-right">
-                    <button className="list-pct" onClick={() => { changeDisplayWay('grid') }}></button>
-                    <button className="list-tst" onClick={() => { changeDisplayWay('list') }}></button>
+                    <button className={curDisplayWay==="grid"?"list-pcton":"list-pct"} onClick={() => { changeDisplayWay('grid') }}></button>
+                    <button className={curDisplayWay==="list"?"list-tston":"list-tst"}  onClick={() => { changeDisplayWay('list') }}></button>
                 </div>
             </div>
-
             <div className="SnSearch-tn" style={{ display: queryDisplay ? "block" : 'none' }} >
                 <div>
-                    <Select className="SnSelect-style" defaultValue="行业">
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                    </Select>
-                    <Select className="SnSelect-style" defaultValue="应用">
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                    </Select>
-                    <Select className="SnSelect-style" defaultValue="文件格式">
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                    </Select>
-                    <Space className="SnSpace-style" direction="vertical">
-                        <Search placeholder="input search text" onSearch={onSearch} enterButton />
-                    </Space>
+                    <Form form={form} layout="inline" initialValues={{...initialValObj}}>
+                        {
+                            renderMyFormFields(formParams)
+                        }
+                        <Form.Item>
+                            <Button icon={<SearchOutlined />} onClick={() => handleFormQuery()} ></Button>
+                        </Form.Item>
+                    </Form>
                 </div>
-                <div className="search-option">
+
+                {/* <div className="search-option">
                     <span className="sn-option-on">行业ABC<span className="option-poor">×</span></span>
                     <span className="sn-option-on">PDF<span className="option-poor">×</span></span>
                 </div>
                 <button className="screen-pon screen-pon-on">应用筛选</button>
-                <button className="screen-pon">清除筛选</button>
+                <button className="screen-pon">清除筛选</button> */}
             </div>
         </div>
     )

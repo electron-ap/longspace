@@ -1,13 +1,12 @@
-import React, { useContext } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom';
-
+import React from 'react'
+import { Route, Switch } from 'react-router-dom';
+import ParamsContextProvider from './libs/utils/context';
 import AdminLayout from "./pages/layout/AdminLayout"
 import { webRoutes } from "./routes/index"
 
-const LangContext = React.createContext();
 export default function App(){
 	return (
-		<LangContext.Provider value={{ lang: 'zh-cn', langPackage: { 'title': "标题" } }}>
+		<ParamsContextProvider>
 			<div className="loadingz">
 				<Switch>
 					{/*后台路由*/}
@@ -24,6 +23,6 @@ export default function App(){
 					{/* <Redirect to="/404" /> */}
 				</Switch>
 			</div>
-		</LangContext.Provider>
+		</ParamsContextProvider>
 	)
 }

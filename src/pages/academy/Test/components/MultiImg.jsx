@@ -1,9 +1,10 @@
 import React from 'react'
 import { Checkbox, Row, Col } from 'antd';
 
-function MultiImg() {
+function MultiImg(props) {
+	const {item} = props
 	function onChange(checkedValues) {
-		console.log('checked = ', checkedValues);
+		props.handlepaperitem(checkedValues)
 	}
 	return (
 		<div className="singlechoice-box">
@@ -11,16 +12,16 @@ function MultiImg() {
 				<Checkbox.Group style={{ width: '100%' }} onChange={onChange}>
 					<Row>
 						<Col span={8}>
-							<Checkbox value="A"><span className="duo-span">A：3个步骤</span><img className="duo-img" alt="" src="../../../assets/course/pct01.png" /></Checkbox>
+							<Checkbox value="a"><span className="duo-span">A：{item.option_a}</span><img className="duo-img" alt="" src={item.option_a_img} /></Checkbox>
 						</Col>
 						<Col span={8}>
-							<Checkbox value="B"><span className="duo-span">B：3个步骤</span><img className="duo-img" alt="" src="../../../assets/course/pct01.png" /></Checkbox>
+							<Checkbox value="b"><span className="duo-span">B：{item.option_b}</span><img className="duo-img" alt="" src={item.option_b_img} /></Checkbox>
 						</Col>
 						<Col span={8}>
-							<Checkbox value="C"><span className="duo-span">C：3个步骤</span><img className="duo-img" alt="" src="../../../assets/course/pct01.png" /></Checkbox>
+							<Checkbox value="c"><span className="duo-span">C：{item.option_c}</span><img className="duo-img" alt="" src={item.option_c_img} /></Checkbox>
 						</Col>
 						<Col span={8}>
-							<Checkbox value="D"><span className="duo-span">D：3个步骤</span><img className="duo-img" alt="" src="../../../assets/course/pct01.png" /></Checkbox>
+							<Checkbox value="d"><span className="duo-span">D：{item.option_d}</span><img className="duo-img" alt="" src={item.option_d_img} /></Checkbox>
 						</Col>
 					</Row>
 				</Checkbox.Group>

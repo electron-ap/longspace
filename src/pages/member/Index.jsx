@@ -76,7 +76,7 @@ function Index(props) {
 					</ul>
 				</div>
 
-				<div className="admin-sort-tent">
+				<div className="admin-sort-tent member-body-height">
 					{tabTarget()}
 
 				</div>

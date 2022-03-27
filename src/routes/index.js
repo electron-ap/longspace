@@ -9,6 +9,7 @@ import DigitalChannels from '../pages/digital/Channels';
 import DigitalDetail from '../pages/digital/DigitalDetail';
 import Academy from '../pages/academy/Academy';
 import CourseDetail from '../pages/academy/Course/Detail';
+import CourseDetailPdf from '../pages/academy/Course/DetailPdf';
 import CourseList from '../pages/academy/Course/Course';
 import StudyList from '../pages/academy/Study/Study';
 import Finished from '../pages/academy/Finished/Finished';
@@ -17,9 +18,9 @@ import CertList from '../pages/academy/Cert/Cert';
 import Testing from '../pages/academy/Test/Test'; // 考试页面
 
 import MemberIndex from "../pages/member/Index"
-import Account from "../pages/member/Account"
-import Staff from "../pages/member/Staff"
-import Favorites from "../pages/member/Favorites"
+// import Account from "../pages/member/Account"
+// import Staff from "../pages/member/Staff"
+// import Favorites from "../pages/member/Favorites"
 
 export const webRoutes = [
     {
@@ -31,6 +32,15 @@ export const webRoutes = [
         path: "/user/forgetpwd",
         component: ForgetPwd,
         exact: true
+    },
+
+    {
+        path: "/courseDetailPdf/:id",
+        component: CourseDetailPdf,
+        title: "DetailPdf",
+        display: true,
+        exact: false,
+        children: [],
     },
     {
         path: '/404',
@@ -139,6 +149,5 @@ export const adminRoutes = [
         display: true,
         exact: false,
         children: [],
-    },
-
+    }
 ]

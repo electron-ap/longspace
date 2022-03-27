@@ -33,9 +33,11 @@
 }
 
 .option-questions-tle{
-    display: flex;
-	justify-content: left;
-    height: 30px;
+    // display: flex;
+	// justify-content: left;
+    // height: 30px;
+    padding-left: 40px;
+    text-indent: -2em;
     font-size: 20px;
     color: #333333;
     line-height: 30px;
@@ -287,7 +289,7 @@
 }
 .popup-box .option-questions-tle{
     font-size: 16px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 .btn-style-exam{
     display: inline-block;
@@ -451,6 +453,7 @@
     padding: 30px 30px 30px;
     background-color: #fff;
     border-radius: 4px;
+    z-index: 10;
 }
 .result-box-close{
     width: 20px;
@@ -522,6 +525,8 @@
 }
 .result-answer-p{
     height: 80px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
     font-size: 14px;
     color: #E56C37;
     line-height: 24px;

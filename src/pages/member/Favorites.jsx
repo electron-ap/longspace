@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Pagination } from 'antd';
-import { favoritesList } from "../../libs/api"
+import { Button, Pagination, Modal, message } from 'antd';
+import { favoritesList,favoritesRemove } from "../../libs/api"
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+const { confirm } = Modal;
+
 function Favorites() {
 	const [dataSource, setDataSource] = useState({
 		data: [],
@@ -13,12 +16,30 @@ function Favorites() {
 	const getDataSource = () => {
 		favoritesList({ page: pagination.current, limit: pagination.pageSize, }).then(res => {
 			if (res.code === 200 && res.data.length > 0) {
-				setDataSource({ data: res.data, total: res.data.count })
+				setDataSource({ data: res.data, total: res.count })
 			}
 		}).catch(err => { })
 	}
 	const onPageChange = (val) => {
 		setPagination({ ...pagination, current: val })
+	}
+
+	const removeMyFavorites = (val) => {
+		confirm({
+			title: '确定删除吗？',
+			icon: <ExclamationCircleOutlined />,
+			onOk() {
+				favoritesRemove({ favorites_id:val }).then(res => {
+					if (res.code === 204) {
+						getDataSource();
+					}
+					message.info(res.msg);
+				}).catch(err => { })
+			},
+			onCancel() {
+				
+			},
+		});
 	}
 
 	return (
@@ -27,14 +48,6 @@ function Favorites() {
 				<div className="frts-tle">收藏夹内容数量：{dataSource.total}</div>
 				<div className="frts-tent">
 					<ul className="frts-ul">
-						<li className="frts-li">
-							<div className="frts-li-box">
-								<div className="frts-li-tle">3D打印机的型号</div>
-								<div className="frts-li-p">所属分类：耗材</div>
-								<button className="frts-up">查看</button>
-								<button className="frts-remove">移除</button>
-							</div>
-						</li>
 						{
 							dataSource.data.length > 0 && dataSource.data.map(item => {
 								return (
@@ -43,7 +56,7 @@ function Favorites() {
 											<div className="frts-li-tle">{item.file_name}</div>
 											<div className="frts-li-p">所属分类：{item.nav}</div>
 											<button className="frts-up">查看</button>
-											<button className="frts-remove">移除</button>
+											<button className="frts-remove" onClick={()=>removeMyFavorites(item.favorites_id)}>移除</button>
 										</div>
 									</li>
 								)

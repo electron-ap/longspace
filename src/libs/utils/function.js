@@ -20,6 +20,25 @@ export const getMonthStartToToday = () => {
     return [firstDay, curDay]
 }
 
+// 秒转为时分秒
+export const formatSeconds = (value, format = ':') => {
+    let result = parseInt(value)
+    let h = Math.floor(result / 3600) < 10 ? '0' + Math.floor(result / 3600) : Math.floor(result / 3600);
+    let m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
+    let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+    let res = '';
+    if (format === 'hms') {
+        if (h !== '00') res += `${h}h`;
+        res += `${m}m`; //if (m !== '00') 
+        res += `${s}s`;
+    } else {
+        if (h !== '00') res += `${h}:`;
+        res += `${m}:`; //if (m !== '00')
+        res += `${s}`;
+    }
+    return res;
+}
+
 /**
 * 验证数据 是数字：返回true；不是数字：返回false
 **/
@@ -128,6 +147,18 @@ export function download(link, name) {
     eleLink.click()
     document.body.removeChild(eleLink)
 }
+
+/**
+     * @desc 下载文件
+     * */
+export function downLoadFile(url) {
+    const linkElement = document.createElement('a');
+    linkElement.style.display = 'none';
+    linkElement.href = url;
+    document.body.appendChild(linkElement);
+    linkElement.click();
+    document.body.removeChild(linkElement);
+};
 
 export function formatDate(date) {
     date = new Date(Date.parse(date)); //转换成Data();.replace(/-/g, "/")

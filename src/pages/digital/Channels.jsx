@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Pagination, Select, Input, Space } from 'antd';
+import { Pagination, Select, Input, Space, message } from 'antd';
 import Query from '../../components/query/Query';
 import "./index.scss"
-import { moduleBasic, moduleDataList } from "../../libs/api"
+import { moduleBasic, moduleDataList,isFavorites } from "../../libs/api"
 
 const { Option } = Select;
 
@@ -18,11 +18,15 @@ function Channels(props) {
     const [displayWay, setDisplayWay] = useState("grid") // grid list
     const [navInfo, setNavInfo] = useState({})
     const [formParams, setFormParams] = useState([])
+    const [formQuery, setFormQuery] = useState({})
+
 
     useEffect(() => {
         getBasic()
+    }, [])
+    useEffect(() => {
         getDataSource()
-    }, [pagination])
+    }, [pagination,formQuery])
 
     // Banner图及筛选条件
     const getBasic = () => {
@@ -34,9 +38,9 @@ function Channels(props) {
         }).catch(err => { })
     }
     const getDataSource = () => {
-        moduleDataList({ nav_id, page: pagination.current, limit: pagination.pageSize, }).then(res => {
+        moduleDataList({ nav_id, page: pagination.current, limit: pagination.pageSize,...formQuery }).then(res => {
             if (res.code === 200) {
-                setDataSource({ data: res.data, total: res.data.count })
+                setDataSource({ data: res.data, total: res.count })
             }
         }).catch(err => { })
     }
@@ -47,6 +51,19 @@ function Channels(props) {
     const handleDisplayWay = (val) => {
         setDisplayWay(val)
     }
+    const handleFormQuery = (obj) =>{
+        setFormQuery({...obj})
+        console.log("父组件中.handleFormQuery",obj)
+    }
+
+    const doFavorites = (val) =>{
+        isFavorites({ file_id:val }).then(res => {
+            if (res.code === 204) {
+                getDataSource()
+            }
+            message.info(res.msg)
+        }).catch(err => { })
+    }
 
 
     return (
@@ -55,11 +72,11 @@ function Channels(props) {
             <div className="subpage-banner" style={{ background: `url(${navInfo.banner}) no-repeat top center` }}>
                 <div className="subpage-tent">
                     <div className="subpage-tle">Digital Assets</div>
-                    <div className="subpage-rln">当前位置：<span className="subpage-index"><Link to="/agent/dashboard">首页</Link></span> - 案例</div>
+                    <div className="subpage-rln">当前位置：<span className="subpage-index"><Link to="/agent/dashboard">首页</Link></span> - {navInfo.title}</div>
                 </div>
             </div>
 
-            <Query handleDisplayWay={handleDisplayWay} >{navInfo.title}</Query>
+            <Query formParams={formParams} handleDisplayWay={handleDisplayWay} handleFormQuery={handleFormQuery} >{navInfo.title}</Query>
 
 
             <div className="snlist-box">
@@ -73,7 +90,7 @@ function Channels(props) {
                                             <li className="list-sntems" key={item.file_id}>
                                                 <div className="list-box">
                                                     <img className="list-img" src={item.cover} alt="" />
-                                                    <span className="list-pdf">{item.file_name}</span>
+                                                    <span className="list-pdf">{item.type}</span>
                                                 </div>
                                                 <p className="snlist-title"><span className="snlist-title-pc pctest"></span>{item.file_name}</p>
                                             </li>
@@ -97,12 +114,14 @@ function Channels(props) {
                                     dataSource.data.map(item => {
                                         return (
                                             <tr key={item.file_id}>
-                                                <td className="tb-td-color01 th-with01"><span className="td-pc td-pctest">展会名称ABCDEF</span></td>
+                                                <td className="tb-td-color01 th-with01"><span className="td-pc td-pctest">{item.file_name}</span></td>
                                                 <td className="tb-td-color01 th-with02">RAISE3D</td>
-                                                <td className="tb-td-color01 th-with03"><span>{item.file_name}</span></td>
+                                                <td className="tb-td-color01 th-with03"><span>{item.type}</span></td>
                                                 <td className="tb-td-color01 th-with04">{item.size}</td>
                                                 <td className="tb-td-color02 th-with05">{item.create_time}</td>
-                                                <td className="tb-td-color03 th-with06"><span className={item.is_favorites ===1 ?"td-collection td-collectionon":"td-collection td-collectionof"}>加入收藏</span></td>
+                                                {
+                                                    item.is_favorites===1?<td className="tb-td-color03 th-with06"><span className="td-collection td-collectionon" onClick={()=>doFavorites(item.file_id)}>取消收藏</span></td>:<td className="tb-td-color03 th-with06"><span className="td-collection td-collectionof" onClick={()=>doFavorites(item.file_id)}>加入收藏</span></td>
+                                                }
                                             </tr>
                                         )
                                     })

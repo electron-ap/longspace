@@ -1,15 +1,21 @@
 import React from 'react'
 import { Checkbox } from 'antd';
 
-function Multi() {
-	const plainOptions = ['A：3个步骤', 'B：4个步骤', 'C：5个步骤', 'D：6个步骤'];
+function Multi(props) {
+	const {item} = props
+	const plainOptions = [
+		{label:`A:${item.option_a}`,value:'a'},
+		{label:`B:${item.option_b}`,value:'b'},
+		{label:`C:${item.option_c}`,value:'c'},
+		{label:`D:${item.option_d}`,value:'d'},
+	];
 	function onChange(checkedValues) {
-		console.log('checked = ', checkedValues);
+		props.handlepaperitem(checkedValues)
 	}
 	return (
 		<div className="singlechoice-box">
 			<div className="group-duo">
-				<Checkbox.Group options={plainOptions} defaultValue={['A：3个步骤']} onChange={onChange} />
+				<Checkbox.Group options={plainOptions} onChange={onChange} />
 			</div>
 		</div>
 	)

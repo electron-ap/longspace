@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { Pagination, Input ,Table} from 'antd';
+import { Pagination,Table} from 'antd';
 import { examList } from "../../../libs/api"
 
 function Exam() {
@@ -75,7 +74,7 @@ function Exam() {
 		<div className="course-all">
 			{/* 考试 */}
 			<div className="study-in">
-				<Table dataSource={dataSource.data} columns={columns} pagination={false} />
+				<Table dataSource={dataSource.data} rowKey="topic_id" columns={columns} pagination={false} />
 			</div>
 			<div className="course-paging">
 				<Pagination

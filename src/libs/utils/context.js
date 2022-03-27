@@ -16,13 +16,13 @@ ParamsProvider.displayName = "langContext";
 
 
 const ParamsContextProvider = ({children}) => {
-  const [lang, setLang] = useState('zh');
+  const [lang, setLang] = useState('zh-cn');
   const langConfig = useMemo(() => {
     const obj = {
-      'zh': {
+      'zh-cn': {
         name: '标题'
       },
-      'en': {
+      'en-us': {
         name: 'Title'
       }
     }

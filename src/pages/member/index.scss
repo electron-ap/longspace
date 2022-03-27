@@ -151,50 +151,51 @@
     padding: 30px 35px 30px;
     background-color: #fff;
     border-radius: 4px;
+    .password-box-tle{
+        font-size: 20px;
+        color: #333333;
+        line-height: 26px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .act-inputTwo{
+        height: 40px;
+        color: #333;
+        border-radius: 0;
+        margin-bottom: 15px;
+    }
+    .act-cancel{
+        width: 120px;
+        height: 40px;
+        font-size: 14px;
+        color: #333;
+        background: #FFFFFF;
+        border: 1px solid #E5E5E5;
+        border-radius: 23px;
+        margin: 5px 20px 0 35px;
+    }
+    .act-confirm{
+        width: 120px;
+        height: 40px;
+        font-size: 14px;
+        color: #fff;
+        background: #C30D23 ;
+        border: 1px solid #C30D23 ;
+        border-radius: 23px;
+        margin: 5px 0 0;
+    }
+    .act-cancel:hover,.act-cancel:focus{
+        color: #333;
+        background: #FFFFFF;
+        border: 1px solid #E5E5E5;
+    }
+    .act-confirm:hover,.act-confirm:focus{
+        background: #d50e26;
+        color: #fff;
+        border: 1px solid #C30D23 ;
+    }
 }
-.password-box-tle{
-    font-size: 20px;
-    color: #333333;
-    line-height: 26px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.act-inputTwo{
-    height: 40px;
-    color: #333;
-    border-radius: 0;
-    margin-bottom: 15px;
-}
-.act-cancel{
-    width: 120px;
-    height: 40px;
-    font-size: 14px;
-    color: #333;
-    background: #FFFFFF;
-    border: 1px solid #E5E5E5;
-    border-radius: 23px;
-    margin: 5px 20px 0 35px;
-}
-.act-confirm{
-    width: 120px;
-    height: 40px;
-    font-size: 14px;
-    color: #fff;
-    background: #C30D23 ;
-    border: 1px solid #C30D23 ;
-    border-radius: 23px;
-    margin: 5px 0 0;
-}
-.act-cancel:hover,.act-cancel:focus{
-    color: #333;
-    background: #FFFFFF;
-    border: 1px solid #E5E5E5;
-}
-.act-confirm:hover,.act-confirm:focus{
-    background: #d50e26;
-    color: #fff;
-    border: 1px solid #C30D23 ;
-}
+
 
 /* 收藏夹 */
 .frts-tle{
@@ -450,4 +451,155 @@
 }
 .member-input{
     margin-bottom: 16px;
+}
+
+/* 代理商成员 */
+.add-members{
+    display: block;
+    width: 136px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    background: #C30D23;
+    border-radius: 17px;
+    position: absolute;
+    right: 0;
+    top: -15px;
+    cursor: pointer;
+}
+
+.member-ul{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.member-li{
+    width: 340px;
+}
+.member-li-box{
+    width: 340px;
+    height: 200px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 4px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 25px 20px 0;
+}
+.member-li-box:hover{
+    box-shadow: 0px 3px 10px 0px rgba(131, 131, 131, 0.23);
+}
+.member-li-box:hover .member-setup{
+    display: block;
+}
+.member-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    position: absolute;
+    top: 25px;
+    left: 20px;
+}
+.member-li-tle{
+    font-size: 16px;
+    color: #333333;
+    line-height: 20px;
+    padding: 12px 0 5px 73px;
+}
+.member-li-p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    line-height: 20px;
+    padding:0 0 35px 73px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+.member-table table tr th,.member-table table tr td{
+    text-align: center;
+}
+.member-table table tr th{
+    border: none;
+    background: none;
+    padding: 0 0 5px;
+    font-size: 14px;
+    color: #666;
+}
+.member-table .ant-table-container table > thead > tr:first-child th:first-child{
+    border-top-left-radius: 0;
+}
+.member-table .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
+ display: none;
+}
+.member-table table tr td{
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 14px;
+    color: #333;
+}
+.member-table .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: none;
+}
+.member-setup{
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+.member-up{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #25519A;
+    line-height: 20px;
+    cursor: pointer;
+}
+.member-remove{
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #C30D23;
+    line-height: 20px;
+    cursor: pointer;
+    margin-left: 18px;
+}
+/* 申请删除成员-弹窗 */
+.member-box-p{
+    font-size: 14px;
+    color: #666;
+    line-height: 26px;
+    margin-bottom: 50px;
+    padding: 0 30px;
+}
+.member-box-input .ant-input-affix-wrapper > input.ant-input{
+    height: 30px;
+}
+.member-input{
+    margin-bottom: 16px;
+}
+
+// 我的成员 修改table为li
+.member-chengeli{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7px;
+}
+.member-chengeli li span,.member-chengeli li p{
+    display: block;
+    padding: 0;
+    color: #666666;
+    font-size: 14px;
+    text-align: center;
+}
+.member-chengeli li p{
+    color: #333;
+
+}
+
+.member-body-height{
+    min-height: 300px;
 }
