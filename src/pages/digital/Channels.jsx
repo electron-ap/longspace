@@ -176,7 +176,7 @@ function Channels(props) {
                         ) : (
                             <>
                                 <div className='table-info-title'>
-                                    <div className='info-title-count'>全部内容 <span>{dataSource.total}</span></div>
+                                    <div className='info-title-count'>{langConfig.total} <span>{dataSource.total}</span></div>
                                     <div className='info-title-sort' >
                                         {/* 按时间排序 <ArrowUpOutlined /> <ArrowDownOutlined /> */}
                                     </div>
@@ -209,7 +209,7 @@ function Channels(props) {
                                                             <td className="tb-td-color01 th-with04">{item.size}</td>
                                                             <td className="tb-td-color02 th-with05">{item.create_time}</td>
                                                             {
-                                                                item.is_favorites === 1 ? <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>取消收藏</span></td> : <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>加入收藏</span></td>
+                                                                item.is_favorites === 1 ? <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>{langConfig.d_add_fav}</span></td> : <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>{langConfig.d_remove_fav}</span></td>
                                                             }
                                                         </tr>
                                                     )

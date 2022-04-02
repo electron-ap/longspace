@@ -66,7 +66,7 @@ function Academy(props) {
                 backgroundSize: 'cover',
             }} className="coursed-banner">
                 <div className="coursed-tent">
-                    <div className="coursed-tle">{userName===""?"Sales Partner Academy":`成员：${userName}`}</div>
+                    <div className="coursed-tle">{userName===""?"Sales Partner Academy":`${langConfig.staff}：${userName}`}</div>
                     <div className="coursed-rln">{langConfig.postion}：<span className="coursed-index"> <Link to="/agent/dashboard" className='a-white'>{langConfig.home}</Link></span> - <span>Sales Partner Academy</span></div>
                 </div>
             </div>

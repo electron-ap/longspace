@@ -47,11 +47,20 @@ export const langList = {
         comfirm_del:"确认删除吗？",
 
         // 课程状态
+        staff:"成员",
+        check_all:"全选",
+        all_course:"全部课程",
+        open_course:"开放课程",
+        close_course:"关闭课程",
         c_course:"课程",
         c_study:"学习中",
         c_complete:"已完成",
         c_test:"考试",
         c_cert:"证书",
+
+        // assets
+        d_add_fav:"加入收藏",
+        d_remove_fav:"取消收藏",
 
     },
     'en-us': {
@@ -101,10 +110,19 @@ export const langList = {
         comfirm_del:"comfirm delete ？",
 
         // 课程状态
-        c_course:"Course",
+        staff:"staff",
+        check_all:"select all",
+        all_course:"all course",
+        open_course:"open course",
+        close_course:"close course",
+        c_course:"course",
         c_study:"study",
         c_complete:"complete",
         c_test:"test",
         c_cert:"certificate",
+
+        // assets
+        d_add_fav:"add favorite",
+        d_remove_fav:"remove favorite",
     }
 }

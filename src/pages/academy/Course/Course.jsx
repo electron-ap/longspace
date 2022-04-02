@@ -4,12 +4,20 @@ import { Pagination, Input, Checkbox, Tree } from 'antd';
 import "../index.scss"
 import { courseList, memberCourseList, memberCourseOnOff } from "../../../libs/api"
 import { formatSeconds } from "../../../libs/utils/function"
+import { useLangContext } from '../../../libs/utils/context'
 import { message } from 'antd';
 const { Search } = Input;
 function Course(props) {
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
 	const [agentAdmin, setAgentAdmin] = useState(false);
 	const [keyword, setKeyword] = useState("");
-	console.log("course props", props)
+	// console.log("course props", props)
 	let userId = props.match.params.user_id || ""
 
 	const [dataSource, setDataSource] = useState({
@@ -54,15 +62,69 @@ function Course(props) {
 	};
 
 
-	const [defaultCheckList, setDefaultCheckList] = useState([])
-	const [onOffStatus, setOnOffStatus] = useState(1) // 开放关闭课程
-	const onCheckAllChange = (val) => {
 
+	const [onOffStatus, setOnOffStatus] = useState(1) // 开放关闭课程
+
+	// 全选
+	const onCheckAllChange = (e) => {
+		let _data = dataSource.data;
+		let _son_data = [];
+		_data.forEach((item, index) => {
+			_data[index].is_add = e.target.checked ? 1 : 0;
+			_son_data = item.children
+			if (_son_data.length > 0) {
+				_son_data.forEach((itemson, indexson) => {
+					_son_data[indexson].is_add = e.target.checked ? 1 : 0;
+				})
+			}
+			_data[index].children = _son_data;
+		})
+		setDataSource({ data: _data })
 	}
-	const onCheckBoxChange = (val) => {
-		console.log("onCheckBoxChange", val)
-		// setDefaultCheckList(val)
+	const onParItemCheckChange = (e, val) => {
+		console.log("onParItemCheckChange", e, val)
+		let _data = dataSource.data;
+		let _son_data = [];
+		_data.forEach((item, index) => {
+			if (item.course_id === val) {
+				_data[index].is_add = e.target.checked ? 1 : 0;
+				_son_data = item.children
+				if (_son_data.length > 0) {
+					_son_data.forEach((itemson, indexson) => {
+						_son_data[indexson].is_add = e.target.checked ? 1 : 0;
+					})
+				}
+				_data[index].children = _son_data;
+			}
+		})
+		setDataSource({ data: _data })
 	}
+	const onSonItemCheckChange = (e, val) => {
+		let _data = dataSource.data;
+		let _son_data = [];
+		let _son_checked_len = 0;
+		_data.forEach((item, index) => {
+			_son_data = item.children
+			_son_data.forEach((itemson, indexson) => {
+				if (itemson.course_id === val) {
+					_son_data[indexson].is_add = e.target.checked ? 1 : 0;
+				}
+			})
+			_data[index].children = _son_data;
+			if (_son_data.length > 0) {
+				_son_data.forEach((itemson, indexson) => {
+					if (itemson.is_add) {
+						_son_checked_len += 1;
+					}
+				})
+				_data[index].is_add = _son_data.length === _son_checked_len ? true : false
+			}
+
+			_son_checked_len = 0;
+		})
+		setDataSource({ data: _data })
+	}
+
 	const openCourse = () => {
 		setOnOffStatus(1)
 		handleMemberCourseOnOff()
@@ -74,7 +136,24 @@ function Course(props) {
 
 	// 开放 关闭 课程
 	const handleMemberCourseOnOff = () => {
-		memberCourseOnOff({ user_id: 33, course: JSON.stringify([54,55,56]), status: onOffStatus }).then(res => {
+		let course_id_arr = [];
+		let _data = dataSource.data;
+		let _son_data = [];
+		_data.forEach((item) => {
+			if (item.is_add) {
+				course_id_arr.push(item.course_id)
+				_son_data = item.children
+				if (_son_data.length > 0) {
+					_son_data.forEach((itemson) => {
+						if (itemson.is_add) {
+							course_id_arr.push(itemson.course_id)
+						}
+					})
+				}
+			}
+		})
+
+		memberCourseOnOff({ user_id: userId, course: JSON.stringify(course_id_arr), status: onOffStatus }).then(res => {
 			message.info(res.msg)
 		}).catch(err => {
 
@@ -84,59 +163,63 @@ function Course(props) {
 	return (
 		<div className="course-all">
 			<div className="course-search">
-				<div className="cs-search-left">全部课程</div>
+				<div className="cs-search-left"> {langConfig.all_course} </div>
 				<div className="cs-search-right">
 					<Search placeholder="搜索课程" onSearch={onSearch} enterButton />
 				</div>
 			</div>
 			{
 				agentAdmin ? (<div className='auth-course-box'>
-					<div className='chk-box'><Checkbox onChange={onCheckAllChange}><span>全选</span></Checkbox></div>
-					<div className='auth-btn' style={{ color: "#0150C8" }} onClick={openCourse}>开放课程</div>
-					<div className='auth-btn' style={{ color: "#C30D23" }} onClick={closeCourse}>关闭课程</div>
+					<div className='chk-box'><Checkbox onChange={onCheckAllChange}><span>{langConfig.check_all}</span></Checkbox></div>
+					<div className='auth-btn' style={{ color: "#0150C8" }} onClick={openCourse}>{langConfig.open_course}</div>
+					<div className='auth-btn' style={{ color: "#C30D23" }} onClick={closeCourse}>{langConfig.close_course}</div>
 				</div>) : null
 			}
 
+			<div className="course-all-tent">
+				<ul>
+					{
+						dataSource.data.map((item, index) => {
+							return (
+								<li key={`par${index}`}>
+									<div className="course-series">
+										<div className="course-series-left">
+											<span style={{ paddingRight: "12px" }}>
 
-			<Checkbox.Group style={{ width: "100%" }} defaultValue={defaultCheckList} onChange={onCheckBoxChange} key={Date().valueOf()}>
-				<div className="course-all-tent">
-					<ul>
-						{
-							dataSource.data.map((item, index) => {
-								return (
-									<li key={`par${index}`}>
-										<div className="course-series">
-											<div className="course-series-left">
-												<span style={{ paddingRight: "12px" }}>
-													<Checkbox onChange={onCheckAllChange} value={item.course_id}></Checkbox>
-												</span>{item.title}
-												<span className={item.topic !== "0" ? "courseon" : ""}></span></div>
-											<button className="cs-ser-on cs-ser-showon">展开</button>
-										</div>
-										<div className="course-series-nr">
-											<Checkbox.Group style={{ width: "100%" }} defaultValue={defaultCheckList} onChange={onCheckBoxChange} key={Date().valueOf()}>
 												{
-													item.children.map((child, indexc) => {
-														return (
-															<div className="series-nr-list" key={`par${indexc}`}>
-																<p className="srsnr-rt">
-																	<span style={{ paddingRight: "12px" }}>
-																		<Checkbox onChange={onCheckAllChange} value={child.course_id}></Checkbox></span>
-																	<Link to={{ pathname: '/agent/courseDetail/' + child.user_course_id }}>{child.title}</Link></p>
-																<span className="srsnr-lf">最低学习时间：{formatSeconds(child.min_long)}</span>
-															</div>
-														)
-													})
+													agentAdmin ? (<Checkbox onChange={(e) => onParItemCheckChange(e, item.course_id)} checked={item.is_add ? true : false}></Checkbox>) : null
 												}
-											</Checkbox.Group>
-										</div>
-									</li>
-								)
-							})
-						}
-					</ul>
-				</div>
-			</Checkbox.Group>
+
+											</span>{item.title}
+											<span className={item.topic !== "0" ? "courseon" : ""}></span></div>
+										<button className="cs-ser-on cs-ser-showon">展开</button>
+									</div>
+									<div className="course-series-nr">
+										{
+											item.children.map((child, indexc) => {
+												return (
+													<div className="series-nr-list" key={`par${indexc}`}>
+														<p className="srsnr-rt">
+															<span style={{ paddingRight: "12px" }}>
+
+																{
+																	agentAdmin ? (<Checkbox onChange={(e) => onSonItemCheckChange(e, child.course_id)} checked={child.is_add ? true : false}></Checkbox>) : null
+																}
+
+															</span>
+															<Link to={{ pathname: '/agent/courseDetail/' + child.user_course_id }}>{child.title}</Link></p>
+														<span className="srsnr-lf">最低学习时间：{formatSeconds(child.min_long)}</span>
+													</div>
+												)
+											})
+										}
+									</div>
+								</li>
+							)
+						})
+					}
+				</ul>
+			</div>
 			<div className="course-paging">
 				<Pagination
 					size="small"
