@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Form, Select, Input, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import "./Query.scss"
+import { useLangContext } from '../../libs/utils/context'
 
 const { Option } = Select;
 
 function Query(props) {
     const { formParams } = props;
     console.log("formParams", formParams)
-    const [queryDisplay, setQueryDisplay] = useState(true) // 是否显示搜索条件
+    let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
+    const [queryDisplay, setQueryDisplay] = useState(false) // 是否显示搜索条件
     const [curDisplayWay, setCurDisplayWay] = useState("grid") // grid list 网格、列表视图
     const [form] = Form.useForm();
     const changeDisplayWay = (val) => {
@@ -29,7 +37,7 @@ function Query(props) {
                 case "select":
                     return (
                         <Form.Item className="SnSelect-style" name={item.key} key={`p${index}`} >
-                            <Select placeholder={item.label} allowClear>
+                            <Select placeholder={item.lable} allowClear>
                                 {
                                     item.options.map((sonItem, sonKey) => {
                                         return <Option value={sonItem.value} key={`s${sonKey}`}>{sonItem.label}</Option>
@@ -39,9 +47,10 @@ function Query(props) {
                         </Form.Item>
                     )
                 case "text":
+                    console.log(item, item.label);
                     return (
                         <Form.Item className="SnSpace-style" name={item.key} key={`p${index}`}>
-                            <Input placeholder={item.label}  />
+                            <Input placeholder={item.lable}  />
                         </Form.Item>
                     )
                 default:
@@ -70,7 +79,11 @@ function Query(props) {
         <div className="SnSearch-box">
             <div className="SnSearch-tent">
                 <div className="SnSearch-tle">{props.children}</div>
-                <button className="SnSearch-sh" onClick={() => { setQueryDisplay(!queryDisplay) }}>筛选</button>
+                
+                
+                <button className={
+                    queryDisplay?"SnSearch-shon":'SnSearch-sh'} onClick={() => { setQueryDisplay(!queryDisplay) }}>{langConfig.filters}</button>
+
                 <div className="SnSearch-right">
                     <button className={curDisplayWay==="grid"?"list-pcton":"list-pct"} onClick={() => { changeDisplayWay('grid') }}></button>
                     <button className={curDisplayWay==="list"?"list-tston":"list-tst"}  onClick={() => { changeDisplayWay('list') }}></button>

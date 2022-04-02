@@ -9,7 +9,7 @@ export const savePassword = (data = {}) => request.post("login/savePassword", da
 
 export const userInfo = (params = {}) => request.get("user/index", { params });//个人信息
 export const userSave = (data = {}) => request.post("user/save", data); //个人信息修改
-export const userModifyPwd = (data = {}) => request.post("user/save", data); //密码修改
+export const userModifyPwd = (data = {}) => request.post("user/password", data); //密码修改
 
 export const favoritesList = (params = {}) => request.get("Favorites/getList", { params });//收藏夹列表
 export const favoritesRemove = (data = {}) => request.post("Favorites/remove", data); //移除收藏
@@ -19,6 +19,7 @@ export const myMemberApply = (data = {}) => request.post("Member/apply", data);/
 export const myMemberRemove = (data = {}) => request.post("Member/remove", data);//成员删除申请
 
 //成员信息一览与操作 
+export const memberDetail = (params = {}) => request.get("Member/index", { params });//课程列表，学习中，已完成
 export const memberCourseList = (params = {}) => request.get("Member/getCourseList", { params });//课程列表，学习中，已完成
 export const memberCourseOnOff = (data = {}) => request.post("Member/setCourse", data);//开放、关闭课程
 export const memberExamList = (params = {}) => request.get("Member/getTestList", { params });//成员考试列表
@@ -31,7 +32,7 @@ export const swiperList = (params = {}) => request.get("index/getAdvList", { par
 export const moduleList = (params = {}) => request.get("index/index", { params });//首页板块
 export const moduleBasic = (params = {}) => request.get("index/getNavSeting", { params });//板块内容banner图和筛选显示
 export const moduleDataList = (params = {}) => request.get("index/getList", { params });//板块内容列表
-export const downloadFile = (data = {}) => request.post("index/fileZip", data);
+export const downloadFileZip = (data = {}) => request.post("index/fileZip", data);
 export const isFavorites = (data = {}) => request.post("index/favorites", data); //收藏、取消收藏 
 
 

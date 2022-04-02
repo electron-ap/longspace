@@ -207,11 +207,12 @@
 }
 .frts-ul{
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-wrap: wrap;
 }
 .frts-li{
     width: 340px;
+    margin-right: 20px;
 }
 .frts-li-box{
     width: 340px;
@@ -602,4 +603,7 @@
 
 .member-body-height{
     min-height: 300px;
+}
+.pwd-input{
+    margin-bottom: 15px !important;
 }

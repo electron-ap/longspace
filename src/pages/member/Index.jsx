@@ -1,15 +1,28 @@
 import React,{useEffect,useState} from 'react'
-import { Link } from 'react-router-dom';
-import { Input, Button } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 import "./index.scss"
 import Account from './Account';
 import Favorites from './Favorites';
 import Staff from './Staff';
 import { userInfo } from "../../libs/api"
+import { useLangContext } from '../../libs/utils/context'
+
 function Index(props) {
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
+	const { state = { tabIndex: 0 } } = useLocation();
 	const [memberInfo,setMemberInfo] = useState({})
 	const [tabActiveKey,setTabActiveKey] = useState(0)
 	const [tabtitle,setTabTitle] = useState([])
+
+	useEffect(()=>{
+		setTabActiveKey(state.tabIndex)
+    },[state])
 
 	useEffect(()=>{
         userInfo().then(res=>{
@@ -17,22 +30,20 @@ function Index(props) {
                 setMemberInfo(res.data)
 				if(res.data.type === 1){
 					setTabTitle([
-						{ type: 1, title: '账号信息' },
-						{ type: 2, title: '收藏夹' },
-						{ type: 3, title: '我的成员' },
+						{ type: 1, title: langConfig.account_info },
+						{ type: 2, title: langConfig.favorites },
+						{ type: 3, title: langConfig.account_staff },
 					])
 				}else{
 					setTabTitle([
-						{ type: 1, title: '账号信息' },
-						{ type: 2, title: '收藏夹' },
+						{ type: 1, title: langConfig.account_info },
+						{ type: 2, title: langConfig.favorites },
 					])
 				}
             }
         }).catch(err=>{})
     },[])
-	useEffect(()=>{
-		setTabActiveKey(props.location.state.tabIndex)
-    },[props.location.state.tabIndex])
+
 	const handleTabClick = (index) =>{
 		setTabActiveKey(index)
 	}
@@ -57,7 +68,7 @@ function Index(props) {
 				backgroundSize: 'cover',
 			}} className="admined-banner">
 				<div className="admined-tent">
-					<div className="admined-rln">当前位置：<span className="admined-index"><Link to="/agent/dashboard">首页</Link></span> - <span>个人中心</span></div>
+					<div className="admined-rln">{langConfig.postion}：<span className="admined-index"><Link to="/agent/dashboard" className='a-white'>{langConfig.home}</Link></span> - <span>{langConfig.personal}</span></div>
 				</div>
 			</div>
 			<div className="admin-wraper">

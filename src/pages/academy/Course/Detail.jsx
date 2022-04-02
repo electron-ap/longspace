@@ -22,6 +22,7 @@ function Detail(props) {
                 setDetail(res.data)
                 setNeedStudyTime(res.data.min_long)
             } else {
+                props.history.go(-1)
                 message.error(res.msg)
             }
         }).catch(err => { })
@@ -38,7 +39,7 @@ function Detail(props) {
             setVedioControls("controls")
             vedioRef.current.play();
         } else {
-            window.open("/courseDetailPdf/"+props.match.params.id, "_blank")
+            window.open("/CourseDetailFile/"+props.match.params.id, "_blank")
         }
     }
     useEffect(() => {
@@ -88,7 +89,8 @@ function Detail(props) {
                         <img className="list-img" src={detail.cover} alt="" />
                         <span className="list-pdf">{detail.type}</span>
                     </div>
-                    <div className="start-study" onClick={()=>handleStart()}>开始学习<span className="start-ibn"></span></div>
+                    <div className="start-study"><Link to={`/CourseDetailFile/${props.match.params.id}`} target="_blank" style={{color:"#fff"}}>开始学习<span className="start-ibn"></span>
+                </Link></div>
                 </div>
                 <div className="course-tent-right">
                     <div className="course-tent-tle">
@@ -96,7 +98,7 @@ function Detail(props) {
                         <p>{detail.introduce}</p>
                     </div>
                     <div className="course-tent-box">
-                        <div className="csetent-box-tle">{studyedTime}最短学习时间：<span>{formatSeconds(detail.min_long)}</span></div>
+                        <div className="csetent-box-tle">最短学习时间：<span>{formatSeconds(detail.min_long)}</span></div>
                     
                             {
                                 renderTarget()

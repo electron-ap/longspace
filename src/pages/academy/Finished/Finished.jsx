@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Pagination, Input } from 'antd';
+// import { Pagination, Input } from 'antd';
 import { Table } from 'antd';
 import "../index.scss"
-import { courseList } from "../../../libs/api"
+import { courseList,memberCourseList } from "../../../libs/api"
 
-function Finished() {
+function Finished(props) {
+
+	let userId = props.match.params.user_id || ""
+
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
@@ -16,11 +19,20 @@ function Finished() {
 	}, [pagination])
 
 	const getDataSource = () => {
-		courseList({ status: 3, page: pagination.current, limit: pagination.pageSize, }).then(res => {
-			if (res.code === 200) {
-				setDataSource({ data: res.data, total: res.count })
-			}
-		}).catch(err => { })
+		if (userId && localStorage.getItem("userType") === "1") {
+			memberCourseList({status: 3, page: pagination.current, limit: pagination.pageSize, user_id: userId }).then(res => {
+				if (res.code === 200) {
+					setDataSource({ data: res.data, total: res.count })
+				}
+			}).catch(err => { })
+		} else {
+			courseList({ status: 3, page: pagination.current, limit: pagination.pageSize, }).then(res => {
+				if (res.code === 200) {
+					setDataSource({ data: res.data, total: res.count })
+				}
+			}).catch(err => { })
+		}
+		
 	}
 	const onPageChange = (val) => {
 		setPagination({ ...pagination, current: val })

@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Message } from 'antd';
+import { Form, message} from 'antd';
 import { useHistory } from 'react-router-dom';
 import './login.scss'
 import { login, base_url } from "../../libs/api"
 import { uuid } from "../../libs/utils/function"
 import { setToken } from "../../middleware/auth"
+import { useLangContext } from '../../libs/utils/context'
+import Header from './Header';
 function Login() {
+    let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
     useEffect(() => {
         refreshVerifyCode()
     }, [])
@@ -18,20 +27,20 @@ function Login() {
 
     const handleLogin = () => {
         if (userName === "") {
-            Message.error("请输入账号！");
+            message.error(langConfig.login_email_text);
             return false;
         }
         if (password === "") {
-            Message.error("请输入密码！");
+            message.error(langConfig.login_pwd_text);
             return false;
         }
         if (verifyCode === "") {
-            Message.error("请输入验证码！");
+            message.error(langConfig.login_yzm_text);
             return false;
         }
         login({ email: userName,password: password, yzm: verifyCode,guid:clientID }).then(res => {
             if (res.code !== 200) {
-                Message.error(res.msg)
+                message.error(res.msg)
                 refreshVerifyCode()
                 return false;
             }
@@ -51,29 +60,20 @@ function Login() {
         setClientID(client_id)
         setImgSrc(base_url + "/api/login/yzm?guid=" + client_id)
     }
+
     return (
         <div className='login-bg'>
             <div className="wraper-box"></div>
-            <div className="header-wraper">
-                <div className="header">
-                    <img src="/assets/logo.png" className="my-logo" alt="logo" />
-                    <div className="myuser">
-                        <div className="myuserid">
-                            <img className="myuseridnm" alt="" src="/assets/userImageIdsm1.png" />
-                            <span className="myuseridonnm">Language<i className="ibn"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Header></Header>
             <div className="login-tent">
-                <h1 className="logintent-tle">欢迎登录代理商学习平台</h1>
+                <h1 className="logintent-tle">{langConfig.sys_title}</h1>
                 <Form>
-                    <input className="login-btn btn-imlbg" type="text" placeholder="请输入您的邮箱" onChange={e => { setUserName(e.target.value) }} value={userName}/>
-                    <input type="password" className="login-btn btn-psdbg" placeholder="请输入您的密码" onChange={e => { setPassword(e.target.value) }} value={password} />
-                    <input className="login-btn btn-vfn" type="text" placeholder="请输入右侧验证码" onChange={e => { setVerifyCode(e.target.value) }} />
-                    <img className="btn-vfnimg" alt="验证码" src={imgsrc} onClick={() => { refreshVerifyCode() }} style={{cursor:"pointer"}}/>
-                    <button className="btn-on" onClick={handleLogin}>立即登录</button>
-                    <p className="fgt-psd"><span style={{ cursor: "pointer" }} onClick={handleForgetPwd}>忘记密码？</span></p>
+                    <input className="login-btn btn-imlbg" type="text" placeholder={langConfig.login_email_text} onChange={e => { setUserName(e.target.value) }} value={userName}/>
+                    <input type="password" className="login-btn btn-psdbg" placeholder={langConfig.login_pwd_text} onChange={e => { setPassword(e.target.value) }} value={password} />
+                    <input className="login-btn btn-vfn" type="text" placeholder={langConfig.login_yzm_text} onChange={e => { setVerifyCode(e.target.value) }} />
+                    <img className="btn-vfnimg" alt="" src={imgsrc} onClick={() => { refreshVerifyCode() }} style={{cursor:"pointer"}}/>
+                    <button className="btn-on" onClick={handleLogin}>{langConfig.login_btn_text}</button>
+                    <p className="fgt-psd"><span style={{ cursor: "pointer" }} onClick={handleForgetPwd}>{langConfig.forget_pwd}？</span></p>
                 </Form>
 
             </div>

@@ -39,7 +39,7 @@ request.interceptors.response.use(response => {
         if (code === 4000 || code === 4001) {
             message.error(msg);
             window.location.href = "/"
-        } else if (![200, 201, 204,400,"200"].includes(code)) {  // 后台自定义 status
+        } else if (![200, 201, 204,400,"200",403].includes(code)) {  // 后台自定义 status
             message.error(msg);
             return Promise.reject(msg);
         }

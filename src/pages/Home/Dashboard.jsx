@@ -27,6 +27,32 @@ function Dashboard() {
 			}
 		}).catch(err => { })
 	}, [])
+
+	const checkAgentOrStaff = () => {
+		if (localStorage.getItem("userType") === "2") {
+			return (
+				<>
+					<div className="contents-tle">{academy.title}</div>
+					<div className="contents-nr">
+						<ul>
+							{
+								academy.children && academy.children.map((item) => {
+									return (<li key={item.nav_id}>
+										<Link to="/agent/academy/CourseList">
+											<img className="pcte" alt="pcte01" src={item.cover} />
+											<span className="pcte-tle">{item.title}</span>
+										</Link>
+									</li>)
+								})
+							}
+						</ul>
+					</div>
+				</>
+			)
+		}else{
+			return null
+		}
+	}
 	return (
 		<>
 			<div className="mybanner">
@@ -38,7 +64,8 @@ function Dashboard() {
 									<div className="lunbo-box" style={{
 										height: '400px',
 										width: '100%',
-										backgroundImage:`url(${item.file_url})`
+										backgroundImage: `url(${item.file_url})`,
+										backgroundSize: "100% 100%"
 									}}>
 										<h1>{item.title}</h1>
 									</div>
@@ -73,7 +100,7 @@ function Dashboard() {
 						{
 							tradeShow.children && tradeShow.children.map((item) => {
 								return (<li key={item.nav_id}>
-									<Link to="/agent/academy/Academy">
+									<Link to={{ pathname: "/agent/tradeShow/", state: { nav_id: item.nav_id } }}>
 										<img className="pcte" alt="pcte01" src={item.cover} />
 										<span className="pcte-tle">{item.title}</span>
 									</Link>
@@ -82,21 +109,9 @@ function Dashboard() {
 						}
 					</ul>
 				</div>
-				<div className="contents-tle">{academy.title}</div>
-				<div className="contents-nr">
-					<ul>
-						{
-							academy.children && academy.children.map((item) => {
-								return (<li key={item.nav_id}>
-									<Link to="/agent/academy/CourseList">
-										<img className="pcte" alt="pcte01" src={item.cover} />
-										<span className="pcte-tle">{item.title}</span>
-									</Link>
-								</li>)
-							})
-						}
-					</ul>
-				</div>
+				{
+					checkAgentOrStaff()
+				}
 			</div>
 		</>
 	)

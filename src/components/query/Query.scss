@@ -16,11 +16,11 @@
         margin-right: 25px;
         overflow: hidden;
      }
-     .SnSearch-sh{
+     .SnSearch-shon{
         width: 100px;
         height: 36px;
         line-height: 36px;
-        background: #FFF url(../../assets/screen/screen.png) no-repeat 68px 12px;
+        background: #FFF url(../../assets/screen/screenon.png) no-repeat 68px 12px;
         border: 1px solid #C30D23;
         border-radius: 3px;
         cursor: pointer;
@@ -29,6 +29,19 @@
         font-size: 14px;
         color: #C30D23;
      }
+     .SnSearch-sh{
+      width: 100px;
+      height: 36px;
+      line-height: 36px;
+      background: #FFF url(../../assets/screen/screen.png) no-repeat 68px 12px;
+      border: 1px solid #222;
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: left;
+      padding: 0 0 0 18px;
+      font-size: 14px;
+      color: #222;
+   }
      
      .SnSearch-right{
         width: 100px;

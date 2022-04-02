@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { Button, Input, message } from 'antd';
 import { myMemberList, myMemberApply, myMemberRemove } from "../../libs/api"
+import { useLangContext } from '../../libs/utils/context'
 
 function Staff() {
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
+	const history = useHistory();
 	const [modalVisible, setModalVisible] = useState(false)
 	const [modalDelVisible, setModalDelVisible] = useState(false)
 	const [modalAddVisible, setModalAddVisible] = useState(false)
@@ -17,9 +27,9 @@ function Staff() {
 		total: 0
 	})
 	const [pagination, setPagination] = useState({ current: 1, pageSize: 100 })
-	// useEffect(() => {
-	// 	getDataSource()
-	// }, [pagination])
+	useEffect(() => {
+		getDataSource()
+	}, [])
 	const getDataSource = () => {
 		myMemberList({ page: pagination.current, limit: pagination.pageSize, }).then(res => {
 			if (res.code === 200 && res.data.length > 0) {
@@ -43,7 +53,7 @@ function Staff() {
 		setModalAddVisible(false);
 	}
 	const submitMemberAdd = () => {
-		myMemberApply({ name,position,email }).then(res => {
+		myMemberApply({ name, position, email }).then(res => {
 			if (res.code === 204) {
 				getDataSource()
 				setModalVisible(false);
@@ -74,11 +84,16 @@ function Staff() {
 		}).catch(err => { })
 	}
 
+	const setCourse = (user_id) =>{
+		// /agent/academy/CourseList
+		history.push({pathname:`/agent/academy/CourseList/${user_id}`})
+	}
+
 	return (
 		<>
 			<div className="admin-sort-tent">
 				<div className="favorites-box">
-					<div className="frts-tle">当前成员：{dataSource.total} <span className="add-members" onClick={showMemberAdd}>申请增加成员+</span></div>
+					<div className="frts-tle">{langConfig.total}：{dataSource.total} <span className="add-members" onClick={showMemberAdd}>{langConfig.apply_add_staff}+</span></div>
 					<div className="frts-tent">
 						<ul className="member-ul">
 							{
@@ -90,13 +105,13 @@ function Staff() {
 												<div className="member-li-tle">{item.name}</div>
 												<div className="member-li-p">{item.email}</div>
 												<ul className="member-chengeli">
-													<li><span>学习中</span><p>{item.summary.study}</p></li>
-													<li><span>已完成</span><p>{item.summary.complete}</p></li>
-													<li><span>考试</span><p>{item.summary.complete}</p></li>
-													<li><span>证书</span><p>{item.summary.certificate}</p></li>
+													<li><span>{langConfig.c_study}</span><p>{item.summary.study}</p></li>
+													<li><span>{langConfig.c_complete}</span><p>{item.summary.complete}</p></li>
+													<li><span>{langConfig.c_test}</span><p>{item.summary.test}</p></li>
+													<li><span>{langConfig.c_cert}</span><p>{item.summary.certificate}</p></li>
 												</ul>
 												<div className="member-setup">
-													<button className="member-up">课程设置</button>
+													<button className="member-up" onClick={()=>{setCourse(item.user_id)}}>课程设置</button>
 													<button className="member-remove" onClick={() => showMemberRemove(item)}>删除</button>
 												</div>
 											</div>
@@ -122,14 +137,14 @@ function Staff() {
 				<Button className="act-confirm" type="button" onClick={submitMemberRemove}>提交申请</Button>
 			</div>
 			<div className="password-box" style={{ display: modalAddVisible ? "block" : "none" }}>
-				<div className="password-box-tle">申请增加成员</div>
+				<div className="password-box-tle">{langConfig.apply_add_staff}</div>
 				<div className="member-box-input">
-					<Input className="member-input" prefix="姓名：" placeholder="请填写成员姓名" onChange={e => { setName(e.target.value) }}  />
-					<Input className="member-input" prefix="职位：" placeholder="请填写成员职位" onChange={e => { setPosition(e.target.value) }}/>
-					<Input className="member-input" prefix="邮箱：" placeholder="请填写成员电子邮箱" onChange={e => { setEmail(e.target.value) }}/>
+					<Input className="member-input" prefix={langConfig.p_name} placeholder="请填写成员姓名" onChange={e => { setName(e.target.value) }} />
+					<Input className="member-input" prefix={langConfig.p_job} placeholder="请填写成员职位" onChange={e => { setPosition(e.target.value) }} />
+					<Input className="member-input" prefix={langConfig.p_email} placeholder="请填写成员电子邮箱" onChange={e => { setEmail(e.target.value) }} />
 				</div>
-				<Button className="act-cancel" type="button" onClick={closeMemberAdd} >取消</Button>
-				<Button className="act-confirm" type="button" onClick={submitMemberAdd}>提交申请</Button>
+				<Button className="act-cancel" type="button" onClick={closeMemberAdd} >{langConfig.btn_cancel}</Button>
+				<Button className="act-confirm" type="button" onClick={submitMemberAdd}>{langConfig.btn_ok}</Button>
 			</div>
 		</>
 	)

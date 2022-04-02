@@ -6,16 +6,17 @@ import PageNotFound from "../pages/errors/PageNotFound";
 // 后台路由，需要登录
 import Dashboard from "../pages/Home/Dashboard";
 import DigitalChannels from '../pages/digital/Channels';
-import DigitalDetail from '../pages/digital/DigitalDetail';
+import TradeShow from "../pages/tradeshow/Index"
 import Academy from '../pages/academy/Academy';
 import CourseDetail from '../pages/academy/Course/Detail';
-import CourseDetailPdf from '../pages/academy/Course/DetailPdf';
+import CourseDetailFile from '../pages/academy/Course/DetailFile';
 import CourseList from '../pages/academy/Course/Course';
 import StudyList from '../pages/academy/Study/Study';
 import Finished from '../pages/academy/Finished/Finished';
 import ExamList from '../pages/academy/Exam/Exam';
 import CertList from '../pages/academy/Cert/Cert';
 import Testing from '../pages/academy/Test/Test'; // 考试页面
+import FileDetail from '../pages/file/FileDetail'; // 文件详情
 
 import MemberIndex from "../pages/member/Index"
 // import Account from "../pages/member/Account"
@@ -33,11 +34,18 @@ export const webRoutes = [
         component: ForgetPwd,
         exact: true
     },
-
     {
-        path: "/courseDetailPdf/:id",
-        component: CourseDetailPdf,
-        title: "DetailPdf",
+        path: "/CourseDetailFile/:id",
+        component: CourseDetailFile,
+        title: "Detail",
+        display: true,
+        exact: false,
+        children: [],
+    },
+    {
+        path: "/FileDetail",
+        component: FileDetail,
+        title: "FileDetail",
         display: true,
         exact: false,
         children: [],
@@ -66,14 +74,6 @@ export const adminRoutes = [
         children: []
     },
     {
-        path: "/agent/digital/detail",
-        component: DigitalDetail,
-        title: "DigitalDetail",
-        display: true,
-        exact: true,
-        children: []
-    },
-    {
         path: "/agent/courseDetail/:id",
         component: CourseDetail,
         title: "CourseDetail",
@@ -81,16 +81,61 @@ export const adminRoutes = [
         exact: false,
         children: []
     },
-
+    {
+        path: "/agent/tradeShow/",
+        component: TradeShow,
+        title: "TradeShow",
+        display: true,
+        exact: false,
+        children: []
+    },
     {
         path: "/agent/academy/",
         component: Academy,
         title: "Academy",
         display: true,
         exact: false,
-        redirect: '/agent/academy/CourseList',
         children: [
-
+            {
+                path: "/agent/academy/CourseList/:user_id?",
+                component: CourseList,
+                title: "CoursseList",
+                display: true,
+                exact: false,
+                children: []
+            },
+            {
+                path: "/agent/academy/StudyList/:user_id?",
+                component: StudyList,
+                title: "StudyList",
+                display: true,
+                exact: false,
+                children: []
+            },
+            {
+                path: "/agent/academy/Finished/:user_id?",
+                component: Finished,
+                title: "Finished",
+                display: true,
+                exact: false,
+                children: []
+            },
+            {
+                path: "/agent/academy/ExamList/:user_id?",
+                component: ExamList,
+                title: "ExamList",
+                display: true,
+                exact: false,
+                children: []
+            },
+            {
+                path: "/agent/academy/CertList/:user_id?",
+                component: CertList,
+                title: "CertList",
+                display: true,
+                exact: false,
+                children: []
+            },
             {
                 path: "/agent/academy/Testing/:topic",
                 component: Testing,
@@ -99,47 +144,6 @@ export const adminRoutes = [
                 exact: false,
                 children: []
             },
-            {
-                path: "/agent/academy/CourseList",
-                component: CourseList,
-                title: "CourseList",
-                display: true,
-                exact: false,
-                children: []
-            },
-            {
-                path: "/agent/academy/StudyList",
-                component: StudyList,
-                title: "StudyList",
-                display: true,
-                exact: false,
-                children: []
-            },
-            {
-                path: "/agent/academy/Finished",
-                component: Finished,
-                title: "Finished",
-                display: true,
-                exact: false,
-                children: []
-            },
-            {
-                path: "/agent/academy/ExamList",
-                component: ExamList,
-                title: "ExamList",
-                display: true,
-                exact: false,
-                children: []
-            },
-            {
-                path: "/agent/academy/CertList",
-                component: CertList,
-                title: "CertList",
-                display: true,
-                exact: false,
-                children: []
-            },
-
         ],
     },
     {

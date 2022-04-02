@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Pagination,Table} from 'antd';
-import { examList } from "../../../libs/api"
+import { examList,memberExamList } from "../../../libs/api"
 
-function Exam() {
+function Exam(props) {
+
+	let userId = props.match.params.user_id || ""
+	
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
@@ -13,11 +16,20 @@ function Exam() {
 	}, [pagination])
 
 	const getDataSource = () => {
-		examList({  page: pagination.current, limit: pagination.pageSize, }).then(res => {
-			if (res.code === 200) {
-				setDataSource({ data: res.data, total: res.count })
-			}
-		}).catch(err => { })
+		if (userId && localStorage.getItem("userType") === "1") {
+			memberExamList({  page: pagination.current, limit: pagination.pageSize,user_id:userId }).then(res => {
+				if (res.code === 200) {
+					setDataSource({ data: res.data, total: res.count })
+				}
+			}).catch(err => { })
+		}else{
+			examList({  page: pagination.current, limit: pagination.pageSize, }).then(res => {
+				if (res.code === 200) {
+					setDataSource({ data: res.data, total: res.count })
+				}
+			}).catch(err => { })
+		}
+		
 	}
 	const onPageChange = (val) => {
 		setPagination({ ...pagination, current: val })

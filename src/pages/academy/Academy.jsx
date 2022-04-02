@@ -1,24 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import "./index.scss"
-import { courseCalc } from "../../libs/api"
+import { courseCalc,memberDetail } from "../../libs/api"
+import { useLangContext } from '../../libs/utils/context'
 
 function Academy(props) {
+    let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
+    const [userId, setUserId] = useState("");
+    const [userName, setUserName] = useState("");
+    let _path = props.location.pathname
+    let _path_arr = _path.split("/");
+    let last_val = _path_arr[_path_arr.length-1];
+    if(/^[0-9]*[1-9][0-9]*$/.test(last_val)){
+        // 授权学员课程
+    }else{
+        last_val = ""
+    }
     const [tabList, setTabList] = useState([]);
 
     useEffect(() => {
-        courseCalc().then(res => {
-            if (res.code === 200) {
-                const {total,study,complete,test,certificate} = res.data
-                setTabList([
-                    { title: '课程', count: total, path: "/agent/academy/CourseList" },
-                    { title: '学习中', count: study, path: "/agent/academy/StudyList" },
-                    { title: '已完成', count: complete, path: "/agent/academy/Finished" },
-                    { title: '考试', count: test, path: "/agent/academy/ExamList" },
-                    { title: '证书', count: certificate, path: "/agent/academy/CertList" },
-                ])
-            }
-        }).catch(err => { })
+        
+        if(last_val !== ""){
+            // 授权学员课程
+            memberDetail({user_id:last_val}).then(res => {
+                if (res.code === 200) {
+                    const {total,study,complete,test,certificate,name} = res.data
+                    setTabList([
+                        { title: langConfig.c_course, count: total, path: "/agent/academy/CourseList/"+last_val },
+                        { title: langConfig.c_study, count: study, path: "/agent/academy/StudyList/"+last_val },
+                        { title: langConfig.c_complete, count: complete, path: "/agent/academy/Finished/"+last_val },
+                        { title: langConfig.c_test, count: test, path: "/agent/academy/ExamList/"+last_val },
+                        { title: langConfig.c_cert, count: certificate, path: "/agent/academy/CertList/"+last_val },
+                    ])
+                    setUserName(name);
+                }
+            }).catch(err => { })
+        }else{
+            courseCalc().then(res => {
+                if (res.code === 200) {
+                    const {total,study,complete,test,certificate} = res.data
+                    setTabList([
+                        { title: langConfig.c_course, count: total, path: "/agent/academy/CourseList/"+last_val },
+                        { title: langConfig.c_study, count: study, path: "/agent/academy/StudyList/"+last_val },
+                        { title: langConfig.c_complete, count: complete, path: "/agent/academy/Finished/"+last_val },
+                        { title: langConfig.c_test, count: test, path: "/agent/academy/ExamList/"+last_val },
+                        { title: langConfig.c_cert, count: certificate, path: "/agent/academy/CertList/"+last_val },
+                    ])
+                }
+            }).catch(err => { })
+        }
     }, [])
 
     return (
@@ -30,8 +66,8 @@ function Academy(props) {
                 backgroundSize: 'cover',
             }} className="coursed-banner">
                 <div className="coursed-tent">
-                    <div className="coursed-tle">Sales Partner Academy</div>
-                    <div className="coursed-rln">当前位置：<span className="coursed-index"> <Link to="/agent/dashboard">首页</Link></span> - <span>Sales Partner Academy</span></div>
+                    <div className="coursed-tle">{userName===""?"Sales Partner Academy":`成员：${userName}`}</div>
+                    <div className="coursed-rln">{langConfig.postion}：<span className="coursed-index"> <Link to="/agent/dashboard" className='a-white'>{langConfig.home}</Link></span> - <span>Sales Partner Academy</span></div>
                 </div>
             </div>
 

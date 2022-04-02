@@ -58,6 +58,7 @@ function Test(props) {
                 setPaperTime(res.countdown)
                 setQuestion(res.data)
             }else{
+                props.history.go(-1)
                 message.info(res.msg)
             }
         }).catch(err => { })

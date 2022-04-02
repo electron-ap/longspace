@@ -85,6 +85,7 @@
 }
 .cs-search-right{
     width: 450px;
+    z-index: 0;
 }
 .course-all-tent{
     margin: 24px 0 0;
@@ -103,7 +104,7 @@
     height: 50px;
     background: #EBF4F8;
     border-radius: 4px;
-    padding: 0 27px;
+    padding: 0 27px 0 15px;
 }
 .courseon{
     display: inline-block;
@@ -238,6 +239,7 @@
 }
 
 .list-box{
+    position: relative;
     width: 280px;
     img{
         width: 100%;
@@ -321,6 +323,7 @@
 
 .pdf-box{
     position: relative;
+    height: 100vh;
     .timer-box{
         position: fixed;
         width: 100px;
@@ -331,5 +334,35 @@
         background-color: red;
         top:80px;
         right: 50px;
+        z-index: 1000;
     }
 }
+
+.list-pdf {
+    display: block;
+    width: 34px;
+    height: 20px;
+    background: #016CB0;
+    opacity: 0.5;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Microsoft YaHei', Arial;
+    color: #FFFFFF;
+    line-height: 19px;
+    position: absolute;
+    bottom: 21px;
+    right: 21px;
+ }
+
+ .auth-course-box{
+     display: flex;
+     padding: 25px 0 0 15px;
+     .chk-box{
+         width: calc(100% - 95px - 95px);
+     }
+     .auth-btn{
+         width: 95px;
+         text-align: right;
+         cursor: pointer;
+     }
+ }
