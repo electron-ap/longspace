@@ -1,27 +1,50 @@
 import logo from "../../assets/logo.png"
-<<<<<<< HEAD
-import React from "react";
-import { withRouter, Redirect, useHistory,Link } from 'react-router-dom';
-import { Avatar, Badge, Popover, Select } from 'antd';
+
+import { useHistory,Link } from 'react-router-dom';
+import { Avatar, Badge, Popover, Select, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
+import React,{useEffect,useState} from "react";
+
 import './index.scss'
+import { userInfo } from "../../libs/api"
+
 
 const { Option } = Select;
 
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
-=======
-import React,{useEffect,useState} from "react";
-import { useHistory,Link } from 'react-router-dom';
-import { Avatar, Badge, Popover } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-
-import './index.scss'
-import { userInfo } from "../../libs/api"
->>>>>>> 076f52f93575177eb627961d02e5617820acb85b
-
+//2022-04-02 新增弹窗 ↓↓
+const tidingsTent = (
+    <div className="tidings-Tent">
+        <div className="tidings-tle">消息通知</div>
+        <ul className="tidings-box">
+            <li className="tidings-box-li">
+                <div className="tidings-box-left">
+                    <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
+                    <p className="tidings-box-pr">2022-12-34 34:33:00</p>
+                </div>
+                <span className="tidings-box-right">详情 ></span>
+            </li>
+            <li className="tidings-box-li">
+                <div className="tidings-box-left">
+                    <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
+                    <p className="tidings-box-pr">2022-12-34 34:33:00</p>
+                </div>
+                <span className="tidings-box-right">详情 ></span>
+            </li>
+            <li className="tidings-box-li">
+                <div className="tidings-box-left">
+                    <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
+                    <p className="tidings-box-pr">2022-12-34 34:33:00</p>
+                </div>
+                <span className="tidings-box-right">详情 ></span>
+            </li>
+        </ul>
+    </div>
+  );
+//2022-04-02 新增弹窗 ↑↑
 
 const Myheader = () => {
     const [memberInfo,setMemberInfo] = useState({})
@@ -60,20 +83,26 @@ const Myheader = () => {
                     </div>
                     <div className="myuser">
                         <span className="myuser-avatar-item avatar-item">
-                            <Badge count={1}>
-                                <Avatar shape="square" icon={<UserOutlined />} />
-                            </Badge>
+                        {/* 2022-04-02 新增弹窗 ↓↓ */}
+                        <Popover placement="bottomRight" content={tidingsTent} trigger="click">
+                            <div className="tidings-btn-on">
+                                <Badge className="tidings-btn" count={1}>
+                                    <Avatar shape="square" icon={<UserOutlined />} />
+                                </Badge>
+                            </div>
+                        </Popover> 
+                        {/* 2022-04-02 新增弹窗 ↑↑ */}
                         </span>
                         <div className="myuserid">
                             <Popover content={content} placement="bottom" trigger="hover">
                                 <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
                             </Popover>
                             <div className="language-lect">
-                    <Select defaultValue="enlish" dropdownMatchSelectWidth={false} onChange={handleChange}>
-                                <Option value="china"><span className="lg-zh">中 文</span></Option>
-                                <Option value="enlish"><span className="lg-en">English</span></Option>
-                            </Select>
-                        </div>
+                                <Select defaultValue="enlish" dropdownMatchSelectWidth={false} onChange={handleChange}>
+                                    <Option value="china"><span className="lg-zh">中 文</span></Option>
+                                    <Option value="enlish"><span className="lg-en">English</span></Option>
+                                </Select>
+                            </div>
                         </div>
                     </div>
                 </div>

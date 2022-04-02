@@ -122,6 +122,18 @@ function Channels(props) {
                     />
                 </div>
             </div>
+            {/* 2022-04-02 新增弹窗 ↓↓ */}
+            <div className="prompt-wraper" style={{display:"block"}}></div>
+            <div className="prompt-box" style={{display:"block"}}>
+                <div className="prompt-tle">消息通知</div>
+                <div className="prompt-tent">
+                    <p className="prompt-p-ste">已更新课程</p>
+                    <p className="prompt-p-ste prompt-p-col">3D打印机的操作</p>
+                    <p className="prompt-p-ste prompt-p-col">3D打印机的参数设置</p>
+                </div>
+                <button className="prompt-btn">确定</button>
+            </div>
+            {/* 2022-04-02 新增弹窗 ↑↑ */}
         </>
 
     )

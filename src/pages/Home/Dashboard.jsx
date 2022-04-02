@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
-<<<<<<< HEAD
-import "./index.css"
+import { moduleList } from "../../libs/api"
+
+import "./index.scss"
 // 更改banner
 import imgUrl from '../../assets/banner01.png'
 const bgGround = {
@@ -10,11 +11,6 @@ const bgGround = {
     width: '100%',
     backgroundImage: 'url(' + imgUrl + ')'
 }
-=======
-import "./index.scss"
-
-import { moduleList } from "../../libs/api"
->>>>>>> 076f52f93575177eb627961d02e5617820acb85b
 
 function Dashboard() {
 	const [digital, setDigital] = useState({})
