@@ -21,6 +21,7 @@ export const langList = {
         postion:"当前位置",
         home:"首页",
         filters:"筛选",
+        search_text:"输入关键词搜索课程信息",
 
         // 个人中心
         personal:"个人中心",
@@ -52,6 +53,8 @@ export const langList = {
         all_course:"全部课程",
         open_course:"开放课程",
         close_course:"关闭课程",
+        c_open_item:"展开",
+        c_close_item:"收起",
         c_course:"课程",
         c_study:"学习中",
         c_complete:"已完成",
@@ -59,6 +62,7 @@ export const langList = {
         c_cert:"证书",
 
         // assets
+        d_sort_time:"按时间排序",
         d_add_fav:"加入收藏",
         d_remove_fav:"取消收藏",
 
@@ -81,6 +85,7 @@ export const langList = {
         current_acc_text:"Account",
         favorites:'Favorites',
         logout:'logout',
+        search_text:"input keyword",
 
         // 个人中心
         personal:"Personal",
@@ -115,6 +120,8 @@ export const langList = {
         all_course:"all course",
         open_course:"open course",
         close_course:"close course",
+        c_open_item:"expand",
+        c_close_item:"expand",
         c_course:"course",
         c_study:"study",
         c_complete:"complete",
@@ -122,6 +129,7 @@ export const langList = {
         c_cert:"certificate",
 
         // assets
+        d_sort_time:"sort by time",
         d_add_fav:"add favorite",
         d_remove_fav:"remove favorite",
     }

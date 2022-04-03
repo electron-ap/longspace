@@ -8,45 +8,60 @@ import { useLangContext } from '../../../libs/utils/context'
 import { message } from 'antd';
 const { Search } = Input;
 function Course(props) {
+	console.log("course props", props)
 	let _language = localStorage.getItem('language') || 'zh-cn';
 	const [lang, changeLang] = useState(_language);
-    const { setLang, langConfig } = useLangContext();
-    useEffect(() => {
-        setLang(lang)
-    }, [lang])
+	const { setLang, langConfig } = useLangContext();
+	useEffect(() => {
+		setLang(lang)
+	}, [lang])
 
 	const [agentAdmin, setAgentAdmin] = useState(false);
 	const [keyword, setKeyword] = useState("");
-	// console.log("course props", props)
 	let userId = props.match.params.user_id || ""
+	let _state = props.location.state || { keyword: '' }
 
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
 	})
 	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
-	useEffect(() => {
-		if (userId && localStorage.getItem("userType") === "1") {
-			setAgentAdmin(true)
-		}
-	}, [])
 
 	useEffect(() => {
 		getDataSource()
 	}, [pagination, keyword])
+
+	useEffect(() => {
+		if (userId && localStorage.getItem("userType") === "1") {
+			setAgentAdmin(true)
+		}
+		console.log("_state", _state)
+		setKeyword(_state.keyword)
+		setPagination({ ...pagination, current: 1 })
+	}, [])
+
 
 	const getDataSource = () => {
 
 		if (userId && localStorage.getItem("userType") === "1") {
 			memberCourseList({ page: pagination.current, limit: pagination.pageSize, user_id: userId }).then(res => {
 				if (res.code === 200) {
-					setDataSource({ data: res.data, total: res.count })
+					let _data = res.data;
+					_data.forEach((item,index)=>{
+						_data[index].openStatus = false;
+					})
+					// console.log("_data",_data);
+					setDataSource({ data: _data, total: res.count })
 				}
 			}).catch(err => { })
 		} else {
 			courseList({ status: 1, page: pagination.current, limit: pagination.pageSize, keyword }).then(res => {
 				if (res.code === 200) {
-					setDataSource({ data: res.data, total: res.count })
+					let _data = res.data;
+					_data.forEach((item,index)=>{
+						_data[index].openStatus = false;
+					})
+					setDataSource({ data: _data, total: res.count })
 				}
 			}).catch(err => { })
 		}
@@ -60,8 +75,6 @@ function Course(props) {
 		setKeyword(value)
 		setPagination({ ...pagination, current: 1 })
 	};
-
-
 
 	const [onOffStatus, setOnOffStatus] = useState(1) // 开放关闭课程
 
@@ -160,12 +173,23 @@ function Course(props) {
 		})
 	}
 
+	// 展开，收起 子项
+	const handleItemOpenClose = (index) => {
+		let _data = dataSource.data;
+		_data.forEach((item,key) => {
+			if (key === index) {
+				_data[key].openStatus = !_data[key].openStatus
+			}
+		})
+		setDataSource({ data: _data })
+	}
+
 	return (
 		<div className="course-all">
 			<div className="course-search">
 				<div className="cs-search-left"> {langConfig.all_course} </div>
 				<div className="cs-search-right">
-					<Search placeholder="搜索课程" onSearch={onSearch} enterButton />
+					<Search placeholder={langConfig.search_text} onSearch={onSearch} enterButton />
 				</div>
 			</div>
 			{
@@ -192,24 +216,25 @@ function Course(props) {
 
 											</span>{item.title}
 											<span className={item.topic !== "0" ? "courseon" : ""}></span></div>
-										<button className="cs-ser-on cs-ser-showon">展开</button>
+										<button className="cs-ser-on cs-ser-showon" onClick={()=>handleItemOpenClose(index)}>{item.openStatus?langConfig.c_close_item:langConfig.c_open_item}</button>
 									</div>
 									<div className="course-series-nr">
 										{
 											item.children.map((child, indexc) => {
 												return (
-													<div className="series-nr-list" key={`par${indexc}`}>
+													<div style={{display:indexc>=2 && !item.openStatus?"none":"block"}}  key={`par${indexc}`}>
+													<div  className="series-nr-list">
 														<p className="srsnr-rt">
 															<span style={{ paddingRight: "12px" }}>
-
 																{
 																	agentAdmin ? (<Checkbox onChange={(e) => onSonItemCheckChange(e, child.course_id)} checked={child.is_add ? true : false}></Checkbox>) : null
 																}
-
 															</span>
 															<Link to={{ pathname: '/agent/courseDetail/' + child.user_course_id }}>{child.title}</Link></p>
 														<span className="srsnr-lf">最低学习时间：{formatSeconds(child.min_long)}</span>
 													</div>
+													</div>
+													
 												)
 											})
 										}

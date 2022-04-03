@@ -10,6 +10,7 @@ function Dashboard() {
 	const [tradeShow, setTradeShow] = useState({})
 	const [academy, setAcademy] = useState({})
 	const [swiperData, setSwiperData] = useState([])
+	const [modalVisible, setModalVisible] = useState(true)
 
 
 	useEffect(() => {
@@ -27,6 +28,10 @@ function Dashboard() {
 			}
 		}).catch(err => { })
 	}, [])
+
+	const closeModal = () =>{
+		setModalVisible(false)
+	}
 
 	const checkAgentOrStaff = () => {
 		if (localStorage.getItem("userType") === "2") {
@@ -113,6 +118,19 @@ function Dashboard() {
 					checkAgentOrStaff()
 				}
 			</div>
+
+			{/* 2022-04-02 新增弹窗 ↓↓ */}
+            <div className="prompt-wraper" style={{ display: modalVisible ? "block" : "none" }}></div>
+            <div className="prompt-box" style={{ display: modalVisible ? "block" : "none" }}>
+                <div className="prompt-tle">消息通知</div>
+                <div className="prompt-tent">
+                    <p className="prompt-p-ste">已更新课程</p>
+                    <p className="prompt-p-ste prompt-p-col">3D打印机的操作</p>
+                    <p className="prompt-p-ste prompt-p-col">3D打印机的参数设置</p>
+                </div>
+                <button className="prompt-btn" onClick={closeModal}>关闭</button>
+            </div>
+            {/* 2022-04-02 新增弹窗 ↑↑ */}
 		</>
 	)
 }

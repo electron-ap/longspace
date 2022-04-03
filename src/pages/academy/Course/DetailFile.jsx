@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { message } from 'antd';
 import { courseDetail, startCourse } from "../../../libs/api"
 import { formatSeconds } from "../../../libs/utils/function"
 import "../index.scss"
 
 function DetailFile(props) {
+	const vedioRef = useRef(null)
 	const [needStudyTime, setNeedStudyTime] = useState(0);
 	const [studyedTime, setStudyedTime] = useState(0);
 	const [timerID, setTimerID] = useState(null);
@@ -15,6 +16,11 @@ function DetailFile(props) {
 			if (res.code === 200) {
 				setDetail(res.data)
 				setNeedStudyTime(res.data.min_long)
+				if(res.data.type === "MP4"){
+					setTimeout(() => {
+						vedioRef.current.play();
+					}, 200)
+				}
 			} else {
 				message.error(res.msg)
 			}
@@ -56,9 +62,15 @@ function DetailFile(props) {
     }
 	const renderTarget = () => {
         if (detail.type === "MP4") {
-            return (<div style={{height:"100%",textAlign:"center"}}><video autoplay controls={true} src={detail.url}  height="100%">
-			您的浏览器不支持 video 标签。
-		</video></div>)
+            return (
+		// 	<div style={{height:"100%",textAlign:"center"}}><video autoplay controls={true} src={detail.url}  height="100%">
+		// 	您的浏览器不支持 video 标签。
+		// </video></div>
+		
+		<div style={{height:"100%",textAlign:"center"}}><video controls="controls" src={detail.url} ref={vedioRef} autoplay="autoplay" preload style={{ height: "100vh" }}>
+				您的浏览器不支持 video 标签。
+			</video></div>
+			)
         }else if (["PNG", 'JPG', 'JPEG', 'GIF'].includes(detail.type)) {
 			return (<div style={{height:"100%"}}>
                 <div className='pdf-box-mask'></div>

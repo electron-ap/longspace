@@ -226,17 +226,19 @@
 .frts-li-tle{
     font-size: 16px;
     color: #333333;
-    line-height: 20px;
-    padding: 15px 0 6px;
+    height: 30px;
+    padding: 10px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .frts-li-p{
     font-size: 12px;
     font-weight: 400;
     color: #999999;
-    line-height: 20px;
-    padding-bottom: 20px;
+    padding: 15px 0;
     border-bottom: 1px solid #eee;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 .frts-up{
     background: none;
@@ -344,11 +346,11 @@
 
 .member-ul{
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
 }
 .member-li{
     width: 340px;
+    margin-right: 20px;
 }
 .member-li-box{
     width: 340px;
@@ -473,11 +475,13 @@
 
 .member-ul{
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-wrap: wrap;
 }
 .member-li{
     width: 340px;
+    margin-right: 20px;
+
 }
 .member-li-box{
     width: 340px;

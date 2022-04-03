@@ -8,19 +8,14 @@ import { formatSeconds } from "../../../libs/utils/function"
 import "../index.scss"
 
 function Detail(props) {
-    console.log("Detail", props)
-    const vedioRef = useRef(null)
+    
     const [detail, setDetail] = useState({});
-    const [vedioControls, setVedioControls] = useState("");
-    const [needStudyTime, setNeedStudyTime] = useState(0);
-	const [studyedTime, setStudyedTime] = useState(0);
-    const [timerID, setTimerID] = useState(null);
+    const vedioRef = useRef(null)
 
     useEffect(() => {
         courseDetail({ user_course_id: props.match.params.id }).then(res => {
             if (res.code === 200) {
                 setDetail(res.data)
-                setNeedStudyTime(res.data.min_long)
             } else {
                 props.history.go(-1)
                 message.error(res.msg)
@@ -33,48 +28,15 @@ function Detail(props) {
         return states[state - 1]
     }
 
-    const handleStart = () => {
-        if (detail.type === "MP4") {
-            setStudyedTime(studyedTime + 1)
-            setVedioControls("controls")
-            vedioRef.current.play();
-        } else {
-            window.open("/CourseDetailFile/"+props.match.params.id, "_blank")
-        }
-    }
-    useEffect(() => {
-		const countUp = () => {
-			if (studyedTime <= needStudyTime*2 && studyedTime > 0) {
-				if(studyedTime % 30 === 0){
-					submitStudyTime(); //每30秒提交一次
-				}
-				let _timeID = setTimeout(() => {
-					setStudyedTime(studyedTime + 1)
-				}, 1000);
-				setTimerID(_timeID)
-			} else {
-				clearTimeout(timerID)
-			}
-		}
-		countUp()
-	}, [studyedTime]);
-    const submitStudyTime = () => {
-        startCourse({ course_id: detail.course_id, page: 1, look_time: 59 }).then(res => {
-
-        }).catch(err => {
-
-        })
-    }
-
     const renderTarget = () => {
         if (detail.type === "MP4") {
-            return (<div className="csetent-box-show"><video ref={vedioRef} controls={vedioControls} src={detail.url}  height="500">
+            return (<div className="csetent-box-show"><video ref={vedioRef} controls={false} src={detail.url} style={{maxWidth:"100%"}}>
                 您的浏览器不支持 video 标签。
             </video></div>)
         } else {
             return (<div className="csetent-box-show">
                 <div className='pdf-box-mask'></div>
-                <embed src={detail.url} type="application/pdf" width="100%" height="500"></embed></div>)
+                <embed src={detail.url} type="application/pdf"  style={{maxWidth:"100%",}} height="500"></embed></div>)
         }
     }
     return (
