@@ -4,6 +4,7 @@ import { withRouter, Redirect, useHistory } from 'react-router-dom';
 import './login.scss'
 
 function ForgetPwd() {
+    // router@5.0.0 版本的路由写法 history
     const history = useHistory();
     const handleLogin = () => {
         history.push("/")

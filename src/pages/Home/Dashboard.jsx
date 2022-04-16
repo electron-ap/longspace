@@ -11,12 +11,13 @@ const bgGround = {
     width: '100%',
     backgroundImage: 'url(' + imgUrl + ')'
 }
-
+// 试着去抄写  
 function Dashboard() {
+	//  定义 方法的 初始状态， 和set方法 。 默认值为空对象
 	const [digital, setDigital] = useState({})
 	const [tradeShow, setTradeShow] = useState({})
 	const [academy, setAcademy] = useState({})
-
+	// 针对事件 在useEffect(() => {做出对应的事件处理方法})
 	useEffect(() => {
 		moduleList().then(res => {
 			if (res.code === 200) {
@@ -52,6 +53,7 @@ function Dashboard() {
 				<div className="contents-nr">
 					<ul>
 						{
+							// 遍历map(() => {}) li 
 							digital.children && digital.children.map((item) => {
 								return (<li key={item.nav_id}>
 									<Link to={{pathname:"/agent/digital/channels",state:{nav_id:item.nav_id}}}>

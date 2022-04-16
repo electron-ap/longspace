@@ -9,6 +9,7 @@ export default function App(){
 	return (
 		<LangContext.Provider value={{ lang: 'zh-cn', langPackage: { 'title': "标题" } }}>
 			<div className="loadingz">
+			{/* 路由的配置构架Switch @5.0.0 版本的写法 */}
 				<Switch>
 					{/*后台路由*/}
 					<Route path="/agent/" render={props => <AdminLayout {...props} />} />

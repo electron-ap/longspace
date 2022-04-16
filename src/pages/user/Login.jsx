@@ -46,6 +46,7 @@ function Login() {
         history.push("/user/forgetpwd")
     }
 
+    // 这里还不是很理解，在写
     const refreshVerifyCode = () => {
         let client_id = uuid();
         setClientID(client_id)

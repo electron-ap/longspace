@@ -1,9 +1,7 @@
 import logo from "../../assets/logo.png"
-
 import { useHistory,Link } from 'react-router-dom';
-import { Avatar, Badge, Popover, Select, Button } from 'antd';
+import { Avatar, Badge, Popover, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
 import React,{useEffect,useState} from "react";
 
 import './index.scss'
@@ -15,7 +13,6 @@ const { Option } = Select;
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
-//2022-04-02 新增弹窗 ↓↓
 const tidingsTent = (
     <div className="tidings-Tent">
         <div className="tidings-tle">消息通知</div>
@@ -25,34 +22,35 @@ const tidingsTent = (
                     <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
                     <p className="tidings-box-pr">2022-12-34 34:33:00</p>
                 </div>
-                <span className="tidings-box-right">详情 ></span>
+                <span className="tidings-box-right">详情 &gt;</span>
             </li>
             <li className="tidings-box-li">
                 <div className="tidings-box-left">
                     <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
                     <p className="tidings-box-pr">2022-12-34 34:33:00</p>
                 </div>
-                <span className="tidings-box-right">详情 ></span>
+                <span className="tidings-box-right">详情 &gt;</span>
             </li>
             <li className="tidings-box-li">
                 <div className="tidings-box-left">
                     <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
                     <p className="tidings-box-pr">2022-12-34 34:33:00</p>
                 </div>
-                <span className="tidings-box-right">详情 ></span>
+                <span className="tidings-box-right">详情 &gt;</span>
             </li>
         </ul>
     </div>
   );
-//2022-04-02 新增弹窗 ↑↑
-
+// 这里是从新 抄写了一次
 const Myheader = () => {
+    // 声明初始状态,改变方法，默认值状态的初始值
     const [memberInfo,setMemberInfo] = useState({})
     const history = useHistory();
+    //路由
     const handleLogout = ()=>{
         history.push("/")
     }
-
+    // useEffect 事件的处理方法
     useEffect(()=>{
         userInfo().then(res=>{
             if(res.code === 200 ){

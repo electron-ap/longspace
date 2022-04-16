@@ -21,6 +21,7 @@ import Account from "../pages/member/Account"
 import Staff from "../pages/member/Staff"
 import Favorites from "../pages/member/Favorites"
 
+// 自定义webRoutes 路由构架 exact:ture 严格匹配 只是显示当前路由
 export const webRoutes = [
     {
         path: "/",
@@ -38,6 +39,7 @@ export const webRoutes = [
     }
 ]
 
+//  路由构架 children 子路由
 export const adminRoutes = [
     {
         path: "/agent/dashboard",
