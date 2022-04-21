@@ -1,6 +1,6 @@
 import React from 'react'
 import { Radio } from 'antd';
-
+//Single 函数组件
 function Single() {
 	function onChange(e) {
 		console.log(`radio checked:${e.target.value}`);

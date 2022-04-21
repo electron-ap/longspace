@@ -4,12 +4,14 @@ import { Pagination, Input } from 'antd';
 import "../index.scss"
 import { courseList } from "../../../libs/api"
 import { Table } from 'antd';
-
+// Study 函数组件
 function Study() {
+	// 声明dataSource
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
 	})
+	// 声明pagination 状态 setPagination 方法 初始值{ current: 1, pageSize: 15 }
 	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
 	useEffect(() => {
 		getDataSource()

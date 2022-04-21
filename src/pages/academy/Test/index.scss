@@ -311,7 +311,7 @@
 .btn-cancel{
     margin: 0 22px 0 50px;
 }
-/* 弹窗单选题样式 */
+/* 弹窗单选题样式 改变插件样式，要在样式外加个父级div */
 .popup-box .group-dan{
     min-height: 240px;
 }

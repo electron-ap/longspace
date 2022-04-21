@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import "./index.scss"
 import { courseCalc } from "../../libs/api"
-
+//Academy 函数  定义 props
 function Academy(props) {
+    // 输出
     console.log("props", props)
-
+    // 定义状态变量tabList 方法setTabList 初始值为空数组[]
     const [tabList, setTabList] = useState([]);
-
+    //useEffect(() => {}) 处理 courseCalc异步处理事件
     useEffect(() => {
+        //.then 方法 异步处理事件
         courseCalc().then(res => {
             if (res.code === 200) {
                 const {total,study,complete,test,certificate} = res.data
@@ -40,6 +42,7 @@ function Academy(props) {
             <div className="course-column">
                 <ul className="course-column-ul">
                     {
+                        // map(((item, index) => {})遍历li
                         tabList.map((item, index) => {
                             return <NavLink to={item.path} activeClassName="columnactive" className='column-ulli' key={index}>
                                 <span>{item.count}</span>
@@ -49,7 +52,7 @@ function Academy(props) {
                     }
                 </ul>
             </div>
-
+            {/* 位置 组件放置内容 */}
             {/* {renderTabCom()} */
                 props.children
             }

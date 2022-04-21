@@ -2,6 +2,7 @@ import React from 'react'
 import { Pagination, Input } from 'antd';
 import "../index.scss"
 const { Search } = Input;
+// 课程页面---利用 Ant Design 插件组件 定义Cert函数组件 
 function Course() {
 	const onSearch = value => console.log(value);
 	return (

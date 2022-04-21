@@ -1,5 +1,5 @@
 import React from 'react'
-
+//Result 函数组件
 function Result() {
     return (
         <>
@@ -27,6 +27,7 @@ function Result() {
                         <p className="result-items-p">A：3个步骤</p>
                         {/* <img className="result-items-img" alt="" src={require("../../../assets/course/pct01.png")} />   */}
                     </li>
+                    
                     <li className="result-items">
                         <p className="result-items-p">B：4个步骤</p>
                     </li>

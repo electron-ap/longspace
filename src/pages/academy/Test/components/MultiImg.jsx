@@ -1,6 +1,6 @@
 import React from 'react'
 import { Checkbox, Row, Col } from 'antd';
-
+//MultiImg 函数组件
 function MultiImg() {
 	function onChange(checkedValues) {
 		console.log('checked = ', checkedValues);
@@ -8,6 +8,7 @@ function MultiImg() {
 	return (
 		<div className="singlechoice-box">
 			<div className="group-duo group-duopc">
+				{/* 这里用Ant Design插件组件 项目效率高 */}
 				<Checkbox.Group style={{ width: '100%' }} onChange={onChange}>
 					<Row>
 						<Col span={8}>

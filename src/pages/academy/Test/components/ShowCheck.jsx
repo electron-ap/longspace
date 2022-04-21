@@ -1,11 +1,12 @@
 import React from 'react'
 import { Radio, Checkbox, Row, Col } from 'antd';
+//ShowCheck 函数组件
 function ShowCheck() {
     function onChange(e, checkedValues) {
         // console.log(`radio checked:${e.target.value}`);
         // console.log('checked = ', checkedValues);
     }
-    // 多选择
+    // 多选择 plainOptions 数组
     const plainOptions = ['A：3个步骤', 'B：4个步骤', 'C：5个步骤', 'D：6个步骤'];
 
     return (

@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Pagination, Input ,Table} from 'antd';
 import { examList } from "../../../libs/api"
-
+//Exam 函数组件
 function Exam() {
+	//定义dataSoure  参数 data total
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
 	})
+	//定义pagination  参数 current pageSize
 	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
+	//getDataSource()方法
 	useEffect(() => {
 		getDataSource()
 	}, [pagination])
-
+	//getDataSource 函数下 examList 接口的对接处理
 	const getDataSource = () => {
 		examList({  page: pagination.current, limit: pagination.pageSize, }).then(res => {
 			if (res.code === 200) {

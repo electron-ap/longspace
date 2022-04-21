@@ -7,8 +7,11 @@ import "../index.scss"
 
 function Detail(props) {
     console.log("Detail",props)
+    // 定义函数初始状态detail，方法 setDetail  默认值为空对象{}
     const [detail,setDetail] = useState({});
+    //useEffect方法 处理事件
     useEffect(() => {
+        // 对事件的异步处理 
         courseDetail({user_course_id:props.match.params.id}).then(res => {
             if (res.code === 200) {
                 setDetail(res.data)

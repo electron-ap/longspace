@@ -9,7 +9,7 @@ import Multi from './components/Multi';
 import MultiImg from './components/MultiImg';
 import ShowCheck from './components/ShowCheck';
 import Result from './components/Result';
-
+// Test 页面
 function Test() {
     
     return (
@@ -27,7 +27,7 @@ function Test() {
                 <span>3D打印机的操作分为几个步骤？（3分）</span>
             </div>
             
-            
+            {/* 页面组件 Single Multi MultiImg ShowCheck Result */}
             <Single></Single>
             <Multi></Multi>
             <MultiImg></MultiImg>

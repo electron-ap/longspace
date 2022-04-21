@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Table } from 'antd';
-
+// Finished 函数组件 
 function Finished() {
 	const dataSource = [
 		{
@@ -63,6 +63,7 @@ function Finished() {
 			title: '进入考试',
 			dataIndex: 'uploadtime',
 			key: 'uploadtime',
+			// render: 方法  渲染函数  Link 对应跳转
 			render: (text) => {
 				return <Link to="/agent/academy/Testing"><div className="course-enter">{text}进入考试</div></Link>
 			}

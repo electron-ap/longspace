@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'antd';
-
+// 证书页面---利用 Ant Design 插件组件 定义Cert函数组件 
 function Cert() {
 	const dataSource = [
 		{
@@ -64,6 +64,7 @@ function Cert() {
 			key: 'size',
 			width: 100,
 			align: 'center',
+			//render: () => {} 渲染函数组件 方法
 			render: () => {
 				return <div className="coursedload"><img alt="" src="/assets/course/coursedload.png" /></div>
 			},
