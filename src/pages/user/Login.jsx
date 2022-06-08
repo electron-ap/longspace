@@ -15,13 +15,14 @@ function Login() {
         setLang(lang)
     }, [lang])
 
+
     useEffect(() => {
         refreshVerifyCode()
     }, [])
     const history = useHistory();
     const [clientID, setClientID] = useState('');
-    const [userName, setUserName] = useState('longzy@163.com');
-    const [password, setPassword] = useState('123456');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [verifyCode, setVerifyCode] = useState('');
     const [imgsrc, setImgSrc] = useState('');
 
@@ -66,7 +67,9 @@ function Login() {
             <div className="wraper-box"></div>
             <Header></Header>
             <div className="login-tent">
-                <h1 className="logintent-tle">{langConfig.sys_title}</h1>
+                <h1 className="logintent-tle">
+                    {langConfig.sys_title}
+                </h1>
                 <Form>
                     <input className="login-btn btn-imlbg" type="text" placeholder={langConfig.login_email_text} onChange={e => { setUserName(e.target.value) }} value={userName}/>
                     <input type="password" className="login-btn btn-psdbg" placeholder={langConfig.login_pwd_text} onChange={e => { setPassword(e.target.value) }} value={password} />

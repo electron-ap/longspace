@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { Pagination, Input } from 'antd';
 import "../index.scss"
 import { courseList,memberCourseList } from "../../../libs/api"
+import { useLangContext } from '../../../libs/utils/context'
+import { formatSeconds } from "../../../libs/utils/function"
 import { Table } from 'antd';
 
 function Study(props) {
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+	const { setLang, langConfig } = useLangContext();
+	useEffect(() => {
+		setLang(lang)
+	}, [lang])
+
 	let userId = props.match.params.user_id || ""
 
 	const [dataSource, setDataSource] = useState({
@@ -40,27 +49,55 @@ function Study(props) {
 
 	const columns = [
 		{
-			title: '课程名称',
+			title: langConfig.c_course_name,
 			dataIndex: 'title',
 			key: 'title',
+			render: (text,record) => {
+				console.log(text,record)
+				if(record.children.length > 0){
+					return text
+				}else{
+					return <Link to={{ pathname: '/agent/courseDetail/' + record.course_id }}>{record.title}</Link>
+				}
+				
+			}
 		},
 		{
-			title: '最低学习时间',
+			title: langConfig.c_min_study_time,
 			dataIndex: 'min_long',
 			key: 'min_long',
+			render: (text,record) => {
+				if(record.children.length == 0){
+					if(text || text > 0){
+						return formatSeconds(text)
+					}else{
+						return "00:00:00"
+					}
+				}
+			}
 		},
 		{
-			title: '已学习时间',
+			title: langConfig.c_studyed_time,
 			dataIndex: 'study_time',
 			key: 'study_time',
+			render: (text,record) => {
+				if(record.children.length == 0){
+					if(text || text > 0){
+						return formatSeconds(text)
+					}else{
+						return "00:00:00"
+					}
+				}
+			}
 		},
+		// formatSeconds
 		{
-			title: '截止日期',
+			title: langConfig.c_close_date,
 			dataIndex: 'end_time',
 			key: 'end_time',
 		},
 		{
-			title: '进入考试',
+			title: langConfig.c_enter_test,
 			dataIndex: 'uploadtime',
 			key: 'uploadtime',
 

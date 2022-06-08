@@ -96,9 +96,13 @@
         margin-top: 24px;
         padding: 22px 28px 24px;
       //   margin-bottom: 36px;
+
+      .ant-select-selector{
+         min-height: 40px;
+      }
      }
      .SnSelect-style{
-        width: 212px;
+        min-width: 150px;
         height: 40px;
         margin-right: 11px;
         margin-bottom: 10px !important;
@@ -124,7 +128,7 @@
         pointer-events: none;
      }
      .SnSpace-style{
-        width: 340px;
+        min-width: 170px;
         height: 40px;
         float: right;
      }

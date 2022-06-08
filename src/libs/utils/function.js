@@ -28,11 +28,13 @@ export const formatSeconds = (value, format = ':') => {
     let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
     let res = '';
     if (format === 'hms') {
-        if (h !== '00') res += `${h}h`;
+        // if (h !== '00') 
+        res += `${h}h`;
         res += `${m}m`; //if (m !== '00') 
         res += `${s}s`;
     } else {
-        if (h !== '00') res += `${h}:`;
+        // if (h !== '00') 
+        res += `${h}:`;
         res += `${m}:`; //if (m !== '00')
         res += `${s}`;
     }

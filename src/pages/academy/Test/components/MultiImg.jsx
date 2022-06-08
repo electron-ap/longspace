@@ -2,14 +2,16 @@ import React from 'react'
 import { Checkbox, Row, Col } from 'antd';
 
 function MultiImg(props) {
+	console.log("MultiImg(props) ",props)
 	const {item} = props
+	let answer = JSON.parse(item.answer)
 	function onChange(checkedValues) {
 		props.handlepaperitem(checkedValues)
 	}
 	return (
 		<div className="singlechoice-box">
 			<div className="group-duo group-duopc">
-				<Checkbox.Group style={{ width: '100%' }} onChange={onChange}>
+				<Checkbox.Group style={{ width: '100%' }} onChange={onChange} defaultValue={answer}>
 					<Row>
 						<Col span={8}>
 							<Checkbox value="a"><span className="duo-span">A：{item.option_a}</span><img className="duo-img" alt="" src={item.option_a_img} /></Checkbox>

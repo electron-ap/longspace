@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Pagination,Table} from 'antd';
-import { examList,memberExamList } from "../../../libs/api"
+import { message, Pagination,Table} from 'antd';
+import { examList,memberExamList,openTest } from "../../../libs/api"
+import { useLangContext } from '../../../libs/utils/context'
+import { formatSeconds } from "../../../libs/utils/function"
 
 function Exam(props) {
-
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+	const { setLang, langConfig } = useLangContext();
+	useEffect(() => {
+		setLang(lang)
+	}, [lang])
 	let userId = props.match.params.user_id || ""
 	
 	const [dataSource, setDataSource] = useState({
@@ -34,52 +41,84 @@ function Exam(props) {
 	const onPageChange = (val) => {
 		setPagination({ ...pagination, current: val })
 	}
+
+	const reOpenExam = (topic_id) =>{
+		openTest({ topic_id,user_id:userId }).then(res => {
+			if (res.code === 204) {
+				getDataSource();
+				message.success(res.msg)
+			}else{
+				message.error(res.msg)
+			}
+			
+		}).catch(err => { })
+	}
 	
 	const columns = [
 		{
-			title: '考试',
+			title: langConfig.c_exam,
 			dataIndex: 'title',
 			key: 'title',
 			width: 220,
 
 		},
 		{
-			title: '课程名称',
+			title: langConfig.c_course_name,
 			dataIndex: 'course',
 			key: 'course',
 			width: 220,
 		},
 		{
-			title: '考试时间',
+			title: langConfig.c_exam_time,
 			dataIndex: 'start_time',
 			key: 'start_time',
 			width: 210,
 		},
 		{
-			title: '考试状态',
-			dataIndex: 'size',
-			key: 'size',
+			title: langConfig.c_exam_status,
+			dataIndex: 'result',
+			key: 'sresultize',
 			width: 120,
 			align: 'center',
 			render: (text) => {
-				if (text === "1") {
+				if (text === 1) {
 					return <div className="exam-passed">PASSED</div>
-				} else if (text === "3") {
+				} else if (text === 3) {
 					return <div className="exam-failed">FAILED</div>
+				}else{
+					return <div className="exam-makeup">MAKE-UP</div>
 				}
-				return <div className="exam-makeup">MAKE-UP</div>
+				
 			}
 		},
 		{
-			title: '补考次数',
+			title: langConfig.c_make_up,
 			dataIndex: 'remaining',
-			key: 'timremaininge',
+			key: 'remaining',
 			align: 'center',
+			render: (text,record) => {
+				if(localStorage.getItem("userType") === "1"){
+					if (record.remaining === 0) {
+						return <div style={{color:"#C30D23",cursor:"pointer"}} onClick={()=>reOpenExam(record.topic_id)}>{langConfig.c_open_retest}</div>
+					}else{
+						return record.remaining
+					}
+				}else{
+					return record.remaining
+				}
+			}
 		},
 		{
-			title: '时长',
+			title: langConfig.c_duration,
 			dataIndex: 'how_long',
 			key: 'how_long',
+			render: (text,record) => {
+				if(text || text > 0){
+					return formatSeconds(text)
+				}else{
+					return "00:00:00"
+				}
+			}
 		},
 	];
 	return (

@@ -19,7 +19,7 @@ function Header() {
                 <img src="/assets/logo.png" className="my-logo" alt="logo" />
                 <div className="myuser">
                     <div className="language-lect">
-                        <Select onChange={(e) => changeLang(e)} value={lang} dropdownMatchSelectWidth={false} >
+                        <Select onChange={(e) => {changeLang(e);window.location.reload() }} value={lang} dropdownMatchSelectWidth={false} >
                             <Option value="zh-cn"><span className="lg-zh">中 文</span></Option>
                             <Option value="en-us"><span className="lg-en">English</span></Option>
                         </Select>

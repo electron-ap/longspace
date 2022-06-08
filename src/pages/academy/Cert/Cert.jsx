@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Pagination,Table} from 'antd';
 import { certList,memberCertList } from "../../../libs/api"
 import { downLoadFile } from "../../../libs/utils/function"
+import { useLangContext } from '../../../libs/utils/context'
 
 function Cert(props) {
-
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+	const { setLang, langConfig } = useLangContext();
+	useEffect(() => {
+		setLang(lang)
+	}, [lang])
 	let userId = props.match.params.user_id || ""
 
 	const [dataSource, setDataSource] = useState({
@@ -42,23 +48,23 @@ function Cert(props) {
 
 	const columns = [
 		{
-			title: '证书名称',
+			title: langConfig.c_cert_name,
 			dataIndex: 'title',
 			key: 'title',
 
 		},
 		{
-			title: '颁发日期',
+			title: langConfig.c_get_date,
 			dataIndex: 'create_time',
 			key: 'create_time',
 		},
 		{
-			title: '失效日期',
+			title: langConfig.c_expire_date,
 			dataIndex: 'validity_time',
 			key: 'validity_time',
 		},
 		{
-			title: '下载',
+			title:  langConfig.c_download,
 			dataIndex: 'size',
 			key: 'size',
 			width: 100,

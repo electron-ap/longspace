@@ -30,16 +30,16 @@ function Test(props) {
 
     useEffect(() => {
 
-        // if (paperTime > 0) {
-        //     let timer = setTimeout(() => {
-        //         setPaperTime(paperTime - 1)
-        //         setPaperTimeShow(formatSeconds(paperTime - 1))
-        //     }, 1000);
-        //     setTimerID(timer)
-        // } else {
-        //     setPaperTimeShow(formatSeconds(0))
-        //     clearTimeout(timerID)
-        // }
+        if (paperTime > 0) {
+            let timer = setTimeout(() => {
+                setPaperTime(paperTime - 1)
+                setPaperTimeShow(formatSeconds(paperTime - 1))
+            }, 1000);
+            setTimerID(timer)
+        } else {
+            setPaperTimeShow(formatSeconds(0))
+            clearTimeout(timerID)
+        }
 
         return () => {
             setTimerID(null)

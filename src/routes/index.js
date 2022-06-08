@@ -1,5 +1,6 @@
 // 普通路由，无需登录
 import Login from "../pages/user/Login";
+import ActiveAcc from "../pages/user/ActiveAcc"
 import ForgetPwd from "../pages/user/ForgetPwd";
 import PageNotFound from "../pages/errors/PageNotFound";
 
@@ -27,6 +28,11 @@ export const webRoutes = [
     {
         path: "/",
         component: Login,
+        exact: true
+    },
+    {
+        path: "/ActiveAcc",
+        component: ActiveAcc,
         exact: true
     },
     {

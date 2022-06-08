@@ -37,7 +37,7 @@ function Query(props) {
                 case "select":
                     return (
                         <Form.Item className="SnSelect-style" name={item.key} key={`p${index}`} >
-                            <Select placeholder={item.lable} allowClear>
+                            <Select placeholder={item.lable} allowClear mode="multiple">
                                 {
                                     item.options.map((sonItem, sonKey) => {
                                         return <Option value={sonItem.value} key={`s${sonKey}`}>{sonItem.label}</Option>
@@ -47,7 +47,6 @@ function Query(props) {
                         </Form.Item>
                     )
                 case "text":
-                    console.log(item, item.label);
                     return (
                         <Form.Item className="SnSpace-style" name={item.key} key={`p${index}`}>
                             <Input placeholder={item.lable}  />

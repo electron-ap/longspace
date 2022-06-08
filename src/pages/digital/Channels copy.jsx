@@ -10,7 +10,7 @@ import { useLangContext } from '../../libs/utils/context'
 
 const { Option } = Select;
 
-function Index(props) {
+function Channels(props) {
     let _language = localStorage.getItem('language') || 'zh-cn';
     const [lang, changeLang] = useState(_language);
     const { setLang, langConfig } = useLangContext();
@@ -19,15 +19,18 @@ function Index(props) {
     }, [lang])
 
     const { nav_id } = props.location.state
-    const [pageSource, setPageSource] = useState({total: 0})
-    const [dataSource, setDataSource] = useState([])
+
+    const [dataSource, setDataSource] = useState({
+        data: [],
+        total: 0
+    })
     const [pagination, setPagination] = useState({ current: 1, pageSize: 16 })
     const [sortWay, setSortWay] = useState(1) // 默认降序
     const [displayWay, setDisplayWay] = useState("grid") // grid list
     const [navInfo, setNavInfo] = useState({})
     const [formParams, setFormParams] = useState([])
     const [formQuery, setFormQuery] = useState({})
-    const [checkAll, setCheckAll] = useState(false)
+    const [defaultCheckList, setDefaultCheckList] = useState([])
 
     useEffect(() => {
         getBasic()
@@ -48,14 +51,7 @@ function Index(props) {
     const getDataSource = () => {
         moduleDataList({ ...formQuery, nav_id, page: pagination.current, limit: pagination.pageSize, order: sortWay }).then(res => {
             if (res.code === 200) {
-                let _data = res.data
-                _data.forEach((item,index)=>{
-                    _data[index].checked = false;
-                })
-
-                setPageSource({ total: res.count })
-
-                setDataSource(_data)
+                setDataSource({ data: res.data, total: res.count })
             }
         }).catch(err => { })
     }
@@ -72,6 +68,7 @@ function Index(props) {
     }
     const handleFormQuery = (obj) => {
         setFormQuery({ ...obj })
+        console.log("父组件中.handleFormQuery", obj)
     }
 
     const doFavorites = (val) => {
@@ -83,37 +80,27 @@ function Index(props) {
         }).catch(err => { })
     }
 
-    // 全选或反选
     const onCheckChange = (e) => {
-        setCheckAll(e.target.checked)
-        console.log(e.target.checked)
-        let mydata = dataSource
-        mydata.forEach((item,index) => {
-            mydata[index].checked = e.target.checked
-        })
-        setDataSource([...mydata])
+        if (e.target.checked) {
+            let tmp_arr = [];
+            dataSource.data.forEach(item => {
+                tmp_arr.push(item.file_id)
+            })
+            setDefaultCheckList([...tmp_arr])
+        } else {
+            setDefaultCheckList([])
+        }
     }
-    const onItemChange = (index) =>{
-        let mydata = dataSource
-        mydata[index].checked = !mydata[index].checked
-        setDataSource([...mydata])
+    const onCheckBoxChange = (val) => {
+        console.log("onCheckBoxChange", val)
+        setDefaultCheckList(val)
     }
-
     const handleDownLoad = () => {
-        let mydata = dataSource
-        let _len = 0
-        let _file_id = [];
-        mydata.forEach((item,index) => {
-            if(mydata[index].checked){
-                _len += 1
-                _file_id.push(item.file_id)
-            }
-        })
-        if (_len === 0) {
+        if (defaultCheckList.length === 0) {
             message.error("请选择要下载的文件");
             return false;
         }
-        downloadFileZip({ file: JSON.stringify(_file_id) }).then(res => {
+        downloadFileZip({ file: JSON.stringify(defaultCheckList) }).then(res => {
             if (res.code === 200) {
                 downLoadFile(res.data.path)
             }
@@ -123,32 +110,32 @@ function Index(props) {
 
     const listFileType = (item) => {
         if (["PNG", 'JPG', 'JPEG', 'GIF'].includes(item.type)) {
-            return (<span className="td-pc td-pcimg"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank" title={item.file_name}>{item.file_name}</Link></span>)
+            return (<span className="td-pc td-pcimg"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank">{item.file_name}</Link></span>)
         } else if (["MP4"].includes(item.type)) {
-            return (<span className="td-pc td-pcvedio"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank" title={item.file_name}>{item.file_name}</Link></span>)
+            return (<span className="td-pc td-pcvedio"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank">{item.file_name}</Link></span>)
         } else {
-            return (<span className="td-pc td-pctest"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank" title={item.file_name}>{item.file_name}</Link></span>)
+            return (<span className="td-pc td-pctest"><Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank">{item.file_name}</Link></span>)
         }
 
     }
 
-    const renderGridItem = (item,index) => {
+    const renderGridItem = (item) => {
         if (["XLSX", "XLS", 'DOC', 'DOCX'].includes(item.type)) {
             return (<li className="list-sntems" key={item.file_id}>
                 {
                     item.is_favorites === 1 ? <span style={{position:"absolute", left:"10px",top:"10px",zIndex:100}} className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>&nbsp;</span> : <span style={{position:"absolute", left:"10px",top:"10px",zIndex:100}} className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>&nbsp;</span>
                 }
                 <div className="list-box">
-                    <a href={item.url} target="_blank" rel="noreferrer" title={item.file_name}><img className="list-img" title={item.file_name} src={item.cover} alt="" />
+                    <a href={item.url} target="_blank"><img className="list-img" src={item.cover} alt="" />
                     </a>
                     <span className="list-pdf">{item.type}</span>
                 </div>
-                <div className="snlist-title"><Checkbox onChange={()=>onItemChange(index)} checked={item.checked}></Checkbox> &nbsp;<span className="snlist-title-pc pctest"></span>{item.file_name}
+                <p className="snlist-title"><Checkbox value={item.file_id}></Checkbox> &nbsp;<span className="snlist-title-pc pctest"></span>{item.file_name}
                 <div style={{float:"right"}}>
                 {
                     item.is_favorites === 1 ? <span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>&nbsp;</span> : <span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>&nbsp;</span>
                 }</div>
-                </div>
+                </p>
             </li>)
         } else {
             return (<li className="list-sntems" key={item.file_id}>
@@ -157,16 +144,16 @@ function Index(props) {
                 }
 
                 <div className="list-box">
-                    <Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank" title={item.file_name}><img className="list-img" src={item.cover} alt="" />
+                    <Link to={`/fileDetail/?type=${item.type}&url=${item.url}`} target="_blank"><img className="list-img" src={item.cover} alt="" />
                     </Link>
                     <span className="list-pdf">{item.type}</span>
                 </div>
-                <div className="snlist-title" title={item.file_name}><Checkbox onChange={()=>onItemChange(index)} checked={item.checked}></Checkbox> &nbsp;<span className="snlist-title-pc pctest"></span>{item.file_name}
+                <p className="snlist-title"><Checkbox value={item.file_id}></Checkbox> &nbsp;<span className="snlist-title-pc pctest"></span>{item.file_name}
                 <div style={{float:"right"}}>
                 {
                     item.is_favorites === 1 ? <span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>&nbsp;</span> : <span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>&nbsp;</span>
                 }</div>
-                </div>
+                </p>
             </li>)
         }
     }
@@ -194,63 +181,67 @@ function Index(props) {
 
             <div className="snlist-box">
                 <div className='table-info-title'>
-                    <div className='info-title-count'>{langConfig.total} <span>{pageSource.total}</span></div>
+                    <div className='info-title-count'>{langConfig.total} <span>{dataSource.total}</span></div>
                     <div className='info-title-sort' >
                         {langConfig.d_sort_time} {sortWay === 1 ? <ArrowUpOutlined onClick={() => handleSort(2)} /> : <ArrowDownOutlined onClick={() => handleSort(1)} />}
                     </div>
                     <div className='info-title-down'>
-                        <Checkbox onChange={onCheckChange} checked={checkAll}></Checkbox> &nbsp;<img src='../../assets/screen/dload.png' alt='' /> <span style={{ cursor: "pointer" }} onClick={handleDownLoad}>{langConfig.c_download}</span>
+                        <Checkbox onChange={onCheckChange}></Checkbox> &nbsp;<img src='../../assets/screen/dload.png' alt='' /> <span style={{ cursor: "pointer" }} onClick={handleDownLoad}>DOWNLOAD</span>
                     </div>
                 </div>
                 
                 <div className="snlist-list">
                     {
                         displayWay === "grid" ? (
+                            <Checkbox.Group style={{ width: "100%" }} defaultValue={defaultCheckList} onChange={onCheckBoxChange} key={Date().valueOf()}>
                             <ul className="snlist-ul">
                                 {
-                                    dataSource.map((item,index) => {
+                                    dataSource.data.map(item => {
                                         return (
-                                            renderGridItem(item,index)
+                                            renderGridItem(item)
                                         )
                                     })
                                 }
                             </ul>
+                            </Checkbox.Group>
                         ) : (
                             <>
-                                <table className="snltsgle-table">
-                                    <thead className="snltsgle-thead">
-                                        <tr>
-                                            <th className="th-with01">{langConfig.digital_title}</th>
-                                            <th className="th-with02">{langConfig.digital_publish}</th>
-                                            <th className="th-with03">{langConfig.digital_file_type}</th>
-                                            <th className="th-with04">{langConfig.digital_file_size}</th>
-                                            <th className="th-with05">{langConfig.digital_upload_time}</th>
-                                            <th className="th-with06"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="tb-td-border">
-                                        {
-                                            dataSource.map((item,index) => {
-                                                return (
-                                                    <tr key={item.file_id}>
-                                                        <td className="tb-td-color01 th-with01">
-                                                            <Checkbox  onChange={()=>onItemChange(index)} checked={item.checked}></Checkbox> &nbsp;{listFileType(item)}</td>
-                                                        <td className="tb-td-color01 th-with02">RAISE3D</td>
-                                                        <td className="tb-td-color01 th-with03"><span>{item.type}</span></td>
-                                                        <td className="tb-td-color01 th-with04">{
-                                                            calcFileSize(item.size)
-                                                        }
-                                                        </td>
-                                                        <td className="tb-td-color02 th-with05">{item.create_time}</td>
-                                                        {
-                                                            item.is_favorites === 1 ? <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>{langConfig.d_remove_fav}</span></td> : <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>{langConfig.d_add_fav}</span></td>
-                                                        }
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
+                                <Checkbox.Group style={{ width: "100%" }} defaultValue={defaultCheckList} onChange={onCheckBoxChange} key={Date().valueOf()}>
+                                    <table className="snltsgle-table">
+                                        <thead className="snltsgle-thead">
+                                            <tr>
+                                                <th className="th-with01">名称</th>
+                                                <th className="th-with02">发布者</th>
+                                                <th className="th-with03">文件类型</th>
+                                                <th className="th-with04">大小</th>
+                                                <th className="th-with05">上传时间</th>
+                                                <th className="th-with06"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="tb-td-border">
+                                            {
+                                                dataSource.data.map(item => {
+                                                    return (
+                                                        <tr key={item.file_id}>
+                                                            <td className="tb-td-color01 th-with01">
+                                                                <Checkbox value={item.file_id}></Checkbox> &nbsp;{listFileType(item)}</td>
+                                                            <td className="tb-td-color01 th-with02">RAISE3D</td>
+                                                            <td className="tb-td-color01 th-with03"><span>{item.type}</span></td>
+                                                            <td className="tb-td-color01 th-with04">{
+                                                                calcFileSize(item.size)
+                                                            }
+                                                            </td>
+                                                            <td className="tb-td-color02 th-with05">{item.create_time}</td>
+                                                            {
+                                                                item.is_favorites === 1 ? <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionon" onClick={() => doFavorites(item.file_id)}>{langConfig.d_remove_fav}</span></td> : <td className="tb-td-color03 th-with06"><span className="td-collection td-collectionof" onClick={() => doFavorites(item.file_id)}>{langConfig.d_add_fav}</span></td>
+                                                            }
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </Checkbox.Group>
                             </>
                         )
                     }
@@ -261,7 +252,7 @@ function Index(props) {
                         size="small"
                         current={pagination.current}
                         pageSize={pagination.pageSize}
-                        total={pageSource.total}
+                        total={dataSource.total}
                         onChange={val => onPageChange(val)}
                     />
                 </div>
@@ -270,4 +261,5 @@ function Index(props) {
 
     )
 }
-export default Index
+
+export default Channels

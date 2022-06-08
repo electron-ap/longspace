@@ -14,6 +14,8 @@ export const userModifyPwd = (data = {}) => request.post("user/password", data);
 export const favoritesList = (params = {}) => request.get("Favorites/getList", { params });//收藏夹列表
 export const favoritesRemove = (data = {}) => request.post("Favorites/remove", data); //移除收藏
 
+export const uploadFile = (data = {}) => request.post("user/saveHead", data);
+
 export const myMemberList = (params = {}) => request.get("Member/getList", { params });//我的成员列表
 export const myMemberApply = (data = {}) => request.post("Member/apply", data);//成员申请
 export const myMemberRemove = (data = {}) => request.post("Member/remove", data);//成员删除申请
@@ -51,6 +53,13 @@ export const startCourse = (data = {}) => request.post("Course/study", data); //
 
 
 export const certList = (params = {}) => request.get("Cert/getList", { params });//考试列表
+
+
+export const msgList = (params = {}) => request.get("mess/index", { params });//消息列表
+export const msgDetail = (params = {}) => request.get("mess/getData", { params });//消息详情
+export const msgRead = (data = {}) => request.post("mess/read", data);//消息已读
+
+export const openTest = (data = {}) => request.post("Member/openTest", data); // 重开考试
 
 
 

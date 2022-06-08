@@ -3,15 +3,41 @@ import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
 import "./index.scss"
 
-import { moduleList, swiperList } from "../../libs/api"
+import { moduleList, swiperList, msgList,msgRead } from "../../libs/api"
+import { useLangContext } from '../../libs/utils/context'
 
 function Dashboard() {
+	let _language = localStorage.getItem('language') || 'zh-cn';
+	const [lang, changeLang] = useState(_language);
+    const { setLang, langConfig } = useLangContext();
+    useEffect(() => {
+        setLang(lang)
+    }, [lang])
+
 	const [digital, setDigital] = useState({})
 	const [tradeShow, setTradeShow] = useState({})
 	const [academy, setAcademy] = useState({})
 	const [swiperData, setSwiperData] = useState([])
-	const [modalVisible, setModalVisible] = useState(true)
+	const [popMsgList, setPopMsgList] = useState([])
 
+	const [modalVisible, setModalVisible] = useState(false)
+	const closeModal = () => {
+		if(popMsgList.length > 0){
+			let _ids = []
+			popMsgList.forEach(item=>{
+				_ids.push(item.mess_id)
+			})
+			msgRead({mess:JSON.stringify(_ids)}).then(res => {
+				if (res.code === 200) {
+					setDigital(res.data[0])
+					setTradeShow(res.data[2])
+					setAcademy(res.data[1])
+				}
+			}).catch(err => { })
+		}
+		
+		setModalVisible(false)
+	}
 
 	useEffect(() => {
 		swiperList().then(res => {
@@ -27,14 +53,18 @@ function Dashboard() {
 				setAcademy(res.data[1])
 			}
 		}).catch(err => { })
+
+		msgList({}).then(res => {
+			if (res.code === 200) {
+				setPopMsgList(res.data.popup.data)
+				setModalVisible(res.data.popup.data.length?true:false)
+			}
+		}).catch(err => { })
 	}, [])
 
-	const closeModal = () =>{
-		setModalVisible(false)
-	}
 
 	const checkAgentOrStaff = () => {
-		if (localStorage.getItem("userType") === "2") {
+		// if (localStorage.getItem("userType") === "2") {
 			return (
 				<>
 					<div className="contents-tle">{academy.title}</div>
@@ -54,9 +84,9 @@ function Dashboard() {
 					</div>
 				</>
 			)
-		}else{
-			return null
-		}
+		// } else {
+		// 	return null
+		// }
 	}
 	return (
 		<>
@@ -67,7 +97,7 @@ function Dashboard() {
 							return (
 								<div key={index}>
 									<div className="lunbo-box" style={{
-										height: '400px',
+										height: '472px',
 										width: '100%',
 										backgroundImage: `url(${item.file_url})`,
 										backgroundSize: "100% 100%"
@@ -120,17 +150,28 @@ function Dashboard() {
 			</div>
 
 			{/* 2022-04-02 新增弹窗 ↓↓ */}
-            <div className="prompt-wraper" style={{ display: modalVisible ? "block" : "none" }}></div>
-            <div className="prompt-box" style={{ display: modalVisible ? "block" : "none" }}>
-                <div className="prompt-tle">消息通知</div>
-                <div className="prompt-tent">
-                    <p className="prompt-p-ste">已更新课程</p>
-                    <p className="prompt-p-ste prompt-p-col">3D打印机的操作</p>
-                    <p className="prompt-p-ste prompt-p-col">3D打印机的参数设置</p>
-                </div>
-                <button className="prompt-btn" onClick={closeModal}>关闭</button>
-            </div>
-            {/* 2022-04-02 新增弹窗 ↑↑ */}
+			<div className="prompt-wraper" style={{ display: modalVisible ? "block" : "none" }}></div>
+			<div className="prompt-box" style={{ display: modalVisible ? "block" : "none" }}>
+				<div className="prompt-tle">{langConfig.Notification}</div>
+				<div className="prompt-tent">
+					<p className="prompt-p-ste">{langConfig.recent_update}</p>
+					{
+						popMsgList.map((item,index) => {
+							return (
+								<p key={index} className="prompt-p-ste prompt-p-col">
+									{/* <Link to={`/fileDetail/?type=${item.mime}&url=${item.url}`} target="_blank" key={item.mess_id}>
+										{item.title}
+									</Link> */}
+									{item.title}
+								</p>
+							)
+						})
+					}
+				</div>
+				<button className="prompt-btn" onClick={closeModal}>关闭</button>
+			</div>
+			{/* 2022-04-02 新增弹窗 ↑↑ */}
+			<div style={{ height: '90px' }}></div>
 		</>
 	)
 }

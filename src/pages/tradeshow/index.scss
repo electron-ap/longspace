@@ -49,9 +49,9 @@
       // justify-content: space-between;
       .info-title-count{
          width: 120px;
-         span{
-            font-size: 20px;
-         }
+         // span{
+         //    font-size: 20px;
+         // }
       }
       .info-title-sort{
          padding-left: 20px;
@@ -74,6 +74,7 @@
       border-radius: 6px;
       float: left;
       margin: 0 26px 28px 0;
+      position: relative;
    }
 
    .list-box {

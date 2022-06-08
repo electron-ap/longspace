@@ -1,10 +1,11 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import { message } from 'antd';
 import "./index.scss"
 import Account from './Account';
 import Favorites from './Favorites';
 import Staff from './Staff';
-import { userInfo } from "../../libs/api"
+import { userInfo,uploadFile } from "../../libs/api"
 import { useLangContext } from '../../libs/utils/context'
 
 function Index(props) {
@@ -14,6 +15,42 @@ function Index(props) {
     useEffect(() => {
         setLang(lang)
     }, [lang])
+
+    const refDom = useRef(null);
+	const handleFileUpload = () => {
+		refDom.current.click();
+	}
+	const fileUploadChange = (event) => {
+        event.preventDefault()
+        const {state,category_id} = props;
+		let allFiles = event.target.files
+		Object.keys(allFiles).forEach((key) => {
+			console.log("allFiles[key]",allFiles[key])
+			if(state === 1){
+				if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(allFiles[key].name)) {
+					message.error("头像必须是图片");
+					return false;
+				}
+			}
+		})
+		
+		let fd;
+		Object.keys(allFiles).forEach((key) => {
+			fd = new FormData()
+			fd.append("file", allFiles[key]);
+			fd.append("state", state);
+			fd.append("key", key);
+			fd.append("category_id", category_id);
+			uploadFile(fd).then(res => {
+				if(res.code === 200){
+					getUserInfo()
+				}else{
+					message.error(res.msg)
+				}
+			})
+		})
+		
+	}
 
 	const { state = { tabIndex: 0 } } = useLocation();
 	const [memberInfo,setMemberInfo] = useState({})
@@ -25,9 +62,13 @@ function Index(props) {
     },[state])
 
 	useEffect(()=>{
-        userInfo().then(res=>{
+        getUserInfo()
+    },[])
+
+	const getUserInfo = ()=>{
+		userInfo().then(res=>{
             if(res.code === 200 ){
-                setMemberInfo(res.data)
+                setMemberInfo({...res.data,head:res.data.head+`?${new Date().valueOf()}`})
 				if(res.data.type === 1){
 					setTabTitle([
 						{ type: 1, title: langConfig.account_info },
@@ -42,7 +83,7 @@ function Index(props) {
 				}
             }
         }).catch(err=>{})
-    },[])
+	}
 
 	const handleTabClick = (index) =>{
 		setTabActiveKey(index)
@@ -73,8 +114,12 @@ function Index(props) {
 			</div>
 			<div className="admin-wraper">
 				<div className="admin-head">
-					<div className="admin-head-pc"></div>
-					<div className="admin-head-upload"></div>
+				<input ref={refDom} type="file" name='fileUpload' id="fileUpload" onChange={fileUploadChange} style={{display: "none"}} />
+					<div className="admin-head-pc" style={{cursor:"pointer"}} onClick={ handleFileUpload}>
+						<img src={memberInfo.head} alt="" style={{width: "126px",
+    height: '126px',borderRadius:"50%"}} />
+					</div>
+					<div className="admin-head-upload" style={{cursor:"pointer"}} onClick={ handleFileUpload}></div>
 					<div className="admin-head-name">{memberInfo.account}</div>
 				</div>
 				<div className="admin-sort">

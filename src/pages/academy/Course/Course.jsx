@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import { UpOutlined,DownOutlined } from '@ant-design/icons';
 import { Pagination, Input, Checkbox, Tree } from 'antd';
 import "../index.scss"
 import { courseList, memberCourseList, memberCourseOnOff } from "../../../libs/api"
@@ -11,16 +12,16 @@ function Course(props) {
 	console.log("course props", props)
 	let _language = localStorage.getItem('language') || 'zh-cn';
 	const [lang, changeLang] = useState(_language);
+	const paramsKey = useRef(null);
 	const { setLang, langConfig } = useLangContext();
 	useEffect(() => {
 		setLang(lang)
 	}, [lang])
 
 	const [agentAdmin, setAgentAdmin] = useState(false);
-	const [keyword, setKeyword] = useState("");
+	const [keyword, setKeyword] = useState('');
 	let userId = props.match.params.user_id || ""
-	let _state = props.location.state || { keyword: '' }
-
+	// let _state = props.location.state || { keyword: '' }
 	const [dataSource, setDataSource] = useState({
 		data: [],
 		total: 0
@@ -28,15 +29,23 @@ function Course(props) {
 	const [pagination, setPagination] = useState({ current: 1, pageSize: 15 })
 
 	useEffect(() => {
+		paramsKey.current = props.location.state?.keyword 
+	}, [props.location.state])
+
+	useEffect(() => {
+		paramsKey.current = keyword
+	}, [keyword])
+
+	useEffect(() => {
 		getDataSource()
-	}, [pagination, keyword])
+	}, [pagination, keyword, props.location.state])
 
 	useEffect(() => {
 		if (userId && localStorage.getItem("userType") === "1") {
 			setAgentAdmin(true)
 		}
-		console.log("_state", _state)
-		setKeyword(_state.keyword)
+		// console.log("_state", _state)
+		// setKeyword(_state.keyword)
 		setPagination({ ...pagination, current: 1 })
 	}, [])
 
@@ -55,7 +64,7 @@ function Course(props) {
 				}
 			}).catch(err => { })
 		} else {
-			courseList({ status: 1, page: pagination.current, limit: pagination.pageSize, keyword }).then(res => {
+			courseList({ status: 1, page: pagination.current, limit: pagination.pageSize, keyword: paramsKey.current }).then(res => {
 				if (res.code === 200) {
 					let _data = res.data;
 					_data.forEach((item,index)=>{
@@ -167,7 +176,11 @@ function Course(props) {
 		})
 
 		memberCourseOnOff({ user_id: userId, course: JSON.stringify(course_id_arr), status: onOffStatus }).then(res => {
-			message.info(res.msg)
+			if(res.code === 204){
+				message.success(res.msg)
+			}else{
+				message.error(res.msg)
+			}
 		}).catch(err => {
 
 		})
@@ -216,13 +229,18 @@ function Course(props) {
 
 											</span>{item.title}
 											<span className={item.topic !== "0" ? "courseon" : ""}></span></div>
-										<button className="cs-ser-on cs-ser-showon" onClick={()=>handleItemOpenClose(index)}>{item.openStatus?langConfig.c_close_item:langConfig.c_open_item}</button>
+
+											{/* cs-ser-showon */}
+										<button style={{ background: "#EBF4F8",color:"red",display:item.children.length>2?'block':'none'}} className="cs-ser-on " onClick={()=>handleItemOpenClose(index)}>{item.openStatus?langConfig.c_close_item:langConfig.c_open_item}
+										&nbsp;
+										{item.openStatus?<UpOutlined />:<DownOutlined />}
+										</button>
 									</div>
 									<div className="course-series-nr">
 										{
 											item.children.map((child, indexc) => {
 												return (
-													<div style={{display:indexc>=2 && !item.openStatus?"none":"block"}}  key={`par${indexc}`}>
+													<div style={{display:!item.openStatus?"none":"block"}}  key={`par${indexc}`}>
 													<div  className="series-nr-list">
 														<p className="srsnr-rt">
 															<span style={{ paddingRight: "12px" }}>
@@ -230,8 +248,8 @@ function Course(props) {
 																	agentAdmin ? (<Checkbox onChange={(e) => onSonItemCheckChange(e, child.course_id)} checked={child.is_add ? true : false}></Checkbox>) : null
 																}
 															</span>
-															<Link to={{ pathname: '/agent/courseDetail/' + child.user_course_id }}>{child.title}</Link></p>
-														<span className="srsnr-lf">最低学习时间：{formatSeconds(child.min_long)}</span>
+															<Link to={{ pathname: '/agent/courseDetail/' + child.course_id }}>{child.title}</Link></p>
+														<span className="srsnr-lf">{langConfig.c_min_study_time}：{formatSeconds(child.min_long)}</span>
 													</div>
 													</div>
 													

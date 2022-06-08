@@ -24,13 +24,15 @@ function FileDetail(props) {
 				您的浏览器不支持 video 标签。
 			</video>)
 		} else if (["PDF"].includes(typeArr[1])) {
-			return <embed src={url} type="application/pdf" width="100%" style={{ height: "100vh" }}></embed>
+			return <embed src={url} type="application/pdf" width="100%" style={{ height: "100%" }}></embed>
 		} else {
-			return <img src={url} alt="" />
+			return <div style={{ display:"flex",background: "#000000",alignItems:"center",height:"100%",justifyContent:"center"}}><img src={url} alt="" style={{width:"auto",maxWidth:"100%",height:"auto",maxHeight:"100%"}} /></div>
 		}
 	}
 	return (
-		<div className='file-detail-box' style={{ textAlign: "center" }}>
+		<div className='file-detail-box' style={{ textAlign: "center",
+		height: "100%",
+		lineHeight:  "100%",overflowY:"scroll" }}>
 			{renderTar()}
 		</div>
 	)

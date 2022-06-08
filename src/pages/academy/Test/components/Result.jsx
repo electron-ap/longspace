@@ -97,11 +97,11 @@ function Result(props) {
             return (
                 <>
                     <li className="result-items"> {/* result-items-right */}
-                        <p className="result-items-p">E：{dataItem.option_a}</p>
+                        <p className="result-items-p">E：正确</p>
                         {dataItem.option_a_img!==""?<img className="result-items-img" alt="" src={dataItem.option_a_img} />:''}
                     </li>
                     <li className="result-items">
-                        <p className="result-items-p">F：{dataItem.option_b}</p>
+                        <p className="result-items-p">F：错误</p>
                         {dataItem.option_b_img!==""?<img className="result-items-img" alt="" src={dataItem.option_b_img} />:''}
                     </li>
                 </>

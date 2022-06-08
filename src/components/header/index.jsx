@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Avatar, Badge, Popover, Select, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useLangContext } from '../../libs/utils/context'
-import { userInfo } from "../../libs/api"
+import { userInfo, msgList,msgDetail } from "../../libs/api"
 import './index.scss'
 import { removeToken } from "../../middleware/auth"
 
@@ -27,6 +27,8 @@ const Myheader = () => {
     useEffect(() => {
         setLang(lang)
     }, [lang])
+
+    const [topMsgList, setTopMsgList] = useState([])
     useEffect(() => {
         userInfo().then(res => {
             if (res.code === 200) {
@@ -34,7 +36,16 @@ const Myheader = () => {
                 localStorage.setItem("userType", res.data.type)
             }
         }).catch(err => { })
+
+        getMsgList()
     }, [])
+    const getMsgList = () =>{
+        msgList({}).then(res => {
+            if (res.code === 200) {
+                setTopMsgList(res.data.normal.data)
+            }
+        }).catch(err => { })
+    }
 
     const handleSearch = () => {
         history.push({ pathname: "/agent/academy/CourseList", state: { keyword } })
@@ -42,44 +53,60 @@ const Myheader = () => {
     const content = (
         <div className="myusertent">
             <div className="myusertent01">{langConfig.current_acc_text}</div>
-            <div className="myusertent02"><Link to={{ pathname: "/agent/member", state: { tabIndex: 0 } }}>{memberInfo.account}</Link></div>
+            <div className="myusertent02"><Link to={{ pathname: "/agent/member", state: { tabIndex: 0 } }}>{memberInfo.name}</Link></div>
+            <div className="myusertent03"><Link to={{ pathname: `/agent/member`, state: { tabIndex: 0 } }}>{langConfig.account_info}</Link></div>
             <div className="myusertent03"><Link to={{ pathname: `/agent/member`, state: { tabIndex: 1 } }}>{langConfig.favorites}</Link></div>
+            {
+                memberInfo.type===1?<div className="myusertent03"><Link to={{ pathname: `/agent/member`, state: { tabIndex: 2 } }}>{langConfig.account_staff}</Link></div>:null
+            }
             <div className="myusertent04" onClick={handleLogout}>{langConfig.logout}</div>
         </div>
     );
 
+    const setIsRead = (id) =>{
+        msgDetail({mess_id:id}).then(res => {
+            if (res.code === 200) {
+                getMsgList()
+            }
+        }).catch(err => { })
+    }
 
     //2022-04-02 新增弹窗 ↓↓
     const tidingsTent = () => {
         return (<div className="tidings-Tent">
-            <div className="tidings-tle">消息通知</div>
+            <div className="tidings-tle">{langConfig.Notification}</div>
             <ul className="tidings-box">
-                <li className="tidings-box-li">
-                    <div className="tidings-box-left">
-                        <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
-                        <p className="tidings-box-pr">2022-12-34 34:33:00</p>
-                    </div>
-                    <span className="tidings-box-right">详情 ></span>
-                </li>
-                <li className="tidings-box-li">
-                    <div className="tidings-box-left">
-                        <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
-                        <p className="tidings-box-pr">2022-12-34 34:33:00</p>
-                    </div>
-                    <span className="tidings-box-right">详情 ></span>
-                </li>
-                <li className="tidings-box-li">
-                    <div className="tidings-box-left">
-                        <p className="tidings-box-nr">更新了新的课程10节，如果需要考试的抓紧</p>
-                        <p className="tidings-box-pr">2022-12-34 34:33:00</p>
-                    </div>
-                    <span className="tidings-box-right">详情 ></span>
-                </li>
+                {
+                    topMsgList.map(item => {
+                        return (
+                            // <Link to="" className="tidings-box-li" key={item.mess_id}>
+                            //     <div className="tidings-box-left">
+                            //         <p className="tidings-box-nr">{item.title}</p>
+                            //         <p className="tidings-box-pr">{item.create_time}</p>
+                            //     </div>
+                            //     <span className="tidings-box-right">详情 ></span>
+                            // </Link>
+                            <li to="" className="tidings-box-li" key={item.mess_id}>
+                                <div className="tidings-box-left">
+                                    <p className="tidings-box-nr">{item.title}</p>
+                                    <p className="tidings-box-pr">{item.create_time}</p>
+                                </div>
+                                <span className="tidings-box-right" onClick={()=>setIsRead(item.mess_id)}>{langConfig.readFlag}</span>
+                            </li>
+                        )
+                    })
+                }
+
             </ul>
         </div>)
     }
     //2022-04-02 新增弹窗 ↑↑
 
+
+	const [modalVisible, setModalVisible] = useState(true)
+	const closeModal = () =>{
+		setModalVisible(false)
+	}
 
     return (
         <>
@@ -93,14 +120,17 @@ const Myheader = () => {
                             placeholder={langConfig.search_text}
                             onChange={(e) => { setKeyword(e.target.value) }}
                         />
-                        <button className="btn" onClick={() => handleSearch()}>搜索</button>
+                        <button className="btn" onClick={() => handleSearch()}>{langConfig.search_btn_text}</button>
                     </Form>
                     <div className="myuser">
                         <span className="myuser-avatar-item avatar-item">
                             {/* 2022-04-02 新增弹窗 ↓↓ */}
                             <Popover placement="bottomRight" content={tidingsTent()} >
                                 <div className="tidings-btn-on">
-                                    <Badge className="tidings-btn" count={1}>
+                                    {/* <Badge className="tidings-btn" count={topMsgList.length}>
+                                        <Avatar shape="square" icon={<UserOutlined />} />
+                                    </Badge> */}
+                                    <Badge className="tidings-btn">
                                         <Avatar shape="square" icon={<UserOutlined />} />
                                     </Badge>
                                 </div>
@@ -109,7 +139,7 @@ const Myheader = () => {
                         </span>
                         <div className="myuserid">
                             <Popover content={content} placement="bottom" trigger="hover">
-                                <img className="myuseridpct" alt="用户" src="/assets/userImageId1.png" />
+                                <img className="myuseridpct" alt="" style={{borderRadius:"50%"}} src={memberInfo.head} />
                             </Popover>
                             <div className="language-lect">
                                 {/* { langConfig.name} */}
@@ -122,7 +152,9 @@ const Myheader = () => {
                     </div>
                 </div>
             </div>
-            <div style={{ height: '90px' }}></div>
+            <div style={{height:"90px"}}></div>
+
+            
         </>
     )
 }

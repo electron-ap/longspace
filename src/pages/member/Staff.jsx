@@ -111,8 +111,8 @@ function Staff() {
 													<li><span>{langConfig.c_cert}</span><p>{item.summary.certificate}</p></li>
 												</ul>
 												<div className="member-setup">
-													<button className="member-up" onClick={()=>{setCourse(item.user_id)}}>课程设置</button>
-													<button className="member-remove" onClick={() => showMemberRemove(item)}>删除</button>
+													<button className="member-up" onClick={()=>{setCourse(item.user_id)}}>{langConfig.setting}</button>
+													<button className="member-remove" onClick={() => showMemberRemove(item)}>{langConfig.remove}</button>
 												</div>
 											</div>
 										</li>
