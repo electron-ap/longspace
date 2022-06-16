@@ -37,7 +37,8 @@ function Query(props) {
                 case "select":
                     return (
                         <Form.Item className="SnSelect-style" name={item.key} key={`p${index}`} >
-                            <Select placeholder={item.lable} allowClear mode="multiple">
+                             {/* mode="multiple" */}
+                            <Select placeholder={item.lable} allowClear>
                                 {
                                     item.options.map((sonItem, sonKey) => {
                                         return <Option value={sonItem.value} key={`s${sonKey}`}>{sonItem.label}</Option>
@@ -65,12 +66,12 @@ function Query(props) {
     const handleFormQuery = async () => {
         let formres = await form.getFieldsValue();
         Object.keys(formres).forEach(key=>{
-            console.log(key,formres[key])
+            // console.log(key,formres[key])
             if(formres[key] === undefined){
                 formres[key] = "";
             }
         })
-        console.log("handleFormQuery formres", formres)
+        // console.log("handleFormQuery formres", formres)
         props.handleFormQuery(formres)
     }
 

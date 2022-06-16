@@ -139,9 +139,9 @@ function Staff() {
 			<div className="password-box" style={{ display: modalAddVisible ? "block" : "none" }}>
 				<div className="password-box-tle">{langConfig.apply_add_staff}</div>
 				<div className="member-box-input">
-					<Input className="member-input" prefix={langConfig.p_name} placeholder="请填写成员姓名" onChange={e => { setName(e.target.value) }} />
-					<Input className="member-input" prefix={langConfig.p_job} placeholder="请填写成员职位" onChange={e => { setPosition(e.target.value) }} />
-					<Input className="member-input" prefix={langConfig.p_email} placeholder="请填写成员电子邮箱" onChange={e => { setEmail(e.target.value) }} />
+					<Input className="member-input" prefix={langConfig.p_name} placeholder={langConfig.p_member_name} onChange={e => { setName(e.target.value) }} />
+					<Input className="member-input" prefix={langConfig.p_job} placeholder={langConfig.p_member_pos} onChange={e => { setPosition(e.target.value) }} />
+					<Input className="member-input" prefix={langConfig.p_email} placeholder={langConfig.p_member_add} onChange={e => { setEmail(e.target.value) }} />
 				</div>
 				<Button className="act-cancel" type="button" onClick={closeMemberAdd} >{langConfig.btn_cancel}</Button>
 				<Button className="act-confirm" type="button" onClick={submitMemberAdd}>{langConfig.btn_ok}</Button>

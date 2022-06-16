@@ -60,6 +60,10 @@ export const langList = {
         apply_add_staff:"申请增加成员",
         comfirm_del:"确认删除吗？",
 
+        p_member_name:'请填写成员姓名',
+        p_member_pos:'请填写成员职位',
+        p_member_add:'请填写成员邮箱',
+
         digital_title:'标题',
         digital_publish:'发布人',
         digital_file_type:'文件类型',
@@ -112,8 +116,8 @@ export const langList = {
         d_add_fav:"加入收藏",
         d_remove_fav:"取消收藏",
 
-        
-        
+        n_digital_assets:'资料',
+        n_digital_trade:'展会相关',
 
     },
     'en-us': {
@@ -152,7 +156,7 @@ export const langList = {
         // 个人中心
         personal:"Profile",
         account_info:"Account",
-        account_staff:"Staff",
+        account_staff:"Member",
         postion:"Position",
         home:"Home",
         filters:"Filter",
@@ -174,8 +178,11 @@ export const langList = {
         look:"Look",
         remove:"Remove",
         setting:"Setting",
-        apply_add_staff:"Apply Add Staff",
+        apply_add_staff:"Add Member",
         comfirm_del:"comfirm delete ？",
+        p_member_name:'Please enter member’s name',
+        p_member_pos:'Please enter member’s position',
+        p_member_add:'Please enter member’s email address',
 
         digital_title:'title',
         digital_publish:'Publisher',
@@ -185,7 +192,7 @@ export const langList = {
 
         // 课程状态
         partner:'Sales Partner Academy',
-        staff:"staff",
+        staff:"Member",
         check_all:"select all",
         all_course:"All courses",
         open_course:"Open course",
@@ -228,5 +235,8 @@ export const langList = {
         d_sort_time:"sort by time",
         d_add_fav:"Add favorite",
         d_remove_fav:"Remove favorite",
+
+        n_digital_trade:'Tradeshows',
+        n_digital_assets:'Digital Assets'
     }
 }

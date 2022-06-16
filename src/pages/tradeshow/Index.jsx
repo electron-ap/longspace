@@ -184,7 +184,7 @@ function Index(props) {
             {/* Banner */}
             <div className="subpage-banner" style={{ backgroundImage: `url(${navInfo.banner})`, backgroundSize: "100% 100%" }}>
                 <div className="subpage-tent">
-                    <div className="subpage-tle">Digital Assets</div>
+                    <div className="subpage-tle">{langConfig.n_digital_trade}</div>
                     <div className="subpage-rln">{langConfig.postion}：<span className="subpage-index"><Link to="/agent/dashboard" className='a-white'>{langConfig.home}</Link></span> - {navInfo.title}</div>
                 </div>
             </div>

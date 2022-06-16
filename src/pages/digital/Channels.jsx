@@ -86,7 +86,7 @@ function Channels(props) {
     // 全选或反选
     const onCheckChange = (e) => {
         setCheckAll(e.target.checked)
-        console.log(e.target.checked)
+        // console.log(e.target.checked)
         let mydata = dataSource
         mydata.forEach((item,index) => {
             mydata[index].checked = e.target.checked
@@ -184,7 +184,7 @@ function Channels(props) {
             {/* Banner */}
             <div className="subpage-banner" style={{ backgroundImage: `url(${navInfo.banner})`, backgroundSize: "100% 100%" }}>
                 <div className="subpage-tent">
-                    <div className="subpage-tle">Digital Assets</div>
+                    <div className="subpage-tle">{langConfig.n_digital_assets}</div>
                     <div className="subpage-rln">{langConfig.postion}：<span className="subpage-index"><Link to="/agent/dashboard" className='a-white'>{langConfig.home}</Link></span> - {navInfo.title}</div>
                 </div>
             </div>
